@@ -15,5 +15,6 @@ export const Default: Story = {
   args: {
     backgroundColor: "green",
     color: "white",
+    focusColor: "darkgreen",
   },
 };

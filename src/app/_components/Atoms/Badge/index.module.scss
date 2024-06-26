@@ -1,7 +1,18 @@
-.badge {
-  border: none;
-  border-radius: 5px;
-  background-color: blue;
-  color: white;
-  padding: 5px 10px;
+.container {
+  color: var(--container-color);
+  background-color: var(--container-bg-color);
+  height: auto;
+  align-items: center;
+  border-radius: 3px;
+  display: inline-flex;
+  padding: 2px 6px;
+}
+
+.container--focus {
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  &:hover,
+  &:focus {
+    background-color: var(--container-focus-color);
+  }
 }
