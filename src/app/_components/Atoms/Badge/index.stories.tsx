@@ -8,4 +8,12 @@ export default {
 
 export type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => {
+    return <Badge {...args}>hoge</Badge>;
+  },
+  args: {
+    backgroundColor: "green",
+    color: "white",
+  },
+};
