@@ -21,10 +21,7 @@ export const Badge = (props: BadgeProps) => {
 
   return (
     <span
-      className={clsx(
-        styles.container,
-        focusColor && styles["container--focus"],
-      )}
+      className={clsx(styles.container, focusColor && styles.containerFocus)}
       style={style}
       onClick={onClick}
       {...rest}

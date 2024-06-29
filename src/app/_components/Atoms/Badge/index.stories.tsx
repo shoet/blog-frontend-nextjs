@@ -10,11 +10,12 @@ export type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
   render: (args) => {
-    return <Badge {...args}>hoge</Badge>;
+    return <Badge {...args}>Badge</Badge>;
   },
   args: {
     backgroundColor: "green",
     color: "white",
     focusColor: "darkgreen",
+    onClick: () => console.log("clicked"),
   },
 };
