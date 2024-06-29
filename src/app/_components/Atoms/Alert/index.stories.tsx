@@ -9,7 +9,5 @@ export default {
 export type Story = StoryObj<typeof Alert>;
 
 export const Default: Story = {
-  args: {
-    text: "fuga",
-  },
+  render: (args) => <Alert {...args}>Example</Alert>,
 };
