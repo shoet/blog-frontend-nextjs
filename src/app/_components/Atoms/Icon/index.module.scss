@@ -7,6 +7,12 @@
   &:hover,
   &:focus {
     cursor: pointer;
+  }
+}
+
+.iconWrapperFocusColor {
+  &:hover,
+  &:focus {
     color: var(--focus-color);
   }
 }

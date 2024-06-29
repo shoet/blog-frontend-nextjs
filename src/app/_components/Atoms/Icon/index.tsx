@@ -1,4 +1,4 @@
-import { ComponentProps, CSSProperties, ReactNode } from "react";
+import { ComponentProps, CSSProperties } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import {
@@ -18,12 +18,13 @@ import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 type IconProps = {
   size?: SizeProp;
+  focus?: boolean;
   focusColor?: string;
 } & ComponentProps<"div">;
 
 const withIconStyle = (Icon: IconDefinition) => {
   return (props: IconProps) => {
-    const { size, focusColor, ...rest } = props;
+    const { size, focus, focusColor, ...rest } = props;
 
     const style = {
       "--focus-color": focusColor,
@@ -33,7 +34,8 @@ const withIconStyle = (Icon: IconDefinition) => {
       <div
         className={clsx(
           styles.iconWrapper,
-          focusColor && styles.iconWrapperFocus, // optional
+          focus && styles.iconWrapperFocus, // optional
+          focusColor && styles.iconWrapperFocusColor, // optional
         )}
         style={style}
         {...rest}
