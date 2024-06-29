@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Dropzone } from ".";
+import { useState } from "react";
 
 export default {
   title: "Atoms/Dropzone",
@@ -8,4 +9,19 @@ export default {
 
 export type Story = StoryObj<typeof Dropzone>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => {
+    const [file, setFile] = useState<File>();
+    const handleOnChange = (file?: File) => {
+      if (file) {
+        setFile(file);
+      }
+    };
+    return (
+      <div>
+        {file && <div>File: {file.name}</div>}
+        <Dropzone onChange={handleOnChange} {...args} />
+      </div>
+    );
+  },
+};
