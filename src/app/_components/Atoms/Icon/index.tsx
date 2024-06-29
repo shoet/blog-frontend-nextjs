@@ -12,11 +12,13 @@ import {
   faXmark,
   faAngleRight,
   faAngleLeft,
+  faCloudArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 type IconProps = {
+  color?: string;
   size?: SizeProp;
   focus?: boolean;
   focusColor?: string;
@@ -24,10 +26,11 @@ type IconProps = {
 
 const withIconStyle = (Icon: IconDefinition) => {
   return (props: IconProps) => {
-    const { size, focus, focusColor, ...rest } = props;
+    const { color, size, focus, focusColor, ...rest } = props;
 
     const style = {
       "--focus-color": focusColor,
+      "--foreground-color": color,
     } as CSSProperties;
 
     return (
@@ -53,3 +56,4 @@ export const IconGlass = withIconStyle(faMagnifyingGlass);
 export const IconXmark = withIconStyle(faXmark);
 export const IconArrowRight = withIconStyle(faAngleRight);
 export const IconArrowLeft = withIconStyle(faAngleLeft);
+export const IconUpload = withIconStyle(faCloudArrowUp);
