@@ -5,8 +5,8 @@ import styles from "./index.module.scss";
 import { ComponentProps, CSSProperties } from "react";
 
 type TextAreaProps = {
-  maxRows: number;
-  minRows: number;
+  maxRows?: number;
+  minRows?: number;
 } & ComponentProps<"textarea">;
 
 export const TextArea = (props: TextAreaProps) => {
