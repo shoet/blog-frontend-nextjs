@@ -1,0 +1,29 @@
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  appearance: none;
+
+  border: 1px solid gray;
+  border-radius: 4px;
+  height: 40px;
+
+  width: 100%;
+
+  padding: 0 10px;
+}
+
+.selectIcon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid gray;
+}
