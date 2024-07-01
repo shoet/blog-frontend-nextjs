@@ -1,19 +1,22 @@
 "use client";
 import { Tag } from "@/types/api";
 import css from "./index.module.scss";
-import { Badge } from "../../Atoms/Badge";
 import { ComponentProps, CSSProperties } from "react";
 import { theme } from "@/themes";
 import { useTagForm } from "./useTagForm";
+import { CloseableBadge } from "../CloseableBadge";
 
 type TagFromProps = {
   tags: Tag[];
   onSubmit?: (text: string) => void;
+  onClickCloseTag?: (tag: Tag) => void;
 } & Omit<ComponentProps<"input">, "onSubmit">;
 
 export const TagForm = (props: TagFromProps) => {
-  const { tags, onSubmit, ...rest } = props;
-  const { inputRef, onKeyDownEnter } = useTagForm({ onSubmit });
+  const { tags, onSubmit, onClickCloseTag, ...rest } = props;
+  const { inputRef, onKeyDownEnter } = useTagForm({
+    onSubmit,
+  });
 
   const style = {
     "--border-color": theme.colors.border,
@@ -24,9 +27,14 @@ export const TagForm = (props: TagFromProps) => {
       <div className={css.tags}>
         {tags.map((tag) => {
           return (
-            <Badge key={tag.id} color="white" backgroundColor="black">
+            <CloseableBadge
+              key={tag.id}
+              color="white"
+              backgroundColor="black"
+              onClickClose={() => onClickCloseTag && onClickCloseTag(tag)}
+            >
               {tag.name}
-            </Badge>
+            </CloseableBadge>
           );
         })}
       </div>

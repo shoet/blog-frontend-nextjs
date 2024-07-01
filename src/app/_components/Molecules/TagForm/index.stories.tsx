@@ -29,6 +29,18 @@ export const Default: Story = {
       const newTag: Tag = { id: now.getTime(), name: text };
       setTags([...tags, newTag]);
     };
-    return <TagForm tags={tags} onSubmit={onSubmit} />;
+    const onClickCloseTag = (tag: Tag) => {
+      const newTags = tags.filter((t) => {
+        return t.id !== tag.id;
+      });
+      setTags(newTags);
+    };
+    return (
+      <TagForm
+        tags={tags}
+        onSubmit={onSubmit}
+        onClickCloseTag={onClickCloseTag}
+      />
+    );
   },
 };

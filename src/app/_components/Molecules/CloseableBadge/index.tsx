@@ -1,6 +1,7 @@
 import { Badge, BadgeProps } from "../../Atoms/Badge";
 import { IconXmark } from "../../Atoms/Icon";
 import { Spacer } from "../../Atoms/Spacer";
+import css from "./index.module.scss";
 
 type CloseableBadgeProps = {
   onClickClose?: () => void;
@@ -13,7 +14,7 @@ export const CloseableBadge = (props: CloseableBadgeProps) => {
     <Badge {...rest}>
       <span>{children}</span>
       <Spacer width={10} />
-      <IconXmark onClick={onClickClose} />
+      <IconXmark className={css.iconXmark} onClick={onClickClose} />
     </Badge>
   );
 };
