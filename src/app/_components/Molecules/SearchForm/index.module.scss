@@ -1,0 +1,24 @@
+.searchForm {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  display: flex;
+  padding: 5px 10px;
+
+  input {
+    outline: none;
+    border: none;
+    width: 100%;
+    &:placeholder {
+      color: var(--placeholder-color);
+    }
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+  }
+}
