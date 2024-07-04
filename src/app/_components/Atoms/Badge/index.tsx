@@ -3,15 +3,21 @@ import styles from "./index.module.scss";
 import React, { ComponentProps, CSSProperties } from "react";
 
 export type BadgeProps = {
-  color: string;
-  backgroundColor: string;
+  color?: string;
+  backgroundColor?: string;
   focusColor?: string;
   onClick?: () => void;
 } & ComponentProps<"span">;
 
 export const Badge = (props: BadgeProps) => {
-  const { color, backgroundColor, focusColor, onClick, children, ...rest } =
-    props;
+  const {
+    color = "white",
+    backgroundColor = "black",
+    focusColor,
+    onClick,
+    children,
+    ...rest
+  } = props;
 
   const style = {
     "--container-color": color,
