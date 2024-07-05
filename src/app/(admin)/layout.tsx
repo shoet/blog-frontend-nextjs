@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { APP_DESCRIPTION, APP_TITLE } from "@/constant";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Admin",
-  description: "Admin",
+  title: `${APP_TITLE}【Admin】`,
+  description: `${APP_DESCRIPTION}`,
 };
 
 export default function RootLayout({
