@@ -46,8 +46,8 @@ export const Dropzone = (props: DropzoneProps) => {
       </div>
       {error && (
         <div>
-          {error.errors.map((msg) => {
-            return <div>{msg}</div>;
+          {error.errors.map((msg, idx) => {
+            return <div key={idx}>{msg}</div>;
           })}
         </div>
       )}

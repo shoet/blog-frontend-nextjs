@@ -6,7 +6,7 @@ export const BlogCardList = async () => {
   return (
     <div>
       {blogs.map((b) => {
-        return <div>{b.title}</div>;
+        return <div key={b.id}>{b.title}</div>;
       })}
     </div>
   );
