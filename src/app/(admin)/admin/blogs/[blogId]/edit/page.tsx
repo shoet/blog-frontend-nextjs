@@ -1,30 +1,29 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
 import { Metadata, ResolvingMetadata } from "next";
 
-type BlogDetailPageProps = {
+type BlogEditPageProps = {
   params: {
     blogId: number;
   };
-  searchParams: {};
 };
 
 export const generateMetadata = async (
-  props: BlogDetailPageProps,
+  props: BlogEditPageProps,
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { title } = await parent;
   const { blogId } = props.params;
   const blog = await getBlogDetail(blogId);
   return {
-    title: `${blog.title} | ${title?.absolute}`,
-    description: blog.description,
+    title: `【Edit】${blog.title} | ${title?.absolute}`,
+    description: "Edit blog page",
   };
 };
 
-const BlogDetailPage = async (props: BlogDetailPageProps) => {
+const BlogEditPage = async (props: BlogEditPageProps) => {
   const { blogId } = props.params;
   const blog = await getBlogDetail(blogId);
   return <div>{blog.title}</div>;
 };
 
-export default BlogDetailPage;
+export default BlogEditPage;

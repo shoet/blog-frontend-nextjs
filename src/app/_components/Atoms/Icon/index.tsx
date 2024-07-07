@@ -25,7 +25,7 @@ type IconProps = {
 } & ComponentProps<"div">;
 
 const withIconStyle = (Icon: IconDefinition) => {
-  return (props: IconProps) => {
+  return function IconStyle(props: IconProps) {
     const { color, size, focus, focusColor, ...rest } = props;
 
     const style = {

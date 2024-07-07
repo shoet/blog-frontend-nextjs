@@ -6,11 +6,13 @@ export const generateMetadata = async (
 ): Promise<Metadata> => {
   const { title } = await parent;
   return {
-    title: `直近のブログ一覧 | ${title?.absolute}`,
-    description: "直近のブログ一覧",
+    title: `Login | ${title?.absolute}`,
+    description: "Login page",
   };
 };
 
-export default async function BlogHomePage() {
-  return <div>blog home</div>;
-}
+const LoginPage = () => {
+  return <div>login page</div>;
+};
+
+export default LoginPage;
