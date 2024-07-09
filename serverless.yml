@@ -42,7 +42,7 @@ functions:
       - httpApi:
           path: /{proxy+}
           method: any
-    timeout: 30
+    timeout: 29
 
 resources:
   Resources:
