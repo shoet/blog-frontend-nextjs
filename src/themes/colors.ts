@@ -1,7 +1,7 @@
 export const colors = {
   primary: "#4da36a",
   primaryDark: "#3D441E",
-  secondary: "#5e67e7",
+  secondary: "#FFFFFF",
   secondaryDark: "#072541",
   border: "#DFE6DA",
   text: "#000000",
@@ -12,6 +12,7 @@ export const colors = {
   dangerDark: "#bb0000",
   primaryHover: "#3D441E",
   white: "#FFFFFF",
+  black: "#1a1a1a",
   focusGreen: "#7ccca4",
   focusPurple: "#8c5ce6",
   secondaryGray: "#DFE6DA",
