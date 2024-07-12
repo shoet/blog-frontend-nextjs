@@ -21,8 +21,10 @@ export const handleSuccess = async (response: Response) => {
 
 export const handleFailed = (error: unknown) => {
   if (error instanceof FetchError) {
-    console.warn("error: ", error.message);
+    console.warn("fetch error: ", error.message);
+  } else if (error instanceof Error) {
+    console.warn("error: ", error.message, error.stack);
   } else {
-    console.warn("unexpected error: ", error);
+    console.warn("unknown error: ", error);
   }
 };
