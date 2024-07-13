@@ -18,6 +18,7 @@ export const TextInput = (props: TextInputProps) => {
   return (
     <input
       className={clsx(
+        css.input,
         hasBorder && css["input--has-border"],
         isError && css["input--has-border--error"],
       )}
