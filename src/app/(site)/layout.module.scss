@@ -1,0 +1,29 @@
+.body {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.verticalDiv {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+}
+
+.navigationArea {
+  padding: 10px;
+}
+
+.mainArea {
+  height: 100%;
+}
+
+.verticalLeft {
+}
+
+.verticalRight {
+  // background-color: blue;
+  width: 25%;
+}
+
+// TODO: MediaQuery
