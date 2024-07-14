@@ -1,6 +1,6 @@
 import { getBlogs } from "@/services/getBlogs";
 
-export const BlogCardList = async () => {
+export const BlogCardListContainer = async () => {
   const response = await getBlogs({ limit: 10 });
   const blogs = response.blogs;
   return (
