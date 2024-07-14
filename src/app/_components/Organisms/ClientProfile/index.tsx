@@ -12,7 +12,7 @@ type ProfileProps = {
   signout?: () => void;
 };
 
-export const Profile = (props: ProfileProps) => {
+export const ClientProfile = (props: ProfileProps) => {
   const { isLogin = false, signout } = props;
   const style = {
     "--name-color": isLogin ? theme.colors.focusGreen : null,
