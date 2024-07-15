@@ -15,7 +15,7 @@ export const BlogCard = (props: BlogCardProps) => {
 
   const style = {
     "--title-font-size": theme.fontSizes.extraExtraLarge,
-    "--description-font-size": theme.fontSizes.small,
+    "--description-font-size": theme.fontSizes.medium,
     "--datetime-font-size": theme.fontSizes.medium,
     "--datetime-font-color": theme.colors.gray,
     "--border-color": theme.colors.border,
@@ -31,6 +31,7 @@ export const BlogCard = (props: BlogCardProps) => {
           className={styles.image}
         />
       </div>
+      <Spacer width={20} />
       <div className={styles.contentWrapper}>
         <div className={styles.title}>{blog.title}</div>
         <Spacer height={15} />
@@ -43,9 +44,9 @@ export const BlogCard = (props: BlogCardProps) => {
             );
           })}
         </div>
-        <Spacer height={5} />
+        <Spacer height={15} />
         <div className={styles.description}>{blog.description}</div>
-        <Spacer height={5} />
+        <Spacer height={15} />
         <div className={styles.datetime}>
           {toStringYYYYMMDD_HHMMSS(blog.created)}
         </div>

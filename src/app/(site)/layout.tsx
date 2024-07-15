@@ -7,10 +7,6 @@ import { Header } from "../_components/Organisms/Header";
 import { Footer } from "../_components/Organisms/Footer";
 import { SideMenu } from "../_components/Organisms/SideMenu";
 import css from "./layout.module.scss";
-import {
-  Navigation,
-  NavigationItem,
-} from "../_components/Molecules/Navigation";
 import clsx from "clsx";
 import { Spacer } from "../_components/Atoms/Spacer";
 
@@ -26,27 +22,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navigationItems: NavigationItem[] = [
-    { href: "/blogs", title: "Blog" },
-    { href: "/portfolio", title: "Portfolio" },
-    { href: "/about", title: "About" },
-  ];
   return (
     <html lang="en">
       <body className={clsx(inter.className, css.body)}>
         <div>
-          <Spacer height={10} />
+          <Spacer height={30} />
           <Header />
-          <Spacer height={10} />
-          <div className={css.navigationArea}>
-            <Navigation items={navigationItems} />
-          </div>
           <Spacer height={20} />
         </div>
         <div className={css.verticalDiv}>
           <div className={css.verticalLeft}>
             <main className={css.mainArea}>{children}</main>
           </div>
+          <Spacer width={70} />
           <div className={css.verticalRight}>
             <SideMenu>
               <div>SideA</div>
@@ -55,7 +43,9 @@ export default function RootLayout({
             </SideMenu>
           </div>
         </div>
+        <Spacer height={50} />
         <Footer />
+        <Spacer height={100} />
       </body>
     </html>
   );

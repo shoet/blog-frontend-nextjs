@@ -16,7 +16,8 @@ export const Default: Story = {
       content: "content",
       authorId: 1,
       description: "description",
-      thumbnailImageFileName: "https://placehold.jp/150x150.png",
+      thumbnailImageFileName:
+        "https://d3dm4sqployh65.cloudfront.net/thumbnail/G4YWMOJQMVTDGZRRMFSDIZDGGM4GKMRZGIYDGODCGFRWGYZZMEYA.png",
       tags: ["tag1", "tag2"],
       isPublic: true,
       created: 1710039459,

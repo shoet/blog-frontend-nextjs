@@ -7,5 +7,5 @@ export const ClientKeywordSearchForm = () => {
   const handleOnSubmitKeyword = (keyword: string) => {
     navigation.push(`/blogs/search?keyword=${keyword}`);
   };
-  return <SearchForm onSubmit={handleOnSubmitKeyword} />;
+  return <SearchForm placeholder="Search" onSubmit={handleOnSubmitKeyword} />;
 };

@@ -1,3 +1,11 @@
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -28,4 +36,8 @@
 .subTitle {
   font-size: 0.875rem;
   color: gray;
+}
+
+.navigation {
+  margin-right: 50px;
 }

@@ -1,3 +1,4 @@
+import { BlogCardListContainer } from "@/app/_components/Organisms/BlogCardListContainer";
 import { Metadata, ResolvingMetadata } from "next";
 
 export const generateMetadata = async (
@@ -12,5 +13,5 @@ export const generateMetadata = async (
 };
 
 export default async function BlogHomePage() {
-  return <div>blog home</div>;
+  return <BlogCardListContainer />;
 }
