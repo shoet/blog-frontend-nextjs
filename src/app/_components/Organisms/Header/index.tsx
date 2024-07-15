@@ -1,3 +1,4 @@
+import { Spacer } from "../../Atoms/Spacer";
 import { Navigation, NavigationItem } from "../../Molecules/Navigation";
 import css from "./index.module.scss";
 
@@ -18,7 +19,7 @@ export const Header = () => {
           技術や好きなことについて発信しています。
         </div>
       </header>
-      <Navigation items={navigationItems} />
+      <Navigation className={css.navigation} items={navigationItems} />
     </div>
   );
 };
