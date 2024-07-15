@@ -36,11 +36,7 @@ export default function RootLayout({
           </div>
           <Spacer width={70} />
           <div className={css.verticalRight}>
-            <SideMenu>
-              <div>SideA</div>
-              <div>SideA</div>
-              <div>SideA</div>
-            </SideMenu>
+            <SideMenu />
           </div>
         </div>
         <Spacer height={50} />

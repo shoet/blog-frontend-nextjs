@@ -1,4 +1,5 @@
 .spacer {
   width: var(--width);
   height: var(--height);
+  flex-shrink: 0;
 }
