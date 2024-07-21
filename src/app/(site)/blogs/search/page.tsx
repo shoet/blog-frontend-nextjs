@@ -1,4 +1,10 @@
+import { ClientBlogCardList } from "@/app/_components/Molecules/ClientBlogCardList";
+import { searchBlogs } from "@/services/searchBlogs";
 import { ResolvingMetadata } from "next";
+import css from "./page.module.scss";
+import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
+import { ComponentProps } from "react";
+import { Spacer } from "@/app/_components/Atoms/Spacer";
 
 type SearchPageProps = {
   params: {};
@@ -33,12 +39,38 @@ export const generateMetadata = async (
   };
 };
 
-const SearchPage = (props: SearchPageProps) => {
+const TagOrKeyword = (
+  props: { tag?: string; keyword?: string } & ComponentProps<"div">,
+) => {
+  const { tag, keyword, ...rest } = props;
+  const result = tag || keyword;
+  var badgeStyle: BadgeProps = {};
+  if (props.tag) {
+    badgeStyle.backgroundColor = "black";
+    badgeStyle.color = "white";
+  }
+  if (props.keyword) {
+    badgeStyle.backgroundColor = "pink";
+    badgeStyle.color = "white";
+  }
+  return (
+    <div {...rest}>
+      <span className={css.SearchResultDescription}>Searched by tag:</span>
+      <Badge {...badgeStyle}>{result}</Badge>
+    </div>
+  );
+};
+
+const SearchPage = async (props: SearchPageProps) => {
   const { tag, keyword } = props.searchParams;
 
+  const { blogs } = await searchBlogs({ tag, keyword, limit: 10 });
+
   return (
-    <div>
-      tag: {tag}, keyword: {keyword}
+    <div className={css.searchPage}>
+      <TagOrKeyword className={css.description} tag={tag} keyword={keyword} />
+      <Spacer height={20} />
+      <ClientBlogCardList blogs={blogs} />
     </div>
   );
 };
