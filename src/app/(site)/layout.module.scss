@@ -21,10 +21,12 @@
 }
 
 .verticalLeft {
+  flex-shrink: 0;
+  width: 75%;
 }
 
 .verticalRight {
-  // background-color: blue;
+  flex-shrink: 0;
   width: 25%;
 }
 

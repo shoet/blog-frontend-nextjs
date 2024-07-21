@@ -1,3 +1,7 @@
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import { rehypePrettyCode } from "rehype-pretty-code";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,6 +15,14 @@ const nextConfig = {
       },
     ],
   },
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypePrettyCode],
+  },
+});
+
+export default withMDX(nextConfig);
