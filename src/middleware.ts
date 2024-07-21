@@ -7,8 +7,15 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/admin" ||
     request.nextUrl.pathname.startsWith("/admin/blogs")
   ) {
+    // 未ログイン状態でアクセスした場合にはログイン画面にリダイレクトする
     if (!(await authGuard())) {
       return NextResponse.redirect(new URL("/admin/signin", request.url));
+    }
+  }
+  if (request.nextUrl.pathname === "/admin/signin") {
+    // ログイン済みの場合は/adminに管理画面トップにリダイレクトする
+    if (await authGuard()) {
+      return NextResponse.redirect(new URL("/admin", request.url));
     }
   }
   return NextResponse.next();
