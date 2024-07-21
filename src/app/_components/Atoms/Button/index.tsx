@@ -4,7 +4,7 @@ import { theme } from "@/themes";
 
 type ButtonProps = { variant: ButtonVariants } & ComponentProps<"button">;
 
-type ButtonVariants = "primary" | "secondary";
+type ButtonVariants = "primary" | "secondary" | "secondaryDark";
 
 const ButtonStyle: { [key in ButtonVariants]: CSSProperties } = {
   primary: {
@@ -19,6 +19,12 @@ const ButtonStyle: { [key in ButtonVariants]: CSSProperties } = {
     "--text-color": theme.colors.black,
     "--border-color": theme.colors.black,
     "--focus-color": theme.colors.secondaryDark,
+    "--focus-border-color": theme.colors.black,
+  } as CSSProperties,
+  secondaryDark: {
+    "--background-color": theme.colors.secondaryDark,
+    "--text-color": theme.colors.black,
+    "--focus-color": "gray",
     "--focus-border-color": theme.colors.black,
   } as CSSProperties,
 };
