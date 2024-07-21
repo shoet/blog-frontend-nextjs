@@ -1,0 +1,43 @@
+.markdown {
+  li {
+    list-style: inside;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #b99976;
+    target: _blank;
+  }
+
+  h2 {
+    border-bottom: 1px solid #ccc;
+    border-left: 5px solid #ccc;
+    padding-left: 10px;
+  }
+
+  code:not([class]) {
+    margin: 0 2px;
+    padding: 0 5px;
+    border-radius: 3px;
+    background-color: #de6fa1;
+    color: white;
+  }
+
+  pre > code {
+    border-radius: 5px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-top: 2rem;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    object-fit: fit;
+  }
+}
