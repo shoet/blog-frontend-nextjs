@@ -19,9 +19,13 @@ export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
 
   useEffect(() => {
     (async function loadHighlightJs() {
-      const mkd = await marked(markdown);
-      const markedHtmlWithTargetBlank = addLinkTargetBlank(mkd);
-      setHtmlContent(markedHtmlWithTargetBlank);
+      try {
+        let mkd = await marked(markdown);
+        mkd = addLinkTargetBlank(mkd);
+        setHtmlContent(mkd);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, [markdown]);
 

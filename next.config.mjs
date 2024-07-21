@@ -16,6 +16,7 @@ const nextConfig = {
     ],
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  transpilePackages: ["highlight.js"],
 };
 
 const withMDX = createMDX({
