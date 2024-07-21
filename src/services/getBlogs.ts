@@ -1,8 +1,10 @@
 import { Blog } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
-type GetBlogResponse = {
+type GetBlogsResponse = {
   blogs: Blog[];
+  prevEOF: boolean;
+  nextEOF: boolean;
 };
 
 export async function getBlogs({
@@ -13,7 +15,7 @@ export async function getBlogs({
   limit?: number;
   tag?: string;
   keyword?: string;
-}): Promise<GetBlogResponse> {
+}): Promise<GetBlogsResponse> {
   const urlParams = new URLSearchParams();
   urlParams.append("limit", limit.toString());
   if (tag) {
