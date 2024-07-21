@@ -4,6 +4,7 @@ import css from "./page.module.scss";
 import { Badge } from "@/app/_components/Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
+import { ClientMarkdownView } from "@/app/_components/Molecules/ClientMarkdownView";
 
 type BlogDetailPageProps = {
   params: {
@@ -52,7 +53,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <div className={css.content}>{blog.content}</div>
+      <ClientMarkdownView text={blog.content} />
     </div>
   );
 };
