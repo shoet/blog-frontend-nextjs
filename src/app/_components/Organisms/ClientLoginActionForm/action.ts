@@ -21,7 +21,6 @@ export async function loginServerAction(
     const response = await login(email, password);
     // Cookieをセットする
     cookies().set("authToken", response.authToken);
-    redirect("/admin");
   } catch (e) {
     if (e instanceof z.ZodError) {
       return { validateErrors: getZodValidateErrors(e) };
@@ -29,4 +28,5 @@ export async function loginServerAction(
     console.warn(e);
     throw new Error("予期せぬエラーが発生しました");
   }
+  redirect("/admin");
 }
