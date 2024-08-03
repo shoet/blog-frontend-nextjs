@@ -1,9 +1,9 @@
-import { Button } from "../../Atoms/Button";
-import { Spacer } from "../../Atoms/Spacer";
-import { TextInput } from "../../Atoms/TextInput";
+import { ErrorText } from "@/app/_components/Atoms/ErrorText";
 import css from "./index.module.scss";
 import { getZodValidateError, ZodValidateError } from "@/utils/validate";
-import { ErrorText } from "../../Atoms/ErrorText";
+import { TextInput } from "@/app/_components/Atoms/TextInput";
+import { Spacer } from "@/app/_components/Atoms/Spacer";
+import { Button } from "@/app/_components/Atoms/Button";
 
 const ValidationError = ({
   errors,

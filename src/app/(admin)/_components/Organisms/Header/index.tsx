@@ -2,14 +2,15 @@ import css from "./index.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { Button } from "@/app/_components/Atoms/Button";
 import { logoutServerAction } from "./actions";
-import { User } from "@/types/api";
+import { getServerSideCookie } from "@/utils/cookie";
+import { getUsersMe } from "@/services/getUsersMe";
 
-type HeaderProps = {
-  user: User;
-};
-
-export const Header = async (props: HeaderProps) => {
-  const { user } = props;
+export const Header = async () => {
+  const authToken = getServerSideCookie("authToken");
+  if (!authToken) {
+    return null;
+  }
+  const user = await getUsersMe(authToken.value);
   return (
     <header>
       <div className={css.header}>
