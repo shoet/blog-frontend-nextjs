@@ -16,8 +16,8 @@ const ButtonStyle: { [key in ButtonVariants]: CSSProperties } = {
   } as CSSProperties,
   secondary: {
     "--background-color": theme.colors.secondary,
-    "--text-color": theme.colors.black,
-    "--border-color": theme.colors.black,
+    "--text-color": theme.colors.darkGray,
+    "--border-color": theme.colors.darkGray,
     "--focus-color": theme.colors.secondaryDark,
     "--focus-border-color": theme.colors.black,
   } as CSSProperties,
