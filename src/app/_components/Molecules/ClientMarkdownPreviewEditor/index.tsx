@@ -1,17 +1,17 @@
 "use client";
-import React, { ComponentProps, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { MarkdownRenderer } from "../MarkdownRenderer";
 import css from "./index.module.scss";
 import clsx from "clsx";
 import { TextArea } from "../../Atoms/TextArea";
 
-type MarkdownPreviewTextAreaProps = {
+type ClientMarkdownPreviewTextAreaProps = {
   markdownText?: string;
   onChange?: (text: string) => void;
 };
 
-export const MarkdownPreviewTextArea = (
-  props: MarkdownPreviewTextAreaProps,
+export const ClientMarkdownPreviewTextArea = (
+  props: ClientMarkdownPreviewTextAreaProps,
 ) => {
   const { markdownText = "", onChange } = props;
   const [text, setText] = useState(markdownText);
