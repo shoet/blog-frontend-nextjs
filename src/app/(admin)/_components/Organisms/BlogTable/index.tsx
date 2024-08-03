@@ -13,7 +13,7 @@ export const BlogTable = (props: BlogTableProps) => {
     <table className={css.blogTable}>
       <tbody className={css.blogTableBody}>
         {blogs.map((b) => {
-          return <BlogTableRow blog={b} />;
+          return <BlogTableRow key={b.id} blog={b} />;
         })}
       </tbody>
     </table>
