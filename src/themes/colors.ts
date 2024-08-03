@@ -7,6 +7,7 @@ export const colors = {
   text: "#000000",
   placeholder: "#CBD5C0",
   gray: "gray",
+  darkGray: "#282828",
   danger: "#dd0000",
   dangerSoft: "#e6004d",
   dangerDark: "#bb0000",

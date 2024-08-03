@@ -21,7 +21,9 @@ export const ClientProfile = (props: ProfileProps) => {
   return (
     <div className={css.profile} style={style}>
       <div className={css.title}>
-        <div className={css.name}>shoet</div>
+        <Link href="/admin">
+          <div className={css.name}>shoet</div>
+        </Link>
         <Spacer width={10} />
         <div className={css.icons}>
           <Link href="https://github.com/shoet" target="_blank">

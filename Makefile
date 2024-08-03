@@ -1,8 +1,11 @@
 .PHONY: help deploy
 .DEFAULT_GOAL := help
 
+## Default stage
+STAGE=dev 
+
 deploy: ## Build and Deploy by Serverless
-	sls deploy --stage=dev --verbose
+	sls deploy --stage=${STAGE} --verbose
 
 help: ## Show options
 	@grep -E '^[a-zA-Z_]+:.*?## .*$$' $(MAKEFILE_LIST) | \

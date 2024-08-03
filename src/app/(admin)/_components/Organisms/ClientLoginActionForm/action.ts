@@ -4,6 +4,7 @@ import { LoginActionFormState } from "./state";
 import { assertZodSchema, getZodValidateErrors } from "@/utils/validate";
 import { login } from "@/services/login";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function loginServerAction(
   formData: FormData,
@@ -20,7 +21,6 @@ export async function loginServerAction(
     const response = await login(email, password);
     // Cookieをセットする
     cookies().set("authToken", response.authToken);
-    return {};
   } catch (e) {
     if (e instanceof z.ZodError) {
       return { validateErrors: getZodValidateErrors(e) };
@@ -28,4 +28,5 @@ export async function loginServerAction(
     console.warn(e);
     throw new Error("予期せぬエラーが発生しました");
   }
+  redirect("/admin");
 }

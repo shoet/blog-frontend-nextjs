@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { LoginActionForm } from ".";
 
 export default {
-  title: "Organisms/LoginActionForm",
+  title: "admin/Organisms/LoginActionForm",
   component: LoginActionForm,
 } as Meta<typeof LoginActionForm>;
 
