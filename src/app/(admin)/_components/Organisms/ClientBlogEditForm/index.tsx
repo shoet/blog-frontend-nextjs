@@ -1,3 +1,4 @@
+"use client";
 import { ClientMarkdownPreviewTextArea } from "@/app/_components/Molecules/ClientMarkdownPreviewEditor";
 import css from "./index.module.scss";
 import { TextInput } from "@/app/_components/Atoms/TextInput";
@@ -8,18 +9,38 @@ import { IconUpload } from "@/app/_components/Atoms/Icon";
 import { TagForm } from "@/app/_components/Molecules/TagForm";
 import { Button } from "@/app/_components/Atoms/Button";
 import { Blog } from "@/types/api";
+import { useFormState } from "react-dom";
+import { ClientBlogEditFormState, getClientBlogEditFormError } from "./state";
+import { blogEditSubmitStateAction } from "./actions";
 
 type ClientBlogEditFormProps = {
   blog: Blog;
 };
 
+const ValidateError = (props: {
+  state: ClientBlogEditFormState;
+  field: string;
+}) => {
+  const error = getClientBlogEditFormError(props.state, props.field);
+  if (error) {
+    return <div className={css.error}>{error.error}</div>;
+  } else {
+    return null;
+  }
+};
+
 export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
   const { blog } = props;
+
+  const [state, action] = useFormState(blogEditSubmitStateAction, {
+    errors: [],
+  });
 
   return (
     <form>
       <div className={css.title}>
         <TextInput placeholder="Title" value={blog.title} />
+        <ValidateError state={state} field="title" />
       </div>
       <Spacer height={16} />
       <div className={css.description}>
@@ -30,6 +51,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
           maxRows={5}
           value={blog.description}
         />
+        <ValidateError state={state} field="description" />
       </div>
       <Spacer height={16} />
       <div className={css.title}>
@@ -49,6 +71,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       <Spacer height={16} />
       <div>
         <ClientMarkdownPreviewTextArea markdownText={blog.content} />
+        <ValidateError state={state} field="content" />
       </div>
       <Spacer height={16} />
       <div className={css.actionArea}>
