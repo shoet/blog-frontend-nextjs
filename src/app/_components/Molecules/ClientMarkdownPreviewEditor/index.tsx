@@ -4,6 +4,7 @@ import { MarkdownRenderer } from "../MarkdownRenderer";
 import css from "./index.module.scss";
 import clsx from "clsx";
 import { DragableTextarea } from "../../Atoms/DragableTextarea";
+import { Spacer } from "../../Atoms/Spacer";
 
 type ClientMarkdownPreviewTextAreaProps = {
   markdownText?: string;
@@ -39,6 +40,7 @@ export const ClientMarkdownPreviewTextArea = (
           onDragDrop={handleDragDrop}
         />
       </div>
+      <Spacer width={20} />
       <div className={css.preview}>
         <MarkdownRenderer markdown={text} />
       </div>

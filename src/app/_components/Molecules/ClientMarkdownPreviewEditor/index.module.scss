@@ -8,12 +8,13 @@
 
 .editor {
   width: 50%;
-  padding: 20px;
 }
 
 .preview {
   width: 50%;
   padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
 
   overflow-y: scroll;
 }
