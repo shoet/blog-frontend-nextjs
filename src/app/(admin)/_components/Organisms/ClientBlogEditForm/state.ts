@@ -9,9 +9,11 @@ export type ClientBlogEditFormState = {
   thumbnailUrl: string;
   tags: string[];
   content: string;
+  isPublic: boolean;
 
   thumbnail?: File;
   errors: ClientBlogEditFormError[];
+  generalError?: string;
 };
 
 export const emptyFormState: ClientBlogEditFormState = {
@@ -20,6 +22,7 @@ export const emptyFormState: ClientBlogEditFormState = {
   thumbnailUrl: "",
   tags: [],
   content: "",
+  isPublic: false,
   errors: [],
 };
 

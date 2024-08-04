@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { ComponentProps, useEffect, useState } from "react";
 import { MarkdownRenderer } from "../MarkdownRenderer";
 import css from "./index.module.scss";
 import clsx from "clsx";
@@ -10,12 +10,12 @@ type ClientMarkdownPreviewTextAreaProps = {
   markdownText?: string;
   onChange?: (text: string) => void;
   onDragDrop?: (file: File) => void;
-};
+} & ComponentProps<"textarea">;
 
 export const ClientMarkdownPreviewTextArea = (
   props: ClientMarkdownPreviewTextAreaProps,
 ) => {
-  const { markdownText = "", onChange, onDragDrop } = props;
+  const { markdownText = "", onChange, onDragDrop, ...textareaProps } = props;
   const [text, setText] = useState(markdownText);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export const ClientMarkdownPreviewTextArea = (
           value={markdownText}
           onChange={handleChangeText}
           onDragDrop={handleDragDrop}
+          {...textareaProps}
         />
       </div>
       <Spacer width={20} />

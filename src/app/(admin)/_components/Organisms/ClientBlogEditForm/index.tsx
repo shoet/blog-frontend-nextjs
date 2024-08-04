@@ -31,17 +31,28 @@ const ValidateError = (props: {
 export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
   const { blog } = props;
 
-  const { state, formAction } = useBlogEditForm({ blog });
+  const {
+    state,
+    formAction,
+    handleEnterTags,
+    tags,
+    handleDeleteTags,
+    handleChangeIsPublic,
+    isPublic,
+  } = useBlogEditForm({ blog });
 
   return (
-    <form>
+    <form action={formAction}>
+      <input hidden type="text" name="id" value={blog.id} />
+      <input hidden type="text" name="user_id" value={blog.authorId} />
       <div className={css.title}>
-        <TextInput placeholder="Title" value={state.title} />
+        <TextInput placeholder="Title" name="title" value={state.title} />
         <ValidateError state={state} field="title" />
       </div>
       <Spacer height={16} />
       <div className={css.description}>
         <TextArea
+          name="description"
           className={css.descriptionTextArea}
           placeholder="Description"
           rows={2}
@@ -52,7 +63,12 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       </div>
       <Spacer height={16} />
       <div className={css.title}>
-        <TagForm className={css.tagsForm} tags={state.tags} />
+        <TagForm
+          className={css.tagsForm}
+          tags={tags}
+          onSubmit={handleEnterTags}
+          onClickCloseTag={handleDeleteTags}
+        />
       </div>
       <Spacer height={16} />
       <div className={css.thumbnail}>
@@ -63,16 +79,39 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
               サムネイルに使用する画像をアップロードしてください
             </div>
           </div>
+          <input
+            hidden
+            type="text"
+            name="thumbnail_image_url"
+            value={state.thumbnailUrl}
+          />
         </Dropzone>
       </div>
       <Spacer height={16} />
       <div>
-        <ClientMarkdownPreviewTextArea markdownText={state.content} />
+        <ClientMarkdownPreviewTextArea
+          name="content"
+          markdownText={state.content}
+        />
         <ValidateError state={state} field="content" />
       </div>
       <Spacer height={16} />
       <div className={css.actionArea}>
-        <Button variant="primary">変更を保存する</Button>
+        <div className={css.isPublic}>
+          <span>記事を公開する</span>
+          <input
+            type="checkbox"
+            name="is_public"
+            checked={isPublic}
+            value={isPublic ? 1 : 0}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleChangeIsPublic(e.target.checked);
+            }}
+          />
+        </div>
+        <Button type="submit" variant="primary">
+          変更を保存する
+        </Button>
       </div>
     </form>
   );
