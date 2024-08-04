@@ -1,5 +1,4 @@
 "use client";
-import { Tag } from "@/types/api";
 import css from "./index.module.scss";
 import { ComponentProps, CSSProperties } from "react";
 import { theme } from "@/themes";
@@ -7,9 +6,9 @@ import { useTagForm } from "./useTagForm";
 import { CloseableBadge } from "../CloseableBadge";
 
 type TagFromProps = {
-  tags: Tag[];
+  tags: string[];
   onSubmit?: (text: string) => void;
-  onClickCloseTag?: (tag: Tag) => void;
+  onClickCloseTag?: (tag: string) => void;
 } & Omit<ComponentProps<"input">, "onSubmit">;
 
 export const TagForm = (props: TagFromProps) => {
@@ -28,12 +27,12 @@ export const TagForm = (props: TagFromProps) => {
         {tags.map((tag) => {
           return (
             <CloseableBadge
-              key={tag.id}
+              key={tag}
               color="white"
               backgroundColor="black"
               onClickClose={() => onClickCloseTag && onClickCloseTag(tag)}
             >
-              {tag.name}
+              {tag}
             </CloseableBadge>
           );
         })}

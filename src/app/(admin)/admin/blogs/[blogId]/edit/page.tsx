@@ -1,5 +1,7 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
 import { Metadata, ResolvingMetadata } from "next";
+import css from "./page.module.scss";
+import { ClientBlogEditForm } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm";
 
 type BlogEditPageProps = {
   params: {
@@ -23,7 +25,11 @@ export const generateMetadata = async (
 const BlogEditPage = async (props: BlogEditPageProps) => {
   const { blogId } = props.params;
   const blog = await getBlogDetail(blogId);
-  return <div>{blog.title}</div>;
+  return (
+    <div className={css.page}>
+      <ClientBlogEditForm blog={blog} />
+    </div>
+  );
 };
 
 export default BlogEditPage;

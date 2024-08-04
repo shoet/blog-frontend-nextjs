@@ -1,0 +1,32 @@
+.markdownPreviewEditor {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  height: 100vh;
+}
+
+.editor {
+  width: 50%;
+}
+
+.preview {
+  width: 50%;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+
+  overflow-y: scroll;
+}
+
+.textEditor {
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    height: 100vh;
+
+    outline: none;
+    resize: none;
+  }
+}

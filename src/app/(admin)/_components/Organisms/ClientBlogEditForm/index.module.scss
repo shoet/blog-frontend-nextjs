@@ -1,0 +1,38 @@
+.title {
+  input {
+    width: 100%;
+  }
+}
+
+.description {
+  textarea {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+.dropzoneContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .dropzoneDescription {
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+.actionArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+
+  gap: 10px;
+
+  .isPublic {
+    font-size: 14px;
+    color: #666;
+  }
+}
