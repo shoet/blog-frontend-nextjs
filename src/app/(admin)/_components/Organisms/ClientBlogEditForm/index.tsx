@@ -38,6 +38,10 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
     tags,
     handleDeleteTags,
     handleChangeIsPublic,
+    handleUploadThumbnail,
+    thumbnailInputFileRef,
+    getThumbnailInputRefImageURL,
+    handleDropFileInTextArea,
     isPublic,
   } = useBlogEditForm({ blog });
 
@@ -46,6 +50,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       <input hidden type="text" name="id" defaultValue={blog.id} />
       <input hidden type="text" name="user_id" defaultValue={blog.authorId} />
       <div className={css.title}>
+        <label htmlFor="title">タイトル</label>
         <TextInput
           placeholder="Title"
           name="title"
@@ -55,6 +60,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       </div>
       <Spacer height={16} />
       <div className={css.description}>
+        <label htmlFor="description">概要</label>
         <TextArea
           name="description"
           placeholder="Description"
@@ -66,6 +72,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       </div>
       <Spacer height={16} />
       <div className={css.title}>
+        <label htmlFor="tags">タグ</label>
         <TagForm
           className={css.tagsForm}
           tags={tags}
@@ -75,26 +82,45 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
       </div>
       <Spacer height={16} />
       <div className={css.thumbnail}>
-        <Dropzone>
+        <label htmlFor="thumbnail_image_url">サムネイル</label>
+        <Dropzone onChange={handleUploadThumbnail}>
           <div className={css.dropzoneContent}>
-            <IconUpload size="3x" color="gray" />
-            <div className={css.dropzoneDescription}>
-              サムネイルに使用する画像をアップロードしてください
-            </div>
+            {getThumbnailInputRefImageURL() ? (
+              // DropzoneにDropしたプレビュー画像があれば表示
+              <div>
+                <img src={getThumbnailInputRefImageURL()} />
+              </div>
+            ) : state.thumbnailUrl !== "" ? (
+              // 既にサムネイルがあれば表示
+              <div>
+                <img src={state.thumbnailUrl} />
+              </div>
+            ) : (
+              // それ以外はアップロードアイコンと説明文を表示
+              <div>
+                <IconUpload size="3x" color="gray" />
+                <div className={css.dropzoneDescription}>
+                  サムネイルに使用する画像をアップロードしてください
+                </div>
+              </div>
+            )}
           </div>
           <input
             hidden
             type="text"
             name="thumbnail_image_url"
-            value={state.thumbnailUrl}
+            defaultValue={state.thumbnailUrl}
+            ref={thumbnailInputFileRef}
           />
         </Dropzone>
       </div>
       <Spacer height={16} />
       <div>
+        <label htmlFor="content">記事</label>
         <ClientMarkdownPreviewTextArea
           name="content"
           markdownText={state.content}
+          onDragDrop={handleDropFileInTextArea}
         />
         <ValidateError state={state} field="content" />
       </div>

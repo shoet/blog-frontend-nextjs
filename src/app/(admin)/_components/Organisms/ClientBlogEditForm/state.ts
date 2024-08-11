@@ -11,7 +11,6 @@ export type ClientBlogEditFormState = {
   content: string;
   isPublic: boolean;
 
-  thumbnail?: File;
   errors: ClientBlogEditFormError[];
   generalError?: string;
 };

@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import { Blog } from "@/types/api";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ClientBlogEditFormState } from "./state";
 import { blogEditSubmitAction } from "./actions";
 
@@ -10,11 +10,22 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
 
   const [tags, setTags] = useState<string[]>(blog?.tags || []);
   const [isPublic, setIsPublic] = useState<boolean>(blog?.isPublic || false);
+  const thumbnailInputFileRef = useRef<HTMLInputElement>(null);
 
+  const getThumbnailInputRefImageURL = () => {
+    return thumbnailInputFileRef.current?.value;
+  };
+
+  /**
+   * handleEnterTagsはタグ入力時にEnterを押したときに呼ばれる
+   */
   const handleEnterTags = (tag: string) => {
     setTags([...tags, tag]);
   };
 
+  /**
+   * handleDeleteTagsはタグのBadgeのXボタンを押したときに呼ばれる
+   */
   const handleDeleteTags = (tag: string) => {
     const newTags = tags.filter((t) => {
       return t !== tag;
@@ -22,8 +33,33 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     setTags(newTags);
   };
 
+  /**
+   * handleChangeIsPublicは公開非公開のチェックボックスを変更したときに呼ばれる
+   */
   const handleChangeIsPublic = (isPublic: boolean) => {
     setIsPublic(isPublic);
+  };
+
+  /**
+   * handleUploadThumbnailはDropzoneからサムネイルをドロップしたときに呼ばれる
+   */
+  const handleUploadThumbnail = (file?: File) => {
+    // ObjectURLを生成
+    console.log("Upload file");
+    console.log(file);
+    // refにセット
+    if (thumbnailInputFileRef.current) {
+    }
+  };
+
+  /**
+   * handleDropFileInTextAreaはDragableTextareaにファイルをドロップしたときに呼ばれる
+   */
+  const handleDropFileInTextArea = (file?: File) => {
+    // 署名付きアップロード
+    console.log("Upload file");
+    console.log(file);
+    // contentの末尾にURLを追加する
   };
 
   const [state, formAction] = useFormState(
@@ -55,6 +91,10 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     handleEnterTags,
     handleDeleteTags,
     handleChangeIsPublic,
+    handleUploadThumbnail,
+    thumbnailInputFileRef,
+    getThumbnailInputRefImageURL,
+    handleDropFileInTextArea,
     isPublic,
   };
 };
