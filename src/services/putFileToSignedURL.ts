@@ -1,15 +1,11 @@
 import { handleFailed } from ".";
 
-export async function putFileToSignedURL(
-  signedURL: string,
-  file: File,
-  contentType: string,
-) {
-  const formData = new FormData();
-  formData.append("file", file);
+export async function putFileToSignedURL(signedURL: string, blob: Blob) {
   return fetch(signedURL, {
     method: "PUT",
-    body: formData,
-    headers: { "Content-Type": contentType },
+    body: blob,
+    headers: {
+      "Content-Type": blob.type,
+    },
   }).catch(handleFailed);
 }

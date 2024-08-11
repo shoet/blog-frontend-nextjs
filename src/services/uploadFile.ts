@@ -9,6 +9,7 @@ export async function uploadFileForThumbnail(
 ): Promise<UploadFileForThumbnailResponse> {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("content-type", file.type);
   return fetch("/api/files/thumbnail", { method: "POST", body: formData })
     .then(handleSuccess)
     .catch(handleFailed);
