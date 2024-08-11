@@ -1,9 +1,10 @@
 "use client";
 import { useFormState } from "react-dom";
 import { Blog } from "@/types/api";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ClientBlogEditFormState } from "./state";
 import { blogEditSubmitAction } from "./actions";
+import { uploadFileForThumbnail } from "@/services/uploadFile";
 
 export const useBlogEditForm = (props: { blog?: Blog }) => {
   const { blog } = props;
@@ -43,12 +44,20 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
   /**
    * handleUploadThumbnailはDropzoneからサムネイルをドロップしたときに呼ばれる
    */
-  const handleUploadThumbnail = (file?: File) => {
-    // ObjectURLを生成
-    console.log("Upload file");
-    console.log(file);
-    // refにセット
-    if (thumbnailInputFileRef.current) {
+  const handleUploadThumbnail = async (file?: File) => {
+    if (file === undefined) {
+      return;
+    }
+    // RouteHandler経由で署名付きアップロードを行う
+    try {
+      const { putURL } = await uploadFileForThumbnail(file);
+      // refにセット
+      if (thumbnailInputFileRef.current) {
+        thumbnailInputFileRef.current.value = putURL;
+      }
+    } catch (e) {
+      console.error(e);
+      return;
     }
   };
 
