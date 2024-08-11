@@ -9,6 +9,8 @@ import { ClientBlogEditFormSchema } from "./validate";
 import { editBlog } from "@/services/editBlog";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function blogEditSubmitAction(
   formData: FormData,
@@ -39,6 +41,9 @@ export async function blogEditSubmitAction(
       thumbnailImageFileURL: valid.thumbnail_image_url,
       isPublic: valid.is_public,
     });
+
+    // キャッシュ削除
+    revalidatePath(`/admin/blogs/${blog.id}/edit`);
   } catch (e) {
     if (e instanceof ZodError) {
       const errors: ClientBlogEditFormError[] = e.errors.map((error) => {
@@ -51,5 +56,5 @@ export async function blogEditSubmitAction(
       throw e;
     }
   }
-  return emptyFormState; // TODO: 一旦空で返す
+  redirect("/admin");
 }
