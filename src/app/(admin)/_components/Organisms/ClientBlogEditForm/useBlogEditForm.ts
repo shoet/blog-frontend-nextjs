@@ -1,3 +1,4 @@
+"use client";
 import { useFormState } from "react-dom";
 import { Blog } from "@/types/api";
 import { useState } from "react";

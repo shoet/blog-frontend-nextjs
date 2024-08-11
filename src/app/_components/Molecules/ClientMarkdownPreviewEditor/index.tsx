@@ -35,7 +35,7 @@ export const ClientMarkdownPreviewTextArea = (
     <div className={css.markdownPreviewEditor}>
       <div className={clsx(css.editor, css.textEditor)}>
         <DragableTextarea
-          value={markdownText}
+          defaultValue={markdownText}
           onChange={handleChangeText}
           onDragDrop={handleDragDrop}
           {...textareaProps}

@@ -43,21 +43,24 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
 
   return (
     <form action={formAction}>
-      <input hidden type="text" name="id" value={blog.id} />
-      <input hidden type="text" name="user_id" value={blog.authorId} />
+      <input hidden type="text" name="id" defaultValue={blog.id} />
+      <input hidden type="text" name="user_id" defaultValue={blog.authorId} />
       <div className={css.title}>
-        <TextInput placeholder="Title" name="title" value={state.title} />
+        <TextInput
+          placeholder="Title"
+          name="title"
+          defaultValue={state.title}
+        />
         <ValidateError state={state} field="title" />
       </div>
       <Spacer height={16} />
       <div className={css.description}>
         <TextArea
           name="description"
-          className={css.descriptionTextArea}
           placeholder="Description"
           rows={2}
-          maxRows={5}
-          value={state.description}
+          maxRows={2}
+          defaultValue={state.description}
         />
         <ValidateError state={state} field="description" />
       </div>
