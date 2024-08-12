@@ -24,6 +24,7 @@ export async function uploadFileForContent(
 ): Promise<UploadFileForContentResponse> {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("content-type", file.type);
   return fetch("/api/files/content", { method: "POST", body: formData })
     .then(handleSuccess)
     .catch(handleFailed);

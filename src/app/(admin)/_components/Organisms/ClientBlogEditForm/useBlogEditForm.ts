@@ -4,7 +4,10 @@ import { Blog } from "@/types/api";
 import { useState } from "react";
 import { ClientBlogEditFormState } from "./state";
 import { blogEditSubmitAction } from "./actions";
-import { uploadFileForThumbnail } from "@/services/uploadFile";
+import {
+  uploadFileForContent,
+  uploadFileForThumbnail,
+} from "@/services/uploadFile";
 
 export const useBlogEditForm = (props: { blog?: Blog }) => {
   const { blog } = props;
@@ -14,6 +17,7 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
   const [previewImage, setPreviewImage] = useState<string | undefined>(
     blog?.thumbnailImageFileName,
   );
+  const [contentValue, setContentValue] = useState(blog?.content);
 
   /**
    * handleEnterTagsはタグ入力時にEnterを押したときに呼ばれる
@@ -59,11 +63,21 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
   /**
    * handleDropFileInTextAreaはDragableTextareaにファイルをドロップしたときに呼ばれる
    */
-  const handleDropFileInTextArea = (file?: File) => {
+  const handleDropFileInTextArea = async (file?: File) => {
     // 署名付きアップロード
-    console.log("Upload file");
-    console.log(file);
-    // contentの末尾にURLを追加する
+    if (file === undefined) {
+      return;
+    }
+    // RouteHandler経由で署名付きアップロードを行う
+    try {
+      const { putURL } = await uploadFileForContent(file);
+      // contentの末尾にURLを追加する
+      const markdonwImageText = `![](${putURL})`;
+      setContentValue(contentValue + "\n" + markdonwImageText);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
   };
 
   const [state, formAction] = useFormState(
@@ -71,7 +85,6 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
       _: ClientBlogEditFormState,
       formData: FormData,
     ): Promise<ClientBlogEditFormState> => {
-      // サムネイルのハンドリング TODO
       formData.append("tags", tags.join(","));
       const state = await blogEditSubmitAction(formData);
       return state;
@@ -98,6 +111,7 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     handleUploadThumbnail,
     previewImage,
     handleDropFileInTextArea,
+    contentValue,
     isPublic,
   };
 };

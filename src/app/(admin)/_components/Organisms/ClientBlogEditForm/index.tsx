@@ -60,6 +60,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
     handleUploadThumbnail,
     previewImage,
     handleDropFileInTextArea,
+    contentValue,
     isPublic,
   } = useBlogEditForm({ blog });
 
@@ -119,7 +120,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
         <label htmlFor="content">記事</label>
         <ClientMarkdownPreviewTextArea
           name="content"
-          markdownText={state.content}
+          markdownText={contentValue}
           onDragDrop={handleDropFileInTextArea}
         />
         <ValidateError state={state} field="content" />

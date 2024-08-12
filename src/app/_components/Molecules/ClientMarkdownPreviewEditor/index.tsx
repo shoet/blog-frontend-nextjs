@@ -38,6 +38,7 @@ export const ClientMarkdownPreviewTextArea = (
           defaultValue={markdownText}
           onChange={handleChangeText}
           onDragDrop={handleDragDrop}
+          value={text}
           {...textareaProps}
         />
       </div>
