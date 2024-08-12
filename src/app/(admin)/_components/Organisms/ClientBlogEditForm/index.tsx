@@ -13,7 +13,8 @@ import { ClientBlogEditFormState, getClientBlogEditFormError } from "./state";
 import { useBlogEditForm } from "./useBlogEditForm";
 
 type ClientBlogEditFormProps = {
-  blog: Blog;
+  blog?: Blog;
+  serverFormAction: (formData: FormData) => Promise<ClientBlogEditFormState>;
 };
 
 const ValidateError = (props: {
@@ -48,7 +49,7 @@ const PreviewImage = (props: { src?: string }) => {
 };
 
 export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
-  const { blog } = props;
+  const { blog, serverFormAction } = props;
 
   const {
     state,
@@ -60,14 +61,15 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
     handleUploadThumbnail,
     previewImage,
     handleDropFileInTextArea,
+    handleChangeContent,
     contentValue,
     isPublic,
-  } = useBlogEditForm({ blog });
+  } = useBlogEditForm({ blog, serverFormAction });
 
   return (
     <form action={formAction}>
-      <input hidden type="text" name="id" defaultValue={blog.id} />
-      <input hidden type="text" name="user_id" defaultValue={blog.authorId} />
+      <input hidden type="text" name="id" defaultValue={blog?.id} />
+      <input hidden type="text" name="user_id" defaultValue={blog?.authorId} />
       <div className={css.title}>
         <label htmlFor="title">タイトル</label>
         <TextInput
@@ -122,6 +124,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
           name="content"
           markdownText={contentValue}
           onDragDrop={handleDropFileInTextArea}
+          onChange={handleChangeContent}
         />
         <ValidateError state={state} field="content" />
       </div>
