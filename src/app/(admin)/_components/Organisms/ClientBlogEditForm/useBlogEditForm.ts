@@ -3,7 +3,6 @@ import { useFormState } from "react-dom";
 import { Blog } from "@/types/api";
 import { useState } from "react";
 import { ClientBlogEditFormState } from "./state";
-import { blogEditSubmitAction } from "./actions";
 import {
   uploadFileForContent,
   uploadFileForThumbnail,
@@ -63,6 +62,10 @@ export const useBlogEditForm = (props: {
     }
   };
 
+  const handleChangeContent = (content: string) => {
+    setContentValue(content);
+  };
+
   /**
    * handleDropFileInTextAreaはDragableTextareaにファイルをドロップしたときに呼ばれる
    */
@@ -116,6 +119,7 @@ export const useBlogEditForm = (props: {
     handleUploadThumbnail,
     previewImage,
     handleDropFileInTextArea,
+    handleChangeContent,
     contentValue,
     isPublic,
   };
