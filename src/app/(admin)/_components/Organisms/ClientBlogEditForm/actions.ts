@@ -45,6 +45,7 @@ export async function blogEditSubmitAction(
 
     // キャッシュ削除
     revalidatePath(`/admin/blogs/${blog.id}/edit`);
+    revalidatePath(`/blogs`);
   } catch (e) {
     if (e instanceof ZodError) {
       const errors: ClientBlogEditFormError[] = e.errors.map((error) => {
@@ -76,7 +77,7 @@ export async function blogPostSubmitAction(
     }
     const user = await getUsersMe(token);
 
-    const blog = await postBlog({
+    await postBlog({
       authorId: user.id,
       title: valid.title,
       content: valid.content,
@@ -85,6 +86,9 @@ export async function blogPostSubmitAction(
       thumbnailImageFileName: valid.thumbnail_image_url,
       isPublic: valid.is_public,
     });
+
+    // キャッシュ削除
+    revalidatePath(`/blogs`);
   } catch (e) {
     if (e instanceof ZodError) {
       const errors: ClientBlogEditFormError[] = e.errors.map((error) => {
