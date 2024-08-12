@@ -17,6 +17,7 @@ provider:
 
   environment:
     STAGE: ${self:provider.stage}
+    TZ: "Asia/Tokyo"
 
   ecr:
     images:
