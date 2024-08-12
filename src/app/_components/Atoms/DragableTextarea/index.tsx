@@ -5,13 +5,13 @@ import { useDragableTextarea } from "./useDragableTextarea";
 type DragableTextAreaProps = {
   maxRows?: number;
   minRows?: number;
-  onDrag?: (f: File) => void;
+  onDragDrop?: (f: File) => void;
 } & ComponentProps<"textarea">;
 
 export const DragableTextarea = (props: DragableTextAreaProps) => {
-  const { maxRows, minRows, onDrag, ...rest } = props;
+  const { maxRows, minRows, onDragDrop, ...rest } = props;
   const { handleOnDragOver, handleOnDrop } = useDragableTextarea({
-    onChange: onDrag,
+    onChange: onDragDrop,
   });
   return (
     <div onDragOver={handleOnDragOver} onDrop={handleOnDrop}>

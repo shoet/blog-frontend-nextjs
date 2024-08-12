@@ -11,6 +11,7 @@ export const useTagForm = (props: useTagFormProps) => {
 
   const onKeyDownEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
+      e.preventDefault();
       const word = inputRef.current.value;
       onSubmit && onSubmit(word);
       inputRef.current.value = "";

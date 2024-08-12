@@ -10,6 +10,31 @@
   align-items: center;
 }
 
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+}
+
+.navigationItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigationLink {
+  color: white;
+  text-decoration: underline;
+  &:hover,
+  &:focus {
+    color: #f0f0f0;
+  }
+}
+
 .signOut {
   display: flex;
   flex-direction: row;

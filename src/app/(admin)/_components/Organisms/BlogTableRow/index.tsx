@@ -4,6 +4,7 @@ import css from "./index.module.scss";
 import { Button } from "@/app/_components/Atoms/Button";
 import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
+import Link from "next/link";
 
 type BlogTableRow = {
   blog: Blog;
@@ -25,7 +26,9 @@ export const BlogTableRow = (props: BlogTableRow) => {
         <Badge {...badgeProps}>{blog.isPublic ? "公開" : "非公開"}</Badge>
       </td>
       <td className={css.edit}>
-        <Button variant="secondary">編集</Button>
+        <Link href={`/admin/blogs/${blog.id}/edit`}>
+          <Button variant="secondary">編集</Button>
+        </Link>
       </td>
       <td className={css.delete}>
         <Button variant="secondary">削除</Button>
