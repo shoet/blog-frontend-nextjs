@@ -9,15 +9,18 @@ import {
   uploadFileForThumbnail,
 } from "@/services/uploadFile";
 
-export const useBlogEditForm = (props: { blog?: Blog }) => {
-  const { blog } = props;
+export const useBlogEditForm = (props: {
+  blog?: Blog;
+  serverFormAction: (formData: FormData) => Promise<ClientBlogEditFormState>;
+}) => {
+  const { blog, serverFormAction } = props;
 
   const [tags, setTags] = useState<string[]>(blog?.tags || []);
   const [isPublic, setIsPublic] = useState<boolean>(blog?.isPublic || false);
   const [previewImage, setPreviewImage] = useState<string | undefined>(
     blog?.thumbnailImageFileName,
   );
-  const [contentValue, setContentValue] = useState(blog?.content);
+  const [contentValue, setContentValue] = useState(blog?.content || "");
 
   /**
    * handleEnterTagsはタグ入力時にEnterを押したときに呼ばれる
@@ -71,6 +74,8 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     // RouteHandler経由で署名付きアップロードを行う
     try {
       const { putURL } = await uploadFileForContent(file);
+      console.log("### contentValue");
+      console.log(contentValue);
       // contentの末尾にURLを追加する
       const markdonwImageText = `![](${putURL})`;
       setContentValue(contentValue + "\n" + markdonwImageText);
@@ -86,7 +91,7 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
       formData: FormData,
     ): Promise<ClientBlogEditFormState> => {
       formData.append("tags", tags.join(","));
-      const state = await blogEditSubmitAction(formData);
+      const state = await serverFormAction(formData);
       return state;
     },
     {
