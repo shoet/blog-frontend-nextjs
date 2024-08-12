@@ -28,6 +28,25 @@ const ValidateError = (props: {
   }
 };
 
+const PreviewImage = (props: { src?: string }) => {
+  if (props.src) {
+    return (
+      <div>
+        <img src={props.src} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <IconUpload size="3x" color="gray" />
+        <div className={css.dropzoneDescription}>
+          サムネイルに使用する画像をアップロードしてください
+        </div>
+      </div>
+    );
+  }
+};
+
 export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
   const { blog } = props;
 
@@ -39,8 +58,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
     handleDeleteTags,
     handleChangeIsPublic,
     handleUploadThumbnail,
-    thumbnailInputFileRef,
-    getThumbnailInputRefImageURL,
+    previewImage,
     handleDropFileInTextArea,
     isPublic,
   } = useBlogEditForm({ blog });
@@ -85,32 +103,14 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
         <label htmlFor="thumbnail_image_url">サムネイル</label>
         <Dropzone onChange={handleUploadThumbnail}>
           <div className={css.dropzoneContent}>
-            {getThumbnailInputRefImageURL() ? (
-              // DropzoneにDropしたプレビュー画像があれば表示
-              <div>
-                <img src={getThumbnailInputRefImageURL()} />
-              </div>
-            ) : state.thumbnailUrl !== "" ? (
-              // 既にサムネイルがあれば表示
-              <div>
-                <img src={state.thumbnailUrl} />
-              </div>
-            ) : (
-              // それ以外はアップロードアイコンと説明文を表示
-              <div>
-                <IconUpload size="3x" color="gray" />
-                <div className={css.dropzoneDescription}>
-                  サムネイルに使用する画像をアップロードしてください
-                </div>
-              </div>
-            )}
+            <PreviewImage src={previewImage} />
           </div>
           <input
             hidden
             type="text"
             name="thumbnail_image_url"
             defaultValue={state.thumbnailUrl}
-            ref={thumbnailInputFileRef}
+            value={previewImage}
           />
         </Dropzone>
       </div>

@@ -1,4 +1,3 @@
-import { Spacer } from "../../Atoms/Spacer";
 import { Navigation, NavigationItem } from "../../Molecules/Navigation";
 import css from "./index.module.scss";
 

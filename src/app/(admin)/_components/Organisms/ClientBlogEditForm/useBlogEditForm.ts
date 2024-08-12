@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import { Blog } from "@/types/api";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ClientBlogEditFormState } from "./state";
 import { blogEditSubmitAction } from "./actions";
 import { uploadFileForThumbnail } from "@/services/uploadFile";
@@ -11,11 +11,9 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
 
   const [tags, setTags] = useState<string[]>(blog?.tags || []);
   const [isPublic, setIsPublic] = useState<boolean>(blog?.isPublic || false);
-  const thumbnailInputFileRef = useRef<HTMLInputElement>(null);
-
-  const getThumbnailInputRefImageURL = () => {
-    return thumbnailInputFileRef.current?.value;
-  };
+  const [previewImage, setPreviewImage] = useState<string | undefined>(
+    blog?.thumbnailImageFileName,
+  );
 
   /**
    * handleEnterTagsはタグ入力時にEnterを押したときに呼ばれる
@@ -51,10 +49,7 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     // RouteHandler経由で署名付きアップロードを行う
     try {
       const { putURL } = await uploadFileForThumbnail(file);
-      // refにセット
-      if (thumbnailInputFileRef.current) {
-        thumbnailInputFileRef.current.value = putURL;
-      }
+      setPreviewImage(putURL);
     } catch (e) {
       console.error(e);
       return;
@@ -101,8 +96,7 @@ export const useBlogEditForm = (props: { blog?: Blog }) => {
     handleDeleteTags,
     handleChangeIsPublic,
     handleUploadThumbnail,
-    thumbnailInputFileRef,
-    getThumbnailInputRefImageURL,
+    previewImage,
     handleDropFileInTextArea,
     isPublic,
   };
