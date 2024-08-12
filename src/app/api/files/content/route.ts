@@ -16,7 +16,10 @@ export const POST = async (request: NextRequest) => {
     }
     const fileName = generateBase32EncodedUuid();
     const newBlob = new Blob([blob], { type: contentType });
-    const { signedUrl, putUrl } = await getSignedURLForContent(fileName);
+    const fileType = contentType.split("/")[1];
+    const { signedUrl, putUrl } = await getSignedURLForContent(
+      `${fileName}.${fileType}`,
+    );
     await putFileToSignedURL(signedUrl, newBlob);
     return NextResponse.json({ putURL: putUrl }, { status: 200 });
   } catch (e) {
