@@ -10,7 +10,7 @@ type ClientMarkdownPreviewTextAreaProps = {
   markdownText?: string;
   onChange?: (text: string) => void;
   onDragDrop?: (file: File) => void;
-} & ComponentProps<"textarea">;
+} & Omit<ComponentProps<"textarea">, "onChange">;
 
 export const ClientMarkdownPreviewTextArea = (
   props: ClientMarkdownPreviewTextAreaProps,
