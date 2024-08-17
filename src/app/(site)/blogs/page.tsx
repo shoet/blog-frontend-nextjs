@@ -12,6 +12,9 @@ export const generateMetadata = async (
   };
 };
 
-export default async function BlogHomePage() {
-  return <BlogCardListContainer />;
+export default async function BlogHomePage(props: {
+  searchParams: { page: number };
+}) {
+  const { page } = props.searchParams;
+  return <BlogCardListContainer page={page} />;
 }
