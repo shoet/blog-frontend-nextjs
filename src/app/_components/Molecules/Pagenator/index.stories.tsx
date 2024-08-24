@@ -15,7 +15,8 @@ export type Story = StoryObj<typeof Pagenator>;
 
 export const Default: Story = {
   args: {
-    pageNumbers: ["1", "2", "3", "...", "10"],
-    currentPage: "1",
+    totalItems: 100,
+    currentPage: 9,
+    itemsPerPage: 10,
   },
 };
