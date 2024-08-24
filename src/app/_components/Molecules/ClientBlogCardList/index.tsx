@@ -9,10 +9,11 @@ import { Spacer } from "../../Atoms/Spacer";
 type ClientBlogCardListProps = {
   blogs: Blog[];
   pageNubmers?: string[];
+  currentPage?: string;
 };
 
 export const ClientBlogCardList = (props: ClientBlogCardListProps) => {
-  const { blogs, pageNubmers = [] } = props;
+  const { blogs, pageNubmers = [], currentPage } = props;
   const router = useRouter();
   const handleOnClickCard = (blog: Blog) => {
     router.push(`/blogs/${blog.id}`);
@@ -29,7 +30,7 @@ export const ClientBlogCardList = (props: ClientBlogCardListProps) => {
         })}
       </div>
       <Spacer height={30} />
-      <Pagenator pageNumbers={pageNubmers} />
+      <Pagenator pageNumbers={pageNubmers} currentPage={currentPage} />
     </div>
   );
 };

@@ -8,7 +8,13 @@ export const BlogCardListContainer = async (props: { page?: number }) => {
   const response = await getBlogs({ limit: BLOG_PER_PAGE, page: page });
   const { blogs, totalCount } = response;
   const pages = getPagenatorString(totalCount);
-  return <ClientBlogCardList blogs={blogs} pageNubmers={pages} />;
+  return (
+    <ClientBlogCardList
+      blogs={blogs}
+      pageNubmers={pages}
+      currentPage={page.toString()}
+    />
+  );
 };
 
 export function getPagenatorString(count: number) {

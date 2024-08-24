@@ -41,7 +41,9 @@ export const Pagenator = (props: PagenatorProps) => {
         <PagenatorButton
           key={index}
           pageNumber={pageNum}
-          onClick={() => handleClickPage(parseInt(pageNum))}
+          onClick={() =>
+            pageNum !== currentPage && handleClickPage(parseInt(pageNum))
+          }
           isCurrent={pageNum === currentPage}
         />
       ))}
