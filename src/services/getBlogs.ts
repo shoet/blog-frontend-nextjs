@@ -5,6 +5,7 @@ type GetBlogsResponse = {
   blogs: Blog[];
   prevEOF: boolean;
   nextEOF: boolean;
+  totalCount: number;
 };
 
 export async function getBlogs({
