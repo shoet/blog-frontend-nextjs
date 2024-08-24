@@ -5,12 +5,14 @@ import css from "./page.module.scss";
 import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
 import { ComponentProps } from "react";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
+import { BLOG_PER_PAGE } from "@/constant";
 
 type SearchPageProps = {
   params: {};
   searchParams: {
     tag?: string;
     keyword?: string;
+    page?: number;
   };
 };
 
@@ -62,15 +64,20 @@ const TagOrKeyword = (
 };
 
 const SearchPage = async (props: SearchPageProps) => {
-  const { tag, keyword } = props.searchParams;
+  const { tag, keyword, page = 1 } = props.searchParams;
 
-  const { blogs } = await searchBlogs({ tag, keyword, limit: 10 });
+  const { blogs, totalCount } = await searchBlogs({ tag, keyword, limit: 10 });
 
   return (
     <div className={css.searchPage}>
       <TagOrKeyword className={css.description} tag={tag} keyword={keyword} />
       <Spacer height={20} />
-      <ClientBlogCardList blogs={blogs} />
+      <ClientBlogCardList
+        blogs={blogs}
+        totalItems={totalCount}
+        currentPage={page}
+        itemsPerPage={BLOG_PER_PAGE}
+      />
     </div>
   );
 };

@@ -46,6 +46,7 @@ export async function blogEditSubmitAction(
     // キャッシュ削除
     revalidatePath(`/admin/blogs/${blog.id}/edit`);
     revalidatePath(`/blogs`);
+    revalidatePath(`/blogs/search`);
   } catch (e) {
     if (e instanceof ZodError) {
       const errors: ClientBlogEditFormError[] = e.errors.map((error) => {
