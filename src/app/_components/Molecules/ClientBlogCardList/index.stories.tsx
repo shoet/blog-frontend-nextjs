@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ClientBlogCardList } from ".";
-import { getPagenatorString } from "../../Organisms/BlogCardListContainer";
 
 export default {
   title: "Molecules/ClientBlogCardList",
@@ -13,10 +12,6 @@ export default {
 } as Meta<typeof ClientBlogCardList>;
 
 export type Story = StoryObj<typeof ClientBlogCardList>;
-
-function buildPageNumbers(count: number) {
-  return getPagenatorString(count);
-}
 
 export const Default: Story = {
   args: {
@@ -61,6 +56,8 @@ export const Default: Story = {
         modified: 1710039459,
       },
     ],
-    pageNubmers: buildPageNumbers(100),
+    totalItems: 100,
+    itemsPerPage: 5,
+    currentPage: 1,
   },
 };
