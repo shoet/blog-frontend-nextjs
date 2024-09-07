@@ -1,0 +1,36 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  max-width: 300px;
+  max-height: 200px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.title {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.message {
+  font-size: 0.9em;
+  color: var(--text-color);
+}
+
+.actionArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 20px;
+}
+
+.okButton {
+}
+
+.cancelButton {
+}

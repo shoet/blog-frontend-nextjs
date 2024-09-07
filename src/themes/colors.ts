@@ -4,6 +4,7 @@ export const colors = {
   secondary: "#FFFFFF",
   secondaryDark: "#CBD5C0",
   border: "#DFE6DA",
+  borderDark: "#CBD5C0",
   text: "#000000",
   placeholder: "#CBD5C0",
   gray: "gray",
