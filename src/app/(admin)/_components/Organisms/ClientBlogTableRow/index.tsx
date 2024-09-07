@@ -34,7 +34,9 @@ export const ClientBlogTableRow = (props: ClientBlogTableRowProps) => {
         </Link>
       </td>
       <td className={css.delete}>
-        <Button variant="secondary">削除</Button>
+        <Link href={`/admin/blogs/${blog.id}/delete`}>
+          <Button variant="secondary">削除</Button>
+        </Link>
       </td>
     </tr>
   );
