@@ -3,6 +3,7 @@ import { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 import css from "./index.module.scss";
 import { theme } from "@/themes";
+import { Spacer } from "../../Atoms/Spacer";
 
 type ConfirmDialogProps = {
   title: string;
@@ -21,8 +22,11 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
 
   return (
     <div className={css.dialog} style={style}>
-      <div className={css.title}>{title}</div>
-      <div className={css.message}>{message}</div>
+      <div>
+        <div className={css.title}>{title}</div>
+        <Spacer height={10} />
+        <div className={css.message}>{message}</div>
+      </div>
       <div className={css.actionArea}>
         {onClickCancel && (
           <Button variant="secondary" onClick={onClickCancel}>
