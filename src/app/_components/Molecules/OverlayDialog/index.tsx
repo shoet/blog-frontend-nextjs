@@ -1,3 +1,4 @@
+"use client";
 import { ConfirmDialog } from "../ConfirmDialog";
 import css from "./index.module.scss";
 
@@ -6,6 +7,7 @@ type OverlayDialogProps = {
   message: string;
   onClickOK: () => void;
   onClickCancel?: () => void;
+  errorMessage?: string;
 };
 
 export const OverlayDialog = (props: OverlayDialogProps) => {

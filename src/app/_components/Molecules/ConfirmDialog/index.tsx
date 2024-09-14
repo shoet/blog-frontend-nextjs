@@ -10,10 +10,11 @@ type ConfirmDialogProps = {
   message: string;
   onClickOK: () => void;
   onClickCancel?: () => void;
+  errorMessage?: string;
 };
 
 export const ConfirmDialog = (props: ConfirmDialogProps) => {
-  const { title, message, onClickOK, onClickCancel } = props;
+  const { title, message, onClickOK, onClickCancel, errorMessage } = props;
 
   const style = {
     "--border-color": theme.colors.borderDark,
@@ -26,6 +27,12 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
         <div className={css.title}>{title}</div>
         <Spacer height={10} />
         <div className={css.message}>{message}</div>
+        {errorMessage && (
+          <>
+            <Spacer height={10} />
+            <div className={css.errorMessage}>{errorMessage}</div>
+          </>
+        )}
       </div>
       <div className={css.actionArea}>
         {onClickCancel && (
