@@ -1,6 +1,6 @@
 import { Blog } from "@/types/api";
 import css from "./index.module.scss";
-import { BlogTableRow } from "../BlogTableRow";
+import { ClientBlogTableRow } from "../ClientBlogTableRow";
 
 type BlogTableProps = {
   blogs: Blog[];
@@ -13,7 +13,7 @@ export const BlogTable = (props: BlogTableProps) => {
     <table className={css.blogTable}>
       <tbody className={css.blogTableBody}>
         {blogs.map((b) => {
-          return <BlogTableRow key={b.id} blog={b} />;
+          return <ClientBlogTableRow key={b.id} blog={b} />;
         })}
       </tbody>
     </table>

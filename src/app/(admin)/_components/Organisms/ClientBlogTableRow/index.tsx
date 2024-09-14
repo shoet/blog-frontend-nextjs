@@ -1,3 +1,4 @@
+"use client";
 import { Blog } from "@/types/api";
 import { ComponentProps } from "react";
 import css from "./index.module.scss";
@@ -6,12 +7,14 @@ import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 
-type BlogTableRow = {
+type ClientBlogTableRowProps = {
   blog: Blog;
+  onClickEdit?: () => void;
+  onClickDelete?: () => void;
 } & ComponentProps<"tr">;
 
-export const BlogTableRow = (props: BlogTableRow) => {
-  const { blog, ...rest } = props;
+export const ClientBlogTableRow = (props: ClientBlogTableRowProps) => {
+  const { blog, onClickEdit, onClickDelete, ...rest } = props;
 
   const badgeProps: BadgeProps = blog.isPublic
     ? { color: "white", backgroundColor: "orange" }
@@ -31,7 +34,9 @@ export const BlogTableRow = (props: BlogTableRow) => {
         </Link>
       </td>
       <td className={css.delete}>
-        <Button variant="secondary">削除</Button>
+        <Link href={`/admin/blogs/${blog.id}/delete`}>
+          <Button variant="secondary">削除</Button>
+        </Link>
       </td>
     </tr>
   );

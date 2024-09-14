@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { BlogTableRow } from ".";
+import { ClientBlogTableRow } from ".";
 
 export default {
-  title: "admin/Organisms/BlogTableRow",
-  component: BlogTableRow,
-} as Meta<typeof BlogTableRow>;
+  title: "admin/Organisms/ClientBlogTableRow",
+  component: ClientBlogTableRow,
+} as Meta<typeof ClientBlogTableRow>;
 
-export type Story = StoryObj<typeof BlogTableRow>;
+export type Story = StoryObj<typeof ClientBlogTableRow>;
 
 export const Default: Story = {
   args: {
