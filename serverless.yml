@@ -4,17 +4,7 @@ frameworkVersion: "3"
 provider:
   name: aws
   region: ap-northeast-1
-  custom:
-    defaultStage: dev
-
-    dev:
-      environmentStage: dev
-
-    prod:
-      environmentStage: prod
-
   stage: ${opt:stage, self:custom.defaultStage}
-
   environment:
     STAGE: ${self:provider.stage}
     TZ: "Asia/Tokyo"
@@ -28,6 +18,20 @@ provider:
         buildArgs:
           PORT: 3000
           API_HOST: ${ssm:/blog-frontend-nextjs-${self:provider.stage}/API_HOST}
+
+custom:
+  defaultStage: dev
+  customDomain:
+    domainName: ${ssm:/blog-frontend-nextjs-${self:provider.stage}/DOMAIN_NAME}
+    stage: ${self:provider.stage}
+    certificateArn: ${ssm:/blog-frontend-nextjs-${self:provider.stage}/DOMAIN_CERTIFICATE_ARN}
+    createRoute53Record: true
+    endpointType: "regional"
+    securityPolicy: tls_1_2
+    apiType: http
+
+plugins:
+  - serverless-domain-manager
 
 package:
   patterns:
