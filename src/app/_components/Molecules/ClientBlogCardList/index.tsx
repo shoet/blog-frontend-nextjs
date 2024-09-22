@@ -1,10 +1,9 @@
-"use client";
 import { Blog } from "@/types/api";
 import { BlogCard } from "../BlogCard";
 import css from "./index.module.scss";
-import { useRouter } from "next/navigation";
 import { Pagenator } from "../Pagenator";
 import { Spacer } from "../../Atoms/Spacer";
+import Link from "next/link";
 
 type ClientBlogCardListProps = {
   blogs: Blog[];
@@ -15,19 +14,15 @@ type ClientBlogCardListProps = {
 
 export const ClientBlogCardList = (props: ClientBlogCardListProps) => {
   const { blogs, totalItems = 1, currentPage = 1, itemsPerPage = 5 } = props;
-  const router = useRouter();
-  const handleOnClickCard = (blog: Blog) => {
-    router.push(`/blogs/${blog.id}`);
-  };
 
   return (
     <div>
       <div className={css.blogs}>
         {blogs.map((b) => {
           return (
-            <div key={b.id} onClick={() => handleOnClickCard(b)}>
+            <Link href={`/blogs/${b.id}`} key={b.id}>
               <BlogCard blog={b} />
-            </div>
+            </Link>
           );
         })}
       </div>
