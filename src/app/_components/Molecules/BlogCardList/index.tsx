@@ -5,14 +5,14 @@ import { Pagenator } from "../Pagenator";
 import { Spacer } from "../../Atoms/Spacer";
 import Link from "next/link";
 
-type ClientBlogCardListProps = {
+type BlogCardListProps = {
   blogs: Blog[];
   totalItems?: number;
   currentPage?: number;
   itemsPerPage?: number;
 };
 
-export const ClientBlogCardList = (props: ClientBlogCardListProps) => {
+export const BlogCardList = (props: BlogCardListProps) => {
   const { blogs, totalItems = 1, currentPage = 1, itemsPerPage = 5 } = props;
 
   return (

@@ -1,17 +1,17 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ClientBlogCardList } from ".";
+import { BlogCardList } from ".";
 
 export default {
-  title: "Molecules/ClientBlogCardList",
-  component: ClientBlogCardList,
+  title: "Molecules/BlogCardList",
+  component: BlogCardList,
   parameters: {
     nextjs: {
       appDirectory: true,
     },
   },
-} as Meta<typeof ClientBlogCardList>;
+} as Meta<typeof BlogCardList>;
 
-export type Story = StoryObj<typeof ClientBlogCardList>;
+export type Story = StoryObj<typeof BlogCardList>;
 
 export const Default: Story = {
   args: {
