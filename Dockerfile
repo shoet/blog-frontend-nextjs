@@ -32,6 +32,6 @@ RUN chmod +x ./run.sh
 
 ENV NODE_ENV production
 ENV PORT 3000
-EXPOSE 3000
+
 ENTRYPOINT ["sh"]
 CMD ["run.sh"]
