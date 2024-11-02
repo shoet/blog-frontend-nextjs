@@ -48,6 +48,10 @@ functions:
           path: /{proxy+}
           method: any
     timeout: 29
+    url:
+      invokeMode: RESPONSE_STREAM
+    environment:
+      AWS_LWA_INVOKE_MODE: response_stream
 
 resources:
   Resources:
