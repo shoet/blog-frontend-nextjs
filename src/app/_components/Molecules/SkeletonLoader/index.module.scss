@@ -1,0 +1,79 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+
+.skeletonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  // background-color: gray;
+  gap: 5px;
+}
+
+.skeletonCol {
+}
+
+.skeletonCol_1_1 {
+  width: 65%;
+}
+
+.skeletonCol_1_2 {
+  width: 20%;
+}
+
+.skeletonCol_1_3 {
+  width: 15%;
+}
+
+.skeletonCol_2_1 {
+  width: 25%;
+}
+
+.skeletonCol_2_2 {
+  width: 50%;
+}
+
+.skeletonCol_2_3 {
+  width: 25%;
+}
+
+.skeletonCol_3_1 {
+  width: 45%;
+}
+
+.skeletonCol_3_2 {
+  width: 15%;
+}
+
+.skeletonCol_3_3 {
+  width: 40%;
+}
+
+.skeletonCol_4_1 {
+  width: 20%;
+}
+
+.skeletonCol_4_2 {
+  width: 20%;
+}
+
+.skeletonCol_4_3 {
+  width: 60%;
+}
+
+.skeletonCol_5_1 {
+  width: 50%;
+}
+
+.skeletonCol_5_2 {
+  width: 30%;
+}
+
+.skeletonCol_5_3 {
+  width: 20%;
+}
