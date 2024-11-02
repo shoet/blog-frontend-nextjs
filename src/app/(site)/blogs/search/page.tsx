@@ -1,4 +1,3 @@
-import { ClientBlogCardList } from "@/app/_components/Molecules/ClientBlogCardList";
 import { searchBlogs } from "@/services/searchBlogs";
 import { ResolvingMetadata } from "next";
 import css from "./page.module.scss";
@@ -6,6 +5,7 @@ import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
 import { ComponentProps } from "react";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { BLOG_PER_PAGE } from "@/constant";
+import { BlogCardList } from "@/app/_components/Molecules/BlogCardList";
 
 type SearchPageProps = {
   params: {};
@@ -72,7 +72,7 @@ const SearchPage = async (props: SearchPageProps) => {
     <div className={css.searchPage}>
       <TagOrKeyword className={css.description} tag={tag} keyword={keyword} />
       <Spacer height={20} />
-      <ClientBlogCardList
+      <BlogCardList
         blogs={blogs}
         totalItems={totalCount}
         currentPage={page}
