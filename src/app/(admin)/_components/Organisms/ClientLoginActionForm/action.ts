@@ -23,10 +23,10 @@ export async function loginServerAction(
     cookies().set("authToken", response.authToken);
   } catch (e) {
     if (e instanceof z.ZodError) {
-      return { validateErrors: getZodValidateErrors(e) };
+      return { errors: [], validateErrors: getZodValidateErrors(e) };
     }
-    console.warn(e);
-    throw new Error("予期せぬエラーが発生しました");
+    console.warn("unexpected error", e);
+    return { errors: ["ログインに失敗しました"], validateErrors: [] };
   }
   redirect("/admin");
 }
