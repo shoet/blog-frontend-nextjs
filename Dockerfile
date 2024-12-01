@@ -14,6 +14,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ARG API_HOST
 ENV API_HOST=${API_HOST}
+ARG CDN_HOST
+ENV CDN_HOST=${CDN_HOST}
 RUN npm run build
 
 
