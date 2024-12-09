@@ -17,6 +17,11 @@ const nextConfig = {
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   transpilePackages: ["highlight.js"],
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["*.app.shoet.team"],
+    },
+  },
 };
 
 const withMDX = createMDX({
