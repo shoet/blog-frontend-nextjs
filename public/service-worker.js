@@ -3,15 +3,19 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       (async function () {
         const originalRequest = event.request;
-        const body = await originalRequest.clone().text();
-        const hash = await calculateSHA256(body);
+        const clonedRequest = originalRequest.clone();
+        const buffer = await clonedRequest.arrayBuffer();
+        const hash = await calculateSHA256(buffer);
 
         const modifiedRequest = new Request(originalRequest, {
           headers: new Headers(originalRequest.headers),
         });
         modifiedRequest.headers.set("x-amz-content-sha256", hash);
 
-        return fetch(modifiedRequest);
+        return fetch(modifiedRequest).catch((error) => {
+          console.error("Failed to fetch by service worker", error);
+          throw error;
+        });
       })(),
     );
   }
@@ -27,9 +31,8 @@ self.addEventListener("activate", () => {
   clients.claim();
 });
 
-async function calculateSHA256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+async function calculateSHA256(requestBuffer) {
+  const hashBuffer = await crypto.subtle.digest("SHA-256", requestBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   const hashHex = hashArray
     .map((b) => b.toString(16).padStart(2, "0"))
