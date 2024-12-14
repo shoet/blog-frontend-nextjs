@@ -108,6 +108,8 @@ resources:
             ViewerProtocolPolicy: redirect-to-https
             ForwardedValues:
               QueryString: true
+              Cookies:
+                Forward: all
           ViewerCertificate:
             AcmCertificateArn: ${self:custom.domainCertificateArn}
             SslSupportMethod: sni-only
