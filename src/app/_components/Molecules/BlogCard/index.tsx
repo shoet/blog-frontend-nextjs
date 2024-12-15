@@ -2,10 +2,10 @@ import { Blog } from "@/types/api";
 import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
-import Image from "next/image";
 import { CSSProperties } from "react";
 import { theme } from "@/themes";
 import { Spacer } from "../../Atoms/Spacer";
+import { LoadingNextImage } from "../LoadingNextImage";
 
 type BlogCardProps = {
   blog: Blog;
@@ -24,7 +24,7 @@ export const BlogCard = (props: BlogCardProps) => {
   return (
     <div className={styles.blogCard} style={style}>
       <div className={styles.imageWrapper}>
-        <Image
+        <LoadingNextImage
           src={blog.thumbnailImageFileName}
           alt={blog.title}
           fill
