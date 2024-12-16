@@ -7,8 +7,8 @@ export const Header = () => {
       <header className={css.header}>
         <Link href="/">
           <div className={css.title}>
-            <div className={css.titleMain}>shoet</div>
-            <div className={css.titleSub}>Blog</div>
+            <span className={css.titleMain}>shoet</span>
+            <span className={css.titleSub}>Blog</span>
           </div>
         </Link>
         <div className={css.subTitle}>
