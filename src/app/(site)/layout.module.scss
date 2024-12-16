@@ -23,19 +23,36 @@
 .verticalLeft {
   flex-shrink: 0;
   width: 75%;
-  background-color: green;
 }
 
 .verticalRight {
   flex-shrink: 0;
   width: 20%;
-  background-color: blue;
 }
 
 .sideMenu {
   position: sticky;
   top: 40px;
-  background-color: gray;
 }
 
-// TODO: MediaQuery
+@media (max-width: 768px) {
+  .verticalDiv {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+  }
+
+  .verticalLeft {
+    width: 100%;
+  }
+
+  .verticalRight {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .sideMenu {
+    margin-top: 20px;
+  }
+}
