@@ -33,7 +33,6 @@ export default function RootLayout({
         <div className={css.verticalLeft}>
           <main className={css.mainArea}>{children}</main>
         </div>
-        <Spacer width={70} />
         <div className={css.verticalRight}>
           <div className={css.sideMenu}>
             <SideMenu />
