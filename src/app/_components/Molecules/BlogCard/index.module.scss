@@ -24,6 +24,8 @@
 }
 
 .contentWrapper {
+  max-width: 100%;
+
   .title {
     font-size: var(--title-font-size);
     font-weight: bold;
@@ -33,6 +35,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     gap: 5px;
   }
 
@@ -44,5 +47,11 @@
     font-weight: bold;
     font-size: var(--datetime-font-size);
     color: var(--datetime-font-color);
+  }
+}
+
+@media (max-width: 768px) {
+  .blogCard {
+    flex-direction: column;
   }
 }
