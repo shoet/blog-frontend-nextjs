@@ -27,7 +27,7 @@
 
 .verticalRight {
   flex-shrink: 0;
-  width: 25%;
+  width: 20%;
 }
 
 .sideMenu {
@@ -35,4 +35,24 @@
   top: 40px;
 }
 
-// TODO: MediaQuery
+@media (max-width: 768px) {
+  .verticalDiv {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+  }
+
+  .verticalLeft {
+    width: 100%;
+  }
+
+  .verticalRight {
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .sideMenu {
+    margin-top: 20px;
+  }
+}

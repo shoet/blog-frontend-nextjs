@@ -17,9 +17,7 @@
 }
 
 .title {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+  text-align: center;
 
   .titleMain {
     font-size: 3rem;
@@ -40,4 +38,11 @@
 
 .navigation {
   margin-right: 50px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 0;
+  }
 }
