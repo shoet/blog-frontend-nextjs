@@ -7,6 +7,8 @@
     text-decoration: underline;
     color: #b99976;
     target: _blank;
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   h2 {
