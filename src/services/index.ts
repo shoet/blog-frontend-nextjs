@@ -27,4 +27,5 @@ export const handleFailed = (error: unknown) => {
   } else {
     console.warn("unknown error: ", error);
   }
+  throw error;
 };
