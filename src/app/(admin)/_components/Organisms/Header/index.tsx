@@ -7,11 +7,17 @@ import { getUsersMe } from "@/services/getUsersMe";
 import Link from "next/link";
 
 export const Header = async () => {
-  const authToken = getServerSideCookie("authToken");
-  if (!authToken) {
+  let user = null;
+  try {
+    const authToken = getServerSideCookie("authToken");
+    if (!authToken) {
+      return null;
+    }
+    user = await getUsersMe(authToken.value);
+  } catch (error) {
+    console.error(error);
     return null;
   }
-  const user = await getUsersMe(authToken.value);
   return (
     <header>
       <div className={css.header}>
