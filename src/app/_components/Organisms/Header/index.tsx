@@ -1,7 +1,7 @@
 import Link from "next/link";
 import css from "./index.module.scss";
 
-export const Header = () => {
+export const Header = async () => {
   return (
     <div className={css.headerWrapper}>
       <header className={css.header}>
