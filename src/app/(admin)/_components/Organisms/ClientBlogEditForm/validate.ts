@@ -19,7 +19,7 @@ export const ClientBlogEditFormSchema = z.object({
     .string()
     .min(1, "サムネイル画像をアップロードしてください"),
   is_public: z.boolean({ coerce: true }),
-  tags: z.string().transform((val) => val.split(",").map((tag) => tag.trim())),
+  tags: z.string().transform(stringToTags),
 });
 
 export const ClientBlogPostFormSchema = z.object({
@@ -39,5 +39,12 @@ export const ClientBlogPostFormSchema = z.object({
     .string()
     .min(1, "サムネイル画像をアップロードしてください"),
   is_public: z.boolean({ coerce: true }),
-  tags: z.string().transform((val) => val.split(",").map((tag) => tag.trim())),
+  tags: z.string().transform(stringToTags),
 });
+
+function stringToTags(tags: string): string[] {
+  return tags
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter((tag) => tag.length > 0);
+}

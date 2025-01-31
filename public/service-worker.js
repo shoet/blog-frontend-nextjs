@@ -1,5 +1,5 @@
 self.addEventListener("fetch", (event) => {
-  if (event.request.message === "PUT" || event.request.method === "POST") {
+  if (event.request.method === "PUT" || event.request.method === "POST") {
     event.respondWith(
       (async function () {
         const originalRequest = event.request;

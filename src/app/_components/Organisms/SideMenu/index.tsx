@@ -8,7 +8,7 @@ import { SkeletonLoader } from "../../Molecules/SkeletonLoader";
 
 type SideMenuProps = ComponentProps<"div">;
 
-export const SideMenu = (props: SideMenuProps) => {
+export const SideMenu = async (props: SideMenuProps) => {
   const { children, ...rest } = props;
   return (
     <div className={css.sideMenu} {...rest}>
