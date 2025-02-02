@@ -30,7 +30,7 @@ COPY --from=builder /app/.next/static ./.next/static
 # Next.jsのcacheディレクトリをLambdaで使えるようにする
 COPY --from=builder /app/run_on_lambda.sh ./run_on_lambda.sh
 RUN ln -s /tmp/cache /app/.next/cache
-RUN chmod +x ./run.sh
+RUN chmod +x ./run_on_lambda.sh
 
 ENV NODE_ENV production
 ENV PORT 3000
