@@ -1,14 +1,51 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { Lambda } from "./constructs";
+import {
+  Lambda,
+  CloudFront,
+  Route53,
+  Route53DomainNameWithDot,
+} from "./constructs";
+import { Config } from "./config";
 
 export class BlogFrontendAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
+    const config = new Config(this, props.stage);
+
+    const acmCertificate =
+      cdk.aws_certificatemanager.Certificate.fromCertificateArn(
+        this,
+        "AcmCertificate",
+        config.deployConfig.acmCertificateArn,
+      );
+
     const lambda = new Lambda(this, "Lambda", {
       stage: props.stage,
     });
+
+    const cloudfront = new CloudFront(this, "CloudFront", {
+      lambdaFunctionUrl: lambda.functionUrl,
+      certificate: acmCertificate,
+      domainName: config.deployConfig.domainName,
+    });
+
+    lambda.function.addPermission("InvokeUrlFromCloudFront", {
+      action: "lambda:InvokefunctionUrl",
+      principal: new cdk.aws_iam.ServicePrincipal("cloudfront.amazonaws.com"),
+      sourceArn: `arn:aws:cloudfront::${cdk.Aws.ACCOUNT_ID}:distribution/${cloudfront.distribution.distributionId}`,
+    });
+
+    const route53 = new Route53(this, "Route53", {
+      hostedZoneId: config.deployConfig.route53HostedZoneId,
+      hostedZoneName: config.deployConfig.route53HostedZoneId,
+    });
+
+    route53.createAliasRecord(
+      new Route53DomainNameWithDot(config.deployConfig.domainName),
+      new cdk.aws_route53_targets.CloudFrontTarget(cloudfront.distribution),
+    );
 
     new cdk.CfnOutput(this, "FunctionUrl", {
       value: lambda.functionUrl.url,
@@ -16,6 +53,10 @@ export class BlogFrontendAppStack extends cdk.Stack {
 
     new cdk.CfnOutput(this, "CloudWatchLogGroupArn", {
       value: lambda.function.logGroup.logGroupArn,
+    });
+
+    new cdk.CfnOutput(this, "DomainName", {
+      value: config.deployConfig.domainName,
     });
   }
 }

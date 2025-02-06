@@ -1,6 +1,5 @@
 import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
-import { getAppParameter } from "../SSM";
 
 type Props = {
   stage: string;
@@ -43,39 +42,28 @@ export class Lambda extends Construct {
       {
         code: cdk.aws_lambda.DockerImageCode.fromImageAsset(`${cdkRoot}/../`, {
           platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
-          buildArgs: {
-            API_HOST: getAppParameter(this, this.stage, "API_HOST", {
-              atBuild: true,
-            }),
-            CDN_HOST: getAppParameter(this, this.stage, "CDN_HOST", {
-              atBuild: true,
-            }),
-          },
         }),
         architecture: cdk.aws_lambda.Architecture.ARM_64,
         role: functionRole,
         environment: lambdaEnvironment,
         timeout: cdk.Duration.seconds(60),
+        memorySize: 1024,
       },
     );
 
     this.functionUrl = new cdk.aws_lambda.FunctionUrl(this, "FunctionUrl", {
       function: this.function,
-      authType: cdk.aws_lambda.FunctionUrlAuthType.NONE, // TODO
+      authType: cdk.aws_lambda.FunctionUrlAuthType.AWS_IAM,
       invokeMode: cdk.aws_lambda.InvokeMode.RESPONSE_STREAM,
     });
   }
 
   getLambdaEnvironment(): { [key: string]: string } {
-    const lambdaEnvironmentKeys = ["API_HOST", "CDN_HOST"];
-
     let env: { [key: string]: string } = {};
-    lambdaEnvironmentKeys.forEach((key) => {
-      env[key] = getAppParameter(this, this.stage, key);
-    });
     // アプリケーション上のポートはLambdaWebAdapterと合わせるためにビルド時に固定
     env["BLOG_APP_PORT"] = "3000";
     env["AWS_LWA_INVOKE_MODE"] = "response_stream";
+    env["TZ"] = "Asia/Tokyo";
     return env;
   }
 }
