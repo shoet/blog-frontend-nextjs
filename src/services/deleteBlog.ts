@@ -2,7 +2,8 @@ import { getServerSideCookie } from "@/utils/cookie";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
 export async function deleteBlog(blogID: number) {
-  const token = getServerSideCookie("authToken")?.value;
+  const authToken = await getServerSideCookie("authToken");
+  const token = authToken?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }

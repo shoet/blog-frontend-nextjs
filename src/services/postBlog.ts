@@ -5,7 +5,7 @@ import { getServerSideCookie } from "@/utils/cookie";
 export async function postBlog(
   props: Omit<Blog, "id" | "created" | "modified">,
 ): Promise<Blog> {
-  const token = getServerSideCookie("authToken")?.value;
+  const token = (await getServerSideCookie("authToken"))?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }

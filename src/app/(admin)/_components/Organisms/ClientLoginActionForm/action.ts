@@ -20,7 +20,8 @@ export async function loginServerAction(
     const { email, password } = data;
     const response = await login(email, password);
     // Cookieをセットする
-    cookies().set("authToken", response.authToken);
+    const cookie = await cookies();
+    cookie.set("authToken", response.authToken);
   } catch (e) {
     if (e instanceof z.ZodError) {
       return { errors: [], validateErrors: getZodValidateErrors(e) };

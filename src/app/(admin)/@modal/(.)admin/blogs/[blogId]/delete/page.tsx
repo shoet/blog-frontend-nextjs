@@ -1,12 +1,14 @@
 import { ClientDeleteConfirmDialog } from "./_components/ClientDeleteConfirmDialog";
 
 type AdminBlogDeleteProps = {
-  params: {
+  params: Promise<{
     blogId: number;
-  };
+  }>;
 };
 
-export default function Page(props: AdminBlogDeleteProps) {
-  const { blogId } = props.params;
+const BlogDeletePage = async (props: AdminBlogDeleteProps) => {
+  const { blogId } = await props.params;
   return <ClientDeleteConfirmDialog blogId={blogId} />;
-}
+};
+
+export default BlogDeletePage;

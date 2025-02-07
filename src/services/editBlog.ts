@@ -32,7 +32,7 @@ export async function editBlog(props: {
     isPublic,
     tags,
   };
-  const token = getServerSideCookie("authToken")?.value;
+  const token = (await getServerSideCookie("authToken"))?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }

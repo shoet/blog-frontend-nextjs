@@ -8,12 +8,12 @@ import { BLOG_PER_PAGE } from "@/constant";
 import { BlogCardList } from "@/app/_components/Molecules/BlogCardList";
 
 type SearchPageProps = {
-  params: {};
-  searchParams: {
+  params: Promise<{}>;
+  searchParams: Promise<{
     tag?: string;
     keyword?: string;
     page?: number;
-  };
+  }>;
 };
 
 export const generateMetadata = async (
@@ -21,7 +21,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ) => {
   const { title: appTitle } = await parent;
-  const { tag, keyword } = props.searchParams;
+  const { tag, keyword } = await props.searchParams;
 
   var search: string;
   if (keyword) {
@@ -64,7 +64,7 @@ const TagOrKeyword = (
 };
 
 const SearchPage = async (props: SearchPageProps) => {
-  const { tag, keyword, page = 1 } = props.searchParams;
+  const { tag, keyword, page = 1 } = await props.searchParams;
 
   const { blogs, totalCount } = await searchBlogs({ tag, keyword, limit: 10 });
 

@@ -7,10 +7,10 @@ import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { ClientMarkdownView } from "@/app/_components/Molecules/ClientMarkdownView";
 
 type BlogDetailPageProps = {
-  params: {
+  params: Promise<{
     blogId: number;
-  };
-  searchParams: {};
+  }>;
+  searchParams: Promise<{}>;
 };
 
 export const generateMetadata = async (
@@ -18,7 +18,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { title } = await parent;
-  const { blogId } = props.params;
+  const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
   return {
     title: `${blog.title} | ${title?.absolute}`,
@@ -27,7 +27,7 @@ export const generateMetadata = async (
 };
 
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
-  const { blogId } = props.params;
+  const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
   return (
     <div>
