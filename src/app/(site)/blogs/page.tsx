@@ -13,8 +13,8 @@ export const generateMetadata = async (
 };
 
 export default async function BlogHomePage(props: {
-  searchParams: { page: number };
+  searchParams: Promise<{ page: number }>;
 }) {
-  const { page } = props.searchParams;
+  const { page } = await props.searchParams;
   return <BlogCardListContainer page={page} />;
 }

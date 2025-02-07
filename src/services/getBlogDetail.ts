@@ -9,7 +9,7 @@ export async function getBlogDetail(ID: number): Promise<Blog> {
 }
 
 export async function getPrivateBlogDetail(ID: number): Promise<Blog> {
-  const token = getServerSideCookie("authToken")?.value;
+  const token = (await getServerSideCookie("authToken"))?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }

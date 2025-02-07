@@ -23,7 +23,7 @@ export async function blogEditSubmitAction(
     );
 
     // ユーザーIDのチェック
-    const token = getServerSideCookie("authToken")?.value;
+    const token = (await getServerSideCookie("authToken"))?.value;
     if (!token) {
       return { ...emptyFormState, generalError: "ログインしてください" };
     }
@@ -72,7 +72,7 @@ export async function blogPostSubmitAction(
     );
 
     // ユーザーIDのチェック
-    const token = getServerSideCookie("authToken")?.value;
+    const token = (await getServerSideCookie("authToken"))?.value;
     if (!token) {
       return { ...emptyFormState, generalError: "ログインしてください" };
     }

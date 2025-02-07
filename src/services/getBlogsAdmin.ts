@@ -12,7 +12,7 @@ export async function getBlogsAdmin(props: {
   const searchParams = new URLSearchParams();
   searchParams.append("limit", limit.toString());
 
-  const token = getServerSideCookie("authToken");
+  const token = await getServerSideCookie("authToken");
   if (!token) throw new Error("ログインしていません");
   return fetch(getAPIPath(`/admin/blogs?${searchParams.toString()}`), {
     headers: {

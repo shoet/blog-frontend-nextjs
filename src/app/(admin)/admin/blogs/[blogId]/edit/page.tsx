@@ -5,9 +5,9 @@ import { ClientBlogEditForm } from "@/app/(admin)/_components/Organisms/ClientBl
 import { blogEditSubmitAction } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm/actions";
 
 type BlogEditPageProps = {
-  params: {
+  params: Promise<{
     blogId: number;
-  };
+  }>;
 };
 
 export const generateMetadata = async (
@@ -15,7 +15,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { title } = await parent;
-  const { blogId } = props.params;
+  const { blogId } = await props.params;
   const blog = await getPrivateBlogDetail(blogId);
   return {
     title: `【Edit】${blog.title} | ${title?.absolute}`,
@@ -24,7 +24,7 @@ export const generateMetadata = async (
 };
 
 const BlogEditPage = async (props: BlogEditPageProps) => {
-  const { blogId } = props.params;
+  const { blogId } = await props.params;
   const blog = await getPrivateBlogDetail(blogId);
   return (
     <div className={css.page}>
