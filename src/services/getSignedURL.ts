@@ -9,7 +9,8 @@ type GetSignedURLForThumbnailResponse = {
 export async function getSignedURLForThumbnail(
   fileName: string,
 ): Promise<GetSignedURLForThumbnailResponse> {
-  const token = getServerSideCookie("authToken")?.value;
+  const authToken = await getServerSideCookie("authToken");
+  const token = authToken?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }
@@ -35,7 +36,8 @@ type GetSignedURLForContentResponse = {
 export async function getSignedURLForContent(
   fileName: string,
 ): Promise<GetSignedURLForContentResponse> {
-  const token = getServerSideCookie("authToken")?.value;
+  const authToken = await getServerSideCookie("authToken");
+  const token = authToken?.value;
   if (!token) {
     throw new Error("ログインしてください");
   }

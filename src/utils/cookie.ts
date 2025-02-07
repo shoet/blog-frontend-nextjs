@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-export function getServerSideCookie(key: string) {
-  const cookie = cookies();
+export async function getServerSideCookie(key: string) {
+  const cookie = await cookies();
   return cookie.get(key);
 }

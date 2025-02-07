@@ -26,7 +26,8 @@ export const config = {
 };
 
 export async function authGuard(): Promise<boolean> {
-  const token = cookies().get("authToken");
+  const cookie = await cookies();
+  const token = cookie.get("authToken");
   if (!token || token.value == "") return false;
   try {
     await getUsersMe(token.value);

@@ -9,7 +9,7 @@ import Link from "next/link";
 export const Header = async () => {
   let user = null;
   try {
-    const authToken = getServerSideCookie("authToken");
+    const authToken = await getServerSideCookie("authToken");
     if (!authToken) {
       return null;
     }
