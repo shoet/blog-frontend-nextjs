@@ -35,20 +35,13 @@ export class CloudFront extends Construct {
         defaultBehavior: {
           origin: functionUrlOrigin,
           allowedMethods: cdk.aws_cloudfront.AllowedMethods.ALLOW_ALL,
-          originRequestPolicy: new cdk.aws_cloudfront.OriginRequestPolicy(
-            this,
-            "OriginRequestPolicy",
-            {
-              queryStringBehavior:
-                cdk.aws_cloudfront.OriginRequestQueryStringBehavior.all(),
-              cookieBehavior:
-                cdk.aws_cloudfront.OriginRequestCookieBehavior.all(),
-            },
-          ),
+          originRequestPolicy:
+            cdk.aws_cloudfront.OriginRequestPolicy
+              .ALL_VIEWER_EXCEPT_HOST_HEADER,
           cachedMethods: cdk.aws_cloudfront.CachedMethods.CACHE_GET_HEAD,
           viewerProtocolPolicy:
             cdk.aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          cachePolicy: cdk.aws_cloudfront.CachePolicy.CACHING_OPTIMIZED,
+          cachePolicy: cdk.aws_cloudfront.CachePolicy.CACHING_DISABLED,
         },
         domainNames: [props.domainName],
         certificate: props.certificate,
