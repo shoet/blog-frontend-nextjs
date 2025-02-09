@@ -1,9 +1,18 @@
 import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import { rehypePrettyCode } from "rehype-pretty-code";
+import { NextConfig } from "next";
+
+if (!process.env.CDN_HOST) {
+  throw new Error("CDN_HOST is required");
+}
+
+if (!process.env.SERVER_ACTIONS_ALLOWED_ORIGINS) {
+  throw new Error("SERVER_ACTIONS_ALLOWED_ORIGINS is required");
+}
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "standalone",
   images: {
@@ -19,7 +28,7 @@ const nextConfig = {
   transpilePackages: ["highlight.js"],
   experimental: {
     serverActions: {
-      allowedOrigins: ["*.app.shoet.team"],
+      allowedOrigins: [process.env.SERVER_ACTIONS_ALLOWED_ORIGINS],
     },
   },
 };

@@ -19,6 +19,9 @@ export async function loginServerAction(
     assertZodSchema(validateType, data);
     const { email, password } = data;
     const response = await login(email, password);
+    if (!response.authToken) {
+      return { errors: ["ログインに失敗しました"], validateErrors: [] };
+    }
     // Cookieをセットする
     const cookie = await cookies();
     cookie.set("authToken", response.authToken);

@@ -22,8 +22,7 @@ export class Config {
       cdnHost: getAppParameter(scope, stage, "CDN_HOST", { atBuild: true }),
     };
     this.deployConfig = {
-      // domainName: getInfraParameter(scope, stage, "DOMAIN_NAME"),
-      domainName: "blog-dev-test.app.shoet.team",
+      domainName: getInfraParameter(scope, stage, "DOMAIN_NAME"),
       acmCertificateArn: getInfraParameter(
         scope,
         stage,

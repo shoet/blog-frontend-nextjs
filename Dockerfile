@@ -12,10 +12,12 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-ARG API_HOST
-ENV API_HOST=${API_HOST}
-ARG CDN_HOST
-ENV CDN_HOST=${CDN_HOST}
+RUN ls -la
+
+# 与えた.envファイルを.env.productionとしてコピーする
+ARG NEXT_ENV_FILE_NAME
+RUN cp $NEXT_ENV_FILE_NAME .env.production
+ENV NODE_ENV=production
 RUN npm run build
 
 
@@ -28,12 +30,12 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 # Next.jsのcacheディレクトリをLambdaで使えるようにする
-COPY --from=builder /app/run.sh ./run.sh
+COPY --from=builder /app/run_on_lambda.sh ./run_on_lambda.sh
 RUN ln -s /tmp/cache /app/.next/cache
-RUN chmod +x ./run.sh
+RUN chmod +x ./run_on_lambda.sh
 
-ENV NODE_ENV production
-ENV PORT 3000
+ENV NODE_ENV=production
+ENV PORT=3000
 
 ENTRYPOINT ["sh"]
-CMD ["run.sh"]
+CMD ["run_on_lambda.sh"]

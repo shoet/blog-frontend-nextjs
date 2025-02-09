@@ -12,6 +12,9 @@ export function assertZodSchema<T extends ZodSchema>(
   zObject.parse(data);
 }
 
+/**
+ * getZodValidateErrors は ZodError から ZodValidateError の配列を取得する
+ */
 export function getZodValidateErrors(e: ZodError): ZodValidateError[] {
   return e.errors.map((error) => {
     return {
@@ -21,6 +24,9 @@ export function getZodValidateErrors(e: ZodError): ZodValidateError[] {
   });
 }
 
+/**
+ * getZodValidateError は ZodValidateError の配列から特定のフィールドのエラーを取得する
+ */
 export function getZodValidateError(
   errors: ZodValidateError[],
   field: string,
