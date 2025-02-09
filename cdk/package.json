@@ -8,7 +8,7 @@
     "deploy": "STAGE=dev cdk deploy",
     "synth": "STAGE=dev cdk synth",
     "destroy": "STAGE=dev cdk destroy",
-    "deploy:prod": "STAGE=prod cdk destroy"
+    "deploy:prod": "STAGE=prod cdk deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
