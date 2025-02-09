@@ -13,6 +13,7 @@ export class Lambda extends Construct {
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
     this.stage = props.stage;
+    const stack = cdk.Stack.of(this);
 
     const cdkRoot = process.cwd();
 
@@ -36,6 +37,12 @@ export class Lambda extends Construct {
 
     const lambdaEnvironment = this.getLambdaEnvironment();
 
+    const logGroup = new cdk.aws_logs.LogGroup(this, "LambdaLogGroup", {
+      logGroupName: `/aws/lambda/${stack.stackName}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      retention: cdk.aws_logs.RetentionDays.TWO_WEEKS,
+    });
+
     this.function = new cdk.aws_lambda.DockerImageFunction(
       this,
       "DockerImageFunction",
@@ -48,6 +55,7 @@ export class Lambda extends Construct {
         environment: lambdaEnvironment,
         timeout: cdk.Duration.seconds(60),
         memorySize: 1024,
+        logGroup: logGroup,
       },
     );
 

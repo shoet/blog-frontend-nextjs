@@ -51,8 +51,8 @@ export class BlogFrontendAppStack extends cdk.Stack {
       value: lambda.functionUrl.url,
     });
 
-    new cdk.CfnOutput(this, "CloudWatchLogGroupArn", {
-      value: lambda.function.logGroup.logGroupArn,
+    new cdk.CfnOutput(this, "CloudWatchLogGroupName", {
+      value: lambda.function.logGroup.logGroupName,
     });
 
     new cdk.CfnOutput(this, "DomainName", {
