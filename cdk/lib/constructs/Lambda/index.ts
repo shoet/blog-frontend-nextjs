@@ -49,6 +49,10 @@ export class Lambda extends Construct {
       {
         code: cdk.aws_lambda.DockerImageCode.fromImageAsset(`${cdkRoot}/../`, {
           platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
+          buildArgs: {
+            NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
+          },
+          cacheDisabled: true,
         }),
         architecture: cdk.aws_lambda.Architecture.ARM_64,
         role: functionRole,

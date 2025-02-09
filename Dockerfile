@@ -12,6 +12,12 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN ls -la
+
+# 与えた.envファイルを.env.productionとしてコピーする
+ARG NEXT_ENV_FILE_NAME
+RUN cp $NEXT_ENV_FILE_NAME .env.production
+ENV NODE_ENV=production
 RUN npm run build
 
 
@@ -28,8 +34,8 @@ COPY --from=builder /app/run_on_lambda.sh ./run_on_lambda.sh
 RUN ln -s /tmp/cache /app/.next/cache
 RUN chmod +x ./run_on_lambda.sh
 
-ENV NODE_ENV production
-ENV PORT 3000
+ENV NODE_ENV=production
+ENV PORT=3000
 
 ENTRYPOINT ["sh"]
 CMD ["run_on_lambda.sh"]
