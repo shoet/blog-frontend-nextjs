@@ -5,12 +5,15 @@ import {
   CloudFront,
   Route53,
   Route53DomainNameWithDot,
+  ECR,
 } from "./constructs";
 import { Config } from "./config";
 
 export class BlogFrontendAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
+
+    const stack = cdk.Stack.of(this);
 
     const config = new Config(this, props.stage);
 
@@ -21,9 +24,17 @@ export class BlogFrontendAppStack extends cdk.Stack {
         config.deployConfig.acmCertificateArn,
       );
 
+    const ecr = new ECR(this, "ECR", {
+      repositoryName: `${stack.stackName}-repository`.toLowerCase(),
+    });
+
     const lambda = new Lambda(this, "Lambda", {
       stage: props.stage,
+      ecrRepository: ecr.repository,
+      commitHash: props.commitHash,
     });
+
+    lambda.function.node.addDependency(ecr.repository);
 
     const cloudfront = new CloudFront(this, "CloudFront", {
       lambdaFunctionUrl: lambda.functionUrl,
@@ -47,16 +58,20 @@ export class BlogFrontendAppStack extends cdk.Stack {
       new cdk.aws_route53_targets.CloudFrontTarget(cloudfront.distribution),
     );
 
+    new cdk.CfnOutput(this, "ECRRepositoryName", {
+      value: ecr.repository.repositoryName,
+    });
+
     new cdk.CfnOutput(this, "FunctionUrl", {
       value: lambda.functionUrl.url,
     });
 
-    new cdk.CfnOutput(this, "CloudWatchLogGroupName", {
-      value: lambda.function.logGroup.logGroupName,
-    });
-
     new cdk.CfnOutput(this, "DomainName", {
       value: config.deployConfig.domainName,
+    });
+
+    new cdk.CfnOutput(this, "CloudWatchLogGroupName", {
+      value: lambda.function.logGroup.logGroupName,
     });
   }
 }

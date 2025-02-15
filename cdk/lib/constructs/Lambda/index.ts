@@ -1,8 +1,11 @@
 import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
+import * as imagedeploy from "cdk-docker-image-deployment";
 
 type Props = {
   stage: string;
+  ecrRepository: cdk.aws_ecr.IRepository;
+  commitHash?: string;
 };
 
 export class Lambda extends Construct {
@@ -37,6 +40,28 @@ export class Lambda extends Construct {
 
     const lambdaEnvironment = this.getLambdaEnvironment();
 
+    const imageTag = props.commitHash || "latest";
+
+    /* 公式のCDKではcdk.aws_lambda.DockerImageCode.fromImageAsset()で作成したイメージは
+     * CDK用のECRにまとめられてしまうため、cdk-docker-image-deploymentを利用して
+     * 作成したイメージをECRにデプロイする
+     */
+    const deployedImage = new imagedeploy.DockerImageDeployment(
+      this,
+      "CDKDockerImageDeployment",
+      {
+        source: imagedeploy.Source.directory(`${cdkRoot}/../`, {
+          platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
+          buildArgs: {
+            NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
+          },
+        }),
+        destination: imagedeploy.Destination.ecr(props.ecrRepository, {
+          tag: imageTag,
+        }),
+      },
+    );
+
     const logGroup = new cdk.aws_logs.LogGroup(this, "LambdaLogGroup", {
       logGroupName: `/aws/lambda/${stack.stackName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -47,12 +72,8 @@ export class Lambda extends Construct {
       this,
       "DockerImageFunction",
       {
-        code: cdk.aws_lambda.DockerImageCode.fromImageAsset(`${cdkRoot}/../`, {
-          platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
-          buildArgs: {
-            NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
-          },
-          cacheDisabled: true,
+        code: cdk.aws_lambda.DockerImageCode.fromEcr(props.ecrRepository, {
+          tag: imageTag,
         }),
         architecture: cdk.aws_lambda.Architecture.ARM_64,
         role: functionRole,
@@ -62,6 +83,8 @@ export class Lambda extends Construct {
         logGroup: logGroup,
       },
     );
+
+    this.function.node.addDependency(deployedImage);
 
     this.functionUrl = new cdk.aws_lambda.FunctionUrl(this, "FunctionUrl", {
       function: this.function,
