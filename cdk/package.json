@@ -5,10 +5,10 @@
     "cdk": "bin/cdk.js"
   },
   "scripts": {
-    "deploy": "STAGE=dev cdk deploy",
-    "synth": "STAGE=dev cdk synth",
+    "deploy": "COMMIT_HASH=$(git rev-parse HEAD) STAGE=dev cdk deploy",
+    "synth": "COMMIT_HASH=$(git rev-parse HEAD) STAGE=dev cdk synth",
     "destroy": "STAGE=dev cdk destroy",
-    "deploy:prod": "STAGE=prod cdk deploy"
+    "deploy:prod": "COMMIT_HASH=$(git rev-parse HEAD) STAGE=prod cdk deploy"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "aws-cdk-lib": "2.173.2",
+    "cdk-docker-image-deployment": "^0.0.730",
     "constructs": "^10.0.0",
     "dotenv": "^16.4.7"
   }
