@@ -1,0 +1,41 @@
+name: Test and deployment
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "TODO"
+
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    env:
+      BRANCH: ${{ github.ref }}
+      OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    steps:
+      - name: checkou
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: deploy
+        run: |
+          if [ ${BRANCH} == 'refs/heads/master' ]; then
+            bash fetch_next_env.sh prod # .envの配置
+            cd cdk && npm ci && npm run deploy:prod
+          else
+            bash fetch_next_env.sh dev # .envの配置
+            cd cdk && npm ci && npm run deploy
+          fi

@@ -17,6 +17,7 @@ export class Lambda extends Construct {
     super(scope, id);
     this.stage = props.stage;
     const stack = cdk.Stack.of(this);
+    const { platform, architecture } = getPlatform();
 
     const cdkRoot = process.cwd();
 
@@ -51,7 +52,7 @@ export class Lambda extends Construct {
       "CDKDockerImageDeployment",
       {
         source: imagedeploy.Source.directory(`${cdkRoot}/../`, {
-          platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
+          platform: platform,
           buildArgs: {
             NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
           },
@@ -75,7 +76,7 @@ export class Lambda extends Construct {
         code: cdk.aws_lambda.DockerImageCode.fromEcr(props.ecrRepository, {
           tag: imageTag,
         }),
-        architecture: cdk.aws_lambda.Architecture.ARM_64,
+        architecture: architecture,
         role: functionRole,
         environment: lambdaEnvironment,
         timeout: cdk.Duration.seconds(60),
@@ -102,3 +103,24 @@ export class Lambda extends Construct {
     return env;
   }
 }
+
+const getPlatform = () => {
+  const architecture = process.arch;
+  switch (architecture) {
+    case "arm64":
+      return {
+        architecture: cdk.aws_lambda.Architecture.ARM_64,
+        platform: cdk.aws_ecr_assets.Platform.LINUX_ARM64,
+      };
+    case "x64":
+      return {
+        architecture: cdk.aws_lambda.Architecture.X86_64,
+        platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
+      };
+    default:
+      return {
+        architecture: cdk.aws_lambda.Architecture.X86_64,
+        platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
+      };
+  }
+};

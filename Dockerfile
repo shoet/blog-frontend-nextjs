@@ -12,7 +12,6 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN ls -la
 
 # 与えた.envファイルを.env.productionとしてコピーする
 ARG NEXT_ENV_FILE_NAME
