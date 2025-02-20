@@ -9,9 +9,13 @@ jobs:
     steps:
       - run: echo "TODO"
 
-  deploy:
-    needs: [test]
+  deploy-development:
     runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
+    timeout-minutes: 30
+    environment:
+      name: development
     permissions:
       id-token: write
     env:
@@ -32,10 +36,35 @@ jobs:
 
       - name: deploy
         run: |
-          if [ ${BRANCH} == 'refs/heads/master' ]; then
-            bash fetch_next_env.sh prod # .envの配置
-            cd cdk && npm ci && npm run deploy:prod
-          else
-            bash fetch_next_env.sh dev # .envの配置
-            cd cdk && npm ci && npm run deploy
-          fi
+          bash fetch_next_env.sh dev # .envの配置
+          cd cdk && npm ci && npm run deploy
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ github.ref == 'refs/heads/master' }}
+    timeout-minutes: 30
+    environment:
+      name: production
+    permissions:
+      id-token: write
+    env:
+      BRANCH: ${{ github.ref }}
+      OIDC_ROLE_ARN: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    steps:
+      - name: checkou
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.OIDC_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          mask-aws-account-id: true
+
+      - name: deploy
+        run: |
+          bash fetch_next_env.sh prod # .envの配置
+          cd cdk && npm ci && npm run deploy:prod
