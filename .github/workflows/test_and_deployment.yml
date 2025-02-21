@@ -83,7 +83,26 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: true
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: cache cdk node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: cdk/node_modules
+          key: node-${{ runner.os }}-${{ hashFiles('cdk/package-lock.json') }}
+          restore-keys: |
+            node-${{ runner.os }}-
+
+      - name: setup node_modules
+        working-directory: cdk
+        run: npm ci
+
+      - name: setup Next.js .env
+        run: bash fetch_next_env.sh prod
+
       - name: deploy
-        run: |
-          bash fetch_next_env.sh prod # .envの配置
-          cd cdk && npm ci && npm run deploy:prod
+        working-directory: cdk
+        run: npm run deploy:prod
