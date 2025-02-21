@@ -34,10 +34,20 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: true
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: setup node_modules
+        working-directory: cdk
+        run: npm ci
+
+      - name: setup Next.js .env
+        run: bash fetch_next_env.sh dev
+
       - name: deploy
-        run: |
-          bash fetch_next_env.sh dev # .envの配置
-          cd cdk && npm ci && npm run deploy
+        working-directory: cdk
+        run: npm run deploy
 
   deploy-production:
     runs-on: ubuntu-latest
