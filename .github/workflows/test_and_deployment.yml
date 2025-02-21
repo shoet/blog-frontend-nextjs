@@ -38,6 +38,15 @@ jobs:
         with:
           node-version: 20
 
+      - name: cache cdk node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: cdk/node_modules
+          key: node-${{ runner.os }}-${{ hashFiles('cdk/package-lock.json') }}
+          restore-keys: |
+            node-${{ runner.os }}-
+
       - name: setup node_modules
         working-directory: cdk
         run: npm ci
