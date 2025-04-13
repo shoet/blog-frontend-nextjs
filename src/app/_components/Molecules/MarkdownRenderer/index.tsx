@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { marked, MarkedOptions } from "marked";
 import hljs from "highlight.js";
 import css from "./index.module.scss";
@@ -32,20 +32,25 @@ export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
   }, [markdown]);
 
   useEffect(() => {
-    hljs.highlightAll();
     loadHeadings(); // TableOfContent用のh1,h2.h3を取得する
-  }, [htmlContent]);
-
-  useEffect(() => {
     return () => {
       cleanupHeadings(); // TableOfContentのクリーンアップ
     };
-  }, []);
+  }, [htmlContent]);
+
+  const htmlref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (htmlref.current === null) {
+      return;
+    }
+    hljs.highlightAll();
+  }, [htmlref.current?.textContent]);
 
   return (
     <div
       className={css.markdown}
       dangerouslySetInnerHTML={{ __html: htmlContent }}
+      ref={htmlref}
     />
   );
 };
