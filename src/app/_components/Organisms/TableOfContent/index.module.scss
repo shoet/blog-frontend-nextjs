@@ -1,5 +1,5 @@
 .tableOfContent {
-  background-color: #f7f7f7;
+  background-color: var(--background-color);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
     padding: 2px;
 
     &:hover {
-      background-color: #a3ccbe;
+      background-color: var(--focus-background-color);
       border-radius: 4px;
     }
   }
