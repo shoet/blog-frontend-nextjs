@@ -9,6 +9,7 @@ import { SideMenu } from "../_components/Organisms/SideMenu";
 import css from "./layout.module.scss";
 import clsx from "clsx";
 import { Spacer } from "../_components/Atoms/Spacer";
+import { TableOfContentContextProvider } from "../_components/Organisms/TableOfContentProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,16 +30,18 @@ export default function RootLayout({
         <Header />
         <Spacer height={20} />
       </div>
-      <div className={css.verticalDiv}>
-        <div className={css.verticalLeft}>
-          <main className={css.mainArea}>{children}</main>
-        </div>
-        <div className={css.verticalRight}>
-          <div className={css.sideMenu}>
-            <SideMenu />
+      <TableOfContentContextProvider>
+        <div className={css.verticalDiv}>
+          <div className={css.verticalLeft}>
+            <main className={css.mainArea}>{children}</main>
+          </div>
+          <div className={css.verticalRight}>
+            <div className={css.sideMenu}>
+              <SideMenu />
+            </div>
           </div>
         </div>
-      </div>
+      </TableOfContentContextProvider>
       <Spacer height={50} />
       <Footer />
       <Spacer height={100} />
