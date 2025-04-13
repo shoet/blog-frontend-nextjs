@@ -1,0 +1,42 @@
+.tableOfContent {
+  background-color: #f7f7f7;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .titleSummary {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .heading {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px;
+
+    &:hover {
+      background-color: #a3ccbe;
+      border-radius: 4px;
+    }
+  }
+  .heading-h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+  }
+  .heading-h2 {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+  .heading-h3 {
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+  }
+  .heading-active {
+    color: var(--color-active);
+  }
+  .heading-not-active {
+    color: var(--color-not-active);
+  }
+}

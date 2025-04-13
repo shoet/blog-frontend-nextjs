@@ -4,6 +4,7 @@ import { marked, MarkedOptions } from "marked";
 import hljs from "highlight.js";
 import css from "./index.module.scss";
 import "highlight.js/styles/monokai.css";
+import { useTableOfContentContext } from "../../Organisms/TableOfContentProvider";
 
 function addLinkTargetBlank(html: string): string {
   const regex = /<a href="(.*?)"/g;
@@ -13,6 +14,7 @@ function addLinkTargetBlank(html: string): string {
 
 export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
   const [htmlContent, setHtmlContent] = useState("");
+  const { loadHeadings, cleanupHeadings } = useTableOfContentContext();
   marked.setOptions({
     langPrefix: "",
   } as MarkedOptions);
@@ -31,7 +33,14 @@ export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
 
   useEffect(() => {
     hljs.highlightAll();
+    loadHeadings(); // TableOfContent用のh1,h2.h3を取得する
   }, [htmlContent]);
+
+  useEffect(() => {
+    return () => {
+      cleanupHeadings(); // TableOfContentのクリーンアップ
+    };
+  }, []);
 
   return (
     <div
