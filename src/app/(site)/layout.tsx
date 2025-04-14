@@ -24,27 +24,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <body className={clsx(inter.className, css.body)}>
-      <div>
-        <Spacer height={30} />
-        <Header />
-        <Spacer height={20} />
-      </div>
-      <TableOfContentContextProvider>
-        <div className={css.verticalDiv}>
-          <div className={css.verticalLeft}>
-            <main className={css.mainArea}>{children}</main>
-          </div>
-          <div className={css.verticalRight}>
-            <div className={css.sideMenu}>
-              <SideMenu />
+    <body className={inter.className}>
+      <div className={clsx(css.body)}>
+        <div>
+          <Spacer height={30} />
+          <Header />
+          <Spacer height={20} />
+        </div>
+        <TableOfContentContextProvider>
+          <div className={css.verticalDiv}>
+            <div className={css.verticalLeft}>
+              <main className={css.mainArea}>{children}</main>
+            </div>
+            <div className={css.verticalRight}>
+              <div className={css.sideMenu}>
+                <SideMenu />
+              </div>
             </div>
           </div>
-        </div>
-      </TableOfContentContextProvider>
+        </TableOfContentContextProvider>
+      </div>
       <Spacer height={50} />
       <Footer />
-      <Spacer height={100} />
     </body>
   );
 }
