@@ -14,16 +14,19 @@ const headingsStyle: Record<HeadingType, CSSProperties> = {
     "--font-size": "1.1rem",
     "--letter-spacing": "0.2rem",
     "--color": theme.colors.black,
+    "--focus-background-color": theme.colors.focusGreen,
   } as CSSProperties,
   h2: {
     "--font-size": "1.0rem",
     "--letter-spacing": "0.1rem",
     "--color": theme.colors.black,
+    "--focus-background-color": theme.colors.focusGreen,
   } as CSSProperties,
   h3: {
     "--font-size": "0.8rem",
     "--letter-spacing": "0.1rem",
     "--color": theme.colors.black,
+    "--focus-background-color": theme.colors.focusGreen,
   } as CSSProperties,
 };
 
@@ -44,7 +47,10 @@ export const TableOfContentComponent = (props: {
 }) => {
   const { headings, onClick } = props;
   return (
-    <div className={styles.tableOfContent}>
+    <div
+      className={styles.tableOfContent}
+      style={{ "--background-color": theme.colors.gray } as CSSProperties}
+    >
       <div className={styles.titleSummary}>目次</div>
       {headings.map((heading, idx) => {
         return (
