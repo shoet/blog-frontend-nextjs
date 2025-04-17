@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
       allowedOrigins: [process.env.SERVER_ACTIONS_ALLOWED_ORIGINS],
     },
   },
+  poweredByHeader: false,
 };
 
 const withMDX = createMDX({
