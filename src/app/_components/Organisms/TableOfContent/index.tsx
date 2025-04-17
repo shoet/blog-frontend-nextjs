@@ -49,7 +49,9 @@ export const TableOfContentComponent = (props: {
   return (
     <div
       className={styles.tableOfContent}
-      style={{ "--background-color": theme.colors.gray } as CSSProperties}
+      style={
+        { "--background-color": theme.colors.secondaryGray } as CSSProperties
+      }
     >
       <div className={styles.titleSummary}>目次</div>
       {headings.map((heading, idx) => {
