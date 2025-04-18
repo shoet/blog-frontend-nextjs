@@ -9,7 +9,7 @@ export const Footer = () => {
       className={css.footer}
       style={
         {
-          "--background-color": theme.colors.gray,
+          "--background-color": theme.colors.secondaryGray,
         } as CSSProperties
       }
     >

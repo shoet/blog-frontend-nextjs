@@ -30,6 +30,7 @@ export const LoadingNextImage = (props: LoadingNextImageProps) => {
         src={src}
         alt={alt}
         onLoad={handleOnLoad}
+        unoptimized
         {...rest}
         style={{ visibility }}
       />
