@@ -53,7 +53,9 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <ClientMarkdownView text={blog.content} />
+      <div id="article">
+        <ClientMarkdownView text={blog.content} />
+      </div>
     </div>
   );
 };

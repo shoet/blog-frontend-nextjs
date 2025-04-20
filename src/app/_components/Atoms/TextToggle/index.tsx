@@ -18,7 +18,7 @@ export const TextToggle = (props: Props) => {
     leftText,
     rightText,
     onChangeToggle,
-    switchColor = theme.colors.focusGreen,
+    switchColor = theme.colors.secondaryGrayMore,
     defaultStatus = "left",
   } = props;
   const [status, setStatus] = useState<ToggleStatus>(defaultStatus);
