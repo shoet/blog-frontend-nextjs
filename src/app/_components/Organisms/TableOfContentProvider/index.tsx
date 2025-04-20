@@ -30,6 +30,7 @@ const TableOfContentContext = createContext<TableOfContentContextType>({
   loadHeadings: () => {},
   cleanupHeadings: () => {},
   jumpToHeading: () => {},
+  watchRef: { current: null },
 });
 
 export const useTableOfContentContext = () => useContext(TableOfContentContext);
@@ -37,10 +38,10 @@ export const useTableOfContentContext = () => useContext(TableOfContentContext);
 export const TableOfContentContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
   const [headings, setHeadings] = useState<HeadingMap | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const watchRef = useRef<HTMLDivElement>(null);
 
   const loadHeadings = () => {
-    if (!ref.current) {
+    if (!watchRef.current) {
       return;
     }
 
@@ -97,9 +98,10 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
         loadHeadings: loadHeadings,
         cleanupHeadings: cleanupHeadings,
         jumpToHeading: jumpToHeading,
+        watchRef: watchRef,
       }}
     >
-      <div ref={ref}>{children}</div>
+      <div>{children}</div>
     </TableOfContentContext.Provider>
   );
 };
