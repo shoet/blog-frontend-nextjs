@@ -23,6 +23,7 @@ type TableOfContentContextType = {
   loadHeadings: () => void;
   cleanupHeadings: () => void;
   jumpToHeading: (key: string) => void;
+  watchRef: React.RefObject<HTMLDivElement>;
 };
 
 const TableOfContentContext = createContext<TableOfContentContextType>({
