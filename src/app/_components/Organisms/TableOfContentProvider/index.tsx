@@ -44,7 +44,11 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
       return;
     }
 
-    const elements = ref.current.querySelectorAll("h1,h2,h3");
+    const article = watchRef.current.querySelector("#article");
+    const elements = article?.querySelectorAll("h1,h2,h3");
+    if (!elements) {
+      return;
+    }
 
     const headingMap: HeadingMap = new Map();
     elements.forEach((e) => {
