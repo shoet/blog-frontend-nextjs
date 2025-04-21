@@ -5,6 +5,8 @@ import css from "./index.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { Badge } from "@/app/_components/Atoms/Badge";
+import { Divider } from "@/app/_components/Atoms/Divider";
+import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { useTableOfContentContext } from "@/app/_components/Organisms/TableOfContentProvider";
 import { useEffect } from "react";
 import { MarkdownRenderer } from "@/app/_components/Molecules/MarkdownRenderer";
@@ -57,6 +59,9 @@ export const ClientBlogDetail = (props: { blog: Blog }) => {
         </div>
       </div>
       <Spacer height={50} />
+      <Divider />
+      <Spacer height={10} />
+      <CommentForm />
     </div>
   );
 };

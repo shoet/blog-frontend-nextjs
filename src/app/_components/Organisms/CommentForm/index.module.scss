@@ -1,0 +1,68 @@
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .tabs {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+
+    .editor {
+      height: 100%;
+      textarea {
+        padding: 8px;
+        height: 100%;
+        width: 100%;
+        min-height: min-content;
+        field-sizing: content;
+        border: none;
+        outline: none;
+        resize: none;
+
+        &::placeholder {
+          color: gray;
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .preview {
+      min-height: 200px;
+    }
+  }
+
+  .noComment {
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .noCommentInner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: gray;
+    }
+  }
+
+  .sender {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
