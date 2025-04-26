@@ -5,7 +5,7 @@ import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { CSSProperties } from "react";
 import { theme } from "@/themes";
 import { Spacer } from "../../Atoms/Spacer";
-import { LoadingNextImage } from "../LoadingNextImage";
+import { LoadingNextImage } from "../../Molecules/LoadingNextImage";
 
 type BlogCardProps = {
   blog: Blog;
