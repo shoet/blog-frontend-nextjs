@@ -1,0 +1,12 @@
+.avatarImage {
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+
+  .image {
+    border-radius: 100%;
+    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
