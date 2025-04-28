@@ -9,6 +9,7 @@ const useAvatarImage = (props: { avatarImageURL?: string }) => {
   const [avatarImageURL, setAvataImageURL] = useState<string | undefined>(
     props.avatarImageURL,
   );
+  const [tmpImageURL, setTmpImageURL] = useState<string>();
   const [avatarImageValidateError, setAvataImageValidateError] =
     useState<ZodValidateError>();
   const avatarImageInputRef = useRef<HTMLInputElement>(null);
@@ -30,8 +31,17 @@ const useAvatarImage = (props: { avatarImageURL?: string }) => {
       return;
     }
     try {
-      const { destinationUrl } = await getUploadURL(file, "avatar_image");
-      setAvataImageURL(destinationUrl);
+      getUploadURL(file, "avatar_image").then(({ destinationUrl }) => {
+        if (tmpImageURL) {
+          URL.revokeObjectURL(tmpImageURL);
+          setTmpImageURL(undefined);
+        }
+        setAvataImageURL(destinationUrl);
+      });
+      const newBlob = new Blob([file], { type: file.type });
+      const tmpURL = URL.createObjectURL(newBlob);
+      setTmpImageURL(tmpURL);
+      setAvataImageURL(tmpURL);
     } catch (err) {
       console.log(err);
       setAvataImageValidateError({
@@ -42,6 +52,7 @@ const useAvatarImage = (props: { avatarImageURL?: string }) => {
   };
 
   return {
+    isLoading: tmpImageURL != undefined,
     avatarImageURL,
     avatarImageInputRef,
     avatarImageClick,
@@ -73,6 +84,7 @@ export const useUserProfileEdit = (props: {
   );
 
   const {
+    isLoading: avatarImageURLLoading,
     avatarImageURL,
     avatarImageInputRef,
     avatarImageClick,
@@ -88,7 +100,7 @@ export const useUserProfileEdit = (props: {
   return {
     ...state.payload,
     avatarImageURL,
-    isLoading,
+    isLoading: isLoading || avatarImageURLLoading,
     errors: state.errors,
     validateErrors: validateErrors,
     action: serverAction,
