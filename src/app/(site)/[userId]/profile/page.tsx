@@ -3,9 +3,9 @@ import { getUserProfile } from "@/services/userProfile";
 import { Metadata, ResolvingMetadata } from "next";
 
 type UserProfileProps = {
-  params: {
+  params: Promise<{
     userId: number;
-  };
+  }>;
 };
 
 export const generateMetadata = async (
@@ -13,7 +13,7 @@ export const generateMetadata = async (
   parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { title } = await parent;
-  const { userId } = props.params;
+  const { userId } = await props.params;
   const userProfile = await getUserProfile(userId);
   const description = userProfile.nickname;
   return {
@@ -23,7 +23,7 @@ export const generateMetadata = async (
 };
 
 export default async function Page(props: UserProfileProps) {
-  const { userId } = props.params;
+  const { userId } = await props.params;
   const userProfile = await getUserProfile(userId);
   return (
     <div>

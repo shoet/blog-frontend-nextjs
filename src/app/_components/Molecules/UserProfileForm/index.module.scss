@@ -1,5 +1,15 @@
 $editor-bg: #dfe6da;
 
+.alert {
+  margin-bottom: 20px;
+
+  background-color: #fff1f1;
+  border-radius: 5px;
+  color: #ff0f0f;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
 .userProfile {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -79,4 +89,9 @@ $editor-bg: #dfe6da;
   display: flex;
   flex-direction: row;
   justify-content: end;
+}
+
+.validateError {
+  font-size: 0.8rem;
+  color: var(--font-color-error);
 }
