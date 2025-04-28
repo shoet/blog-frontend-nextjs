@@ -54,3 +54,32 @@ export async function getSignedURLForContent(
     .then(handleSuccess)
     .catch(handleFailed);
 }
+
+type GetSignedURLResponse = {
+  uploadUrl: string;
+  destinationUrl: string;
+};
+
+export async function getSignedURL(
+  fileName: string,
+  fileType: string,
+): Promise<GetSignedURLResponse> {
+  const authToken = await getServerSideCookie("authToken");
+  const token = authToken?.value;
+  if (!token) {
+    throw new Error("ログインしてください");
+  }
+  const body: { [key: string]: string } = {
+    fileName: fileName,
+    fileType: fileType,
+  };
+  return fetch(getAPIPath("/files/upload"), {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(handleSuccess)
+    .catch(handleFailed);
+}

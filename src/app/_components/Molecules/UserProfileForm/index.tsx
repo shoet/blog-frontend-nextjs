@@ -1,12 +1,11 @@
 "use client";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 import styles from "./index.module.scss";
 import { theme } from "@/themes";
 import { AvatarImage } from "../AvatarImage";
 import { useUserProfileEdit } from "./hooks";
 import { getZodValidateError, ZodValidateError } from "@/utils/validate";
-import { Alert } from "../../Atoms/Alert";
 
 type Props = {
   userId: number;
@@ -27,6 +26,9 @@ export const UserProfileForm = (props: Props) => {
     errors = [],
     validateErrors,
     action,
+    avatarImageInputRef,
+    avatarImageClick,
+    avatarImageOnChange,
   } = useUserProfileEdit({ ...props });
 
   return (
@@ -41,6 +43,9 @@ export const UserProfileForm = (props: Props) => {
         bio={bio}
         isLoading={isLoading}
         validateErrors={validateErrors}
+        avatarImageInputRef={avatarImageInputRef}
+        avatarImageClick={avatarImageClick}
+        avatarImageOnChange={avatarImageOnChange}
       />
     </form>
   );
@@ -51,7 +56,10 @@ const UserProfileFormPresenter = (props: {
   avatarImageURL: string;
   bio?: string;
   isLoading?: boolean;
-  validateErrors?: ZodValidateError[];
+  validateErrors: ZodValidateError[];
+  avatarImageInputRef?: React.RefObject<HTMLInputElement>;
+  avatarImageClick?: () => void;
+  avatarImageOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   const {
     nickname,
@@ -59,6 +67,9 @@ const UserProfileFormPresenter = (props: {
     bio,
     isLoading,
     validateErrors = [],
+    avatarImageInputRef,
+    avatarImageClick,
+    avatarImageOnChange,
   } = props;
   const style = {
     "--title-color": theme.colors.black,
@@ -72,11 +83,24 @@ const UserProfileFormPresenter = (props: {
   return (
     <div className={styles.userProfile} style={style}>
       <div className={styles.avatar}>
-        <div className={styles.avatarInner}>
-          <AvatarImage imageURL={avatarImageURL} />
-          <input hidden name="avatarImageURL" readOnly />
-        </div>
-        <button className={styles.avatarChangeButton}>変更する</button>
+        <AvatarImage
+          imageURL={avatarImageURL}
+          onClick={() => avatarImageClick && avatarImageClick()}
+        />
+        <input
+          hidden
+          type="file"
+          ref={avatarImageInputRef}
+          onChange={avatarImageOnChange}
+        />
+        <input hidden value={avatarImageURL} name="avatarImageURL" />
+        <button
+          type="button"
+          className={styles.avatarChangeButton}
+          onClick={() => avatarImageClick && avatarImageClick()}
+        >
+          変更する
+        </button>
       </div>
       <div className={styles.editor}>
         <div>
@@ -92,7 +116,11 @@ const UserProfileFormPresenter = (props: {
         </div>
         <div>
           <div className={styles.title}>自己紹介</div>
-          <textarea name="bio" placeholder="自己紹介を入力" />
+          <textarea
+            name="bio"
+            defaultValue={bio}
+            placeholder="自己紹介を入力"
+          />
         </div>
         <div className={styles.sender}>
           <Button type="submit" variant="secondaryDark" disabled={isLoading}>

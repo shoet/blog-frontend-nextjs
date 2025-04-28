@@ -7,11 +7,13 @@ type Props = {
 } & ComponentProps<"img">;
 
 export const AvatarImage = (props: Props) => {
+  const { imageURL, alt, ...rest } = props;
   return (
     <img
       className={styles.avatarImage}
-      src={props.imageURL}
-      alt={props.alt ?? "profile"}
+      src={imageURL}
+      alt={alt ?? "profile"}
+      {...rest}
     />
   );
 };

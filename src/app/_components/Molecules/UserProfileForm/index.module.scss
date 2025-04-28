@@ -26,15 +26,7 @@ $editor-bg: #dfe6da;
     justify-content: start;
     align-items: center;
     padding-right: 20px;
-
-    .avatarInner {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: auto;
-    }
+    cursor: pointer;
 
     .avatarChangeButton {
       padding: 0;

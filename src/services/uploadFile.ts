@@ -29,3 +29,21 @@ export async function uploadFileForContent(
     .then(handleSuccess)
     .catch(handleFailed);
 }
+
+type GetUploadURLResponse = {
+  uploadUrl: string;
+  destinationUrl: string;
+};
+
+export async function getUploadURL(
+  file: File,
+  fileType: "thumbnail_image" | "blog_content_image" | "avatar_image",
+): Promise<GetUploadURLResponse> {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("fileType", fileType);
+  formData.append("content-type", file.type);
+  return fetch("/api/files/upload", { method: "POST", body: formData })
+    .then(handleSuccess)
+    .catch(handleFailed);
+}

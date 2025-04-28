@@ -7,6 +7,6 @@ export type UserProfileEditState = {
     nickname?: string;
     bio?: string;
   };
-  errors?: string[];
-  validateErrors?: ZodValidateError[];
+  errors: string[];
+  validateErrors: ZodValidateError[];
 };

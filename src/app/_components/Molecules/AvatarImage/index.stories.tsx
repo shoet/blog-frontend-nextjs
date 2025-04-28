@@ -14,7 +14,7 @@ export const Default: Story = {
   },
   render: (args) => {
     return (
-      <div style={{ height: "200px", width: "200px", backgroundColor: "gray" }}>
+      <div style={{ height: "100px", width: "200px", backgroundColor: "gray" }}>
         <AvatarImage {...args} />
       </div>
     );

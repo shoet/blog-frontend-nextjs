@@ -27,7 +27,14 @@ export default async function Page(props: UserProfileProps) {
   const userProfile = await getUserProfile(userId);
   return (
     <div>
-      <UserProfile userProfile={userProfile} />
+      <UserProfile
+        userProfile={{
+          userId: userProfile.userId,
+          nickname: userProfile.nickname,
+          avatarImageURL: userProfile.avatarImageFileURL,
+          bio: userProfile.bio,
+        }}
+      />
     </div>
   );
 }
