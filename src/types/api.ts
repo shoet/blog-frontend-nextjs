@@ -34,3 +34,10 @@ export type GitHubContributions = {
     },
   ];
 };
+
+export type UserProfile = {
+  userId: number;
+  nickname: string;
+  bio?: string;
+  avatarImageURL?: string;
+};
