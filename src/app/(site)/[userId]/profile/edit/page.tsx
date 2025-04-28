@@ -1,6 +1,8 @@
 import { UserProfileForm } from "@/app/_components/Molecules/UserProfileForm";
+import { authGuard } from "@/middleware";
 import { getUserProfile } from "@/services/userProfile";
 import { Metadata, ResolvingMetadata } from "next";
+import { redirect } from "next/navigation";
 
 type UserProfileEditProps = {
   params: Promise<{
@@ -24,6 +26,9 @@ export const generateMetadata = async (
 };
 
 const UserProfileEditPage = async (props: UserProfileEditProps) => {
+  if (!(await authGuard())) {
+    redirect("/blogs");
+  }
   const { userId } = await props.params;
   const { nickname, bio, avatarImageFileURL } = await getUserProfile(userId);
   return (

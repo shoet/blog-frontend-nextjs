@@ -7,10 +7,12 @@ import Link from "next/link";
 
 type Props = {
   userProfile: UserProfileType;
+  showEdit?: boolean;
 };
 
 export const UserProfile = (props: Props) => {
   const { userId, nickname, avatarImageURL, bio } = props.userProfile;
+  const { showEdit = false } = props;
 
   const style = {
     "--background-color": theme.colors.secondaryDark,
@@ -24,9 +26,14 @@ export const UserProfile = (props: Props) => {
       <div className={styles.profile}>
         <div className={styles.title}>
           <span className={styles.nickname}>{nickname}</span>
-          <Link className={styles.editButton} href={`/${userId}/profile/edit`}>
-            編集する
-          </Link>
+          {showEdit && (
+            <Link
+              className={styles.editButton}
+              href={`/${userId}/profile/edit`}
+            >
+              編集する
+            </Link>
+          )}
         </div>
         <div className={styles.biography}>{bio}</div>
       </div>

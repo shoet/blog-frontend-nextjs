@@ -1,6 +1,8 @@
 import { UserProfile } from "@/app/_components/Molecules/UserProfile";
+import { getUsersMe } from "@/services/getUsersMe";
 import { getUserProfile } from "@/services/userProfile";
 import { Metadata, ResolvingMetadata } from "next";
+import { cookies } from "next/headers";
 
 type UserProfileProps = {
   params: Promise<{
@@ -25,6 +27,7 @@ export const generateMetadata = async (
 export default async function Page(props: UserProfileProps) {
   const { userId } = await props.params;
   const userProfile = await getUserProfile(userId);
+  const isShowEditButton = await isShowEdit(userId);
   return (
     <div>
       <UserProfile
@@ -34,7 +37,17 @@ export default async function Page(props: UserProfileProps) {
           avatarImageURL: userProfile.avatarImageFileURL,
           bio: userProfile.bio,
         }}
+        showEdit={isShowEditButton}
       />
     </div>
   );
+}
+
+async function isShowEdit(userId: number) {
+  const cookie = await cookies();
+  const token = cookie.get("authToken");
+  if (!token) return false;
+  const user = await getUsersMe(token.value);
+  if (userId == user.id) return true;
+  return false;
 }
