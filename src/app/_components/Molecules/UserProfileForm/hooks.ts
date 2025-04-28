@@ -5,6 +5,7 @@ import { userProfileEditAction } from "./actions";
 
 export type UserProfileEditState = {
   payload: {
+    userId: number;
     avatarImageURL?: string;
     nickname?: string;
     bio?: string;
@@ -14,11 +15,12 @@ export type UserProfileEditState = {
 };
 
 export const useUserProfileEdit = (props: {
+  userId: number;
   avatarImageURL?: string;
   nickname?: string;
   bio?: string;
 }) => {
-  const { avatarImageURL, nickname, bio } = props;
+  const { userId, avatarImageURL, nickname, bio } = props;
   const [state, serverAction] = useActionState(
     async (
       state: UserProfileEditState,
@@ -31,7 +33,7 @@ export const useUserProfileEdit = (props: {
         return { payload: state.payload, errors: ["submit error"] };
       }
     },
-    { payload: { avatarImageURL, nickname, bio } },
+    { payload: { userId, avatarImageURL, nickname, bio } },
   );
 
   return {

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { UserProfileForm } from ".";
 
 export default {
-  title: "Molecules/UserProfileForm",
+  title: "Molecules/UserProfileForm/Presenter",
   component: UserProfileForm,
 } as Meta<typeof UserProfileForm>;
 
