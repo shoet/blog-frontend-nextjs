@@ -1,9 +1,9 @@
 import { Blog } from "@/types/api";
 import { BlogCard } from "../BlogCard";
 import css from "./index.module.scss";
-import { Pagenator } from "../Pagenator";
 import { Spacer } from "../../Atoms/Spacer";
 import Link from "next/link";
+import { Pagenator } from "../../Molecules/Pagenator";
 
 type BlogCardListProps = {
   blogs: Blog[];

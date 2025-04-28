@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { BlogCard } from ".";
 
 export default {
-  title: "Molecules/BlogCard",
+  title: "Organisms/BlogCard",
   component: BlogCard,
 } as Meta<typeof BlogCard>;
 

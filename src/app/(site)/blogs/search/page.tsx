@@ -5,7 +5,7 @@ import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
 import { ComponentProps } from "react";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { BLOG_PER_PAGE } from "@/constant";
-import { BlogCardList } from "@/app/_components/Molecules/BlogCardList";
+import { BlogCardList } from "@/app/_components/Organisms/BlogCardList";
 
 type SearchPageProps = {
   params: Promise<{}>;

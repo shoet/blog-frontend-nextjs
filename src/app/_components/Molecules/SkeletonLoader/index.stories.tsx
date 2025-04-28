@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { SkeletonLoader } from ".";
 
 export default {
-  title: "Organisms/SkeletonLoader",
+  title: "Molecules/SkeletonLoader",
   component: SkeletonLoader,
 } as Meta<typeof SkeletonLoader>;
 

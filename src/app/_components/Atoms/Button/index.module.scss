@@ -14,4 +14,11 @@
     background-color: var(--focus-color);
     border-color: var(--focus-border-color);
   }
+
+  &:disabled {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    cursor: default;
+  }
 }
