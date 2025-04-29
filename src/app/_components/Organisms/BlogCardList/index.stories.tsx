@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { BlogCardList } from ".";
 
 export default {
-  title: "Molecules/BlogCardList",
+  title: "Organisms/BlogCardList",
   component: BlogCardList,
   parameters: {
     nextjs: {

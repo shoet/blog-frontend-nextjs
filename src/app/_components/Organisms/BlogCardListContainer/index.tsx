@@ -1,6 +1,6 @@
 import { getBlogs } from "@/services/getBlogs";
 import { BLOG_PER_PAGE } from "@/constant";
-import { BlogCardList } from "../../Molecules/BlogCardList";
+import { BlogCardList } from "../BlogCardList";
 
 export const BlogCardListContainer = async (props: { page?: number }) => {
   const { page = 1 } = props;
