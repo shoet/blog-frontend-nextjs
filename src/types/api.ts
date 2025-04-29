@@ -23,6 +23,7 @@ export type Blog = {
 export type User = {
   id: number;
   name: string;
+  profile?: UserProfile;
 };
 
 export type GitHubContributions = {
