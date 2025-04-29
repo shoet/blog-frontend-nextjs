@@ -3,7 +3,7 @@
 import { useActionState, useRef, useState } from "react";
 import { userProfileEditStateAction } from "./actions";
 import { ZodValidateError } from "@/utils/validate";
-import { getUploadURL } from "@/services/uploadFile";
+import { getUploadURL } from "@/services/routeHandler";
 
 const useAvatarImage = (props: { avatarImageURL?: string }) => {
   const [isAvatarImageUploading, setIsAvatarImageUploading] = useState(false);
