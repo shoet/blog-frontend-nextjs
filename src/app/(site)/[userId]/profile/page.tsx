@@ -34,7 +34,7 @@ export default async function Page(props: UserProfileProps) {
         userProfile={{
           userId: userProfile.userId,
           nickname: userProfile.nickname,
-          avatarImageURL: userProfile.avatarImageFileURL,
+          avatarImageFileURL: userProfile.avatarImageFileURL,
           bio: userProfile.bio,
         }}
         showEdit={isShowEditButton}

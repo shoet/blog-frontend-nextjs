@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const UserProfile = (props: Props) => {
-  const { userId, nickname, avatarImageURL, bio } = props.userProfile;
+  const { userId, nickname, avatarImageFileURL, bio } = props.userProfile;
   const { showEdit = false } = props;
 
   const style = {
@@ -21,7 +21,7 @@ export const UserProfile = (props: Props) => {
   return (
     <div className={styles.userProfile} style={style}>
       <div className={styles.avatar}>
-        <AvatarImage imageURL={avatarImageURL || "/avatar_default.png"} />
+        <AvatarImage imageURL={avatarImageFileURL || "/avatar_default.png"} />
       </div>
       <div className={styles.profile}>
         <div className={styles.title}>

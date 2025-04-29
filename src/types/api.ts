@@ -40,5 +40,5 @@ export type UserProfile = {
   userId: number;
   nickname: string;
   bio?: string;
-  avatarImageURL?: string;
+  avatarImageFileURL?: string;
 };

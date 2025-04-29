@@ -1,6 +1,6 @@
 "use client";
 
-import { Blog } from "@/types/api";
+import { Blog, UserProfile } from "@/types/api";
 import css from "./index.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
@@ -11,7 +11,10 @@ import { useTableOfContentContext } from "@/app/_components/Organisms/TableOfCon
 import { useEffect } from "react";
 import { MarkdownRenderer } from "@/app/_components/Molecules/MarkdownRenderer";
 
-export const ClientBlogDetail = (props: { blog: Blog }) => {
+export const ClientBlogDetail = (props: {
+  blog: Blog;
+  currentUserProfile?: UserProfile;
+}) => {
   const { blog } = props;
   const { loadHeadings, cleanupHeadings, watchRef } =
     useTableOfContentContext();
@@ -61,7 +64,7 @@ export const ClientBlogDetail = (props: { blog: Blog }) => {
       <Spacer height={50} />
       <Divider />
       <Spacer height={10} />
-      <CommentForm />
+      <CommentForm commentUser={props.currentUserProfile} />
     </div>
   );
 };

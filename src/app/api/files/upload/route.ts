@@ -4,13 +4,11 @@ import { generateBase32EncodedUuid } from "@/utils/uuid";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
-  console.log("### start upload");
   const form = await request.formData();
   try {
     const blob = form.get("file") as Blob;
     const fileType = form.get("fileType")?.toString();
     const contentType = form.get("content-type") as string;
-    console.log("### start upload");
     if (blob === null || contentType === null || !fileType) {
       return NextResponse.json(
         { message: "input is invalid" },

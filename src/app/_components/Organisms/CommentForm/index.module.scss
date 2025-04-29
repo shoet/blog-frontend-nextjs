@@ -8,6 +8,22 @@
     font-weight: bold;
   }
 
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    .avatar {
+      width: 40px;
+    }
+
+    .toggle {
+      width: 100%;
+    }
+  }
+
   .tabs {
     min-height: 200px;
     display: flex;
@@ -28,7 +44,6 @@
         &::placeholder {
           color: gray;
           font-size: 0.9rem;
-          font-weight: bold;
         }
       }
     }
