@@ -8,20 +8,25 @@
     font-weight: bold;
   }
 
-  .header {
+  .avatar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
-    gap: 10px;
-
-    .avatar {
+    gap: 20px;
+    height: 40px;
+    img {
       width: 40px;
     }
 
-    .toggle {
-      width: 100%;
+    .name {
+      font-size: 1.1rem;
+      font-weight: bold;
     }
+  }
+
+  .toggle {
+    width: 100%;
   }
 
   .tabs {

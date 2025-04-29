@@ -15,7 +15,7 @@ export const ClientBlogDetail = (props: {
   blog: Blog;
   currentUserProfile?: UserProfile;
 }) => {
-  const { blog } = props;
+  const { blog, currentUserProfile } = props;
   const { loadHeadings, cleanupHeadings, watchRef } =
     useTableOfContentContext();
 
@@ -64,7 +64,7 @@ export const ClientBlogDetail = (props: {
       <Spacer height={50} />
       <Divider />
       <Spacer height={10} />
-      <CommentForm commentUser={props.currentUserProfile} />
+      <CommentForm blogId={blog.id} commentUser={currentUserProfile} />
     </div>
   );
 };
