@@ -3,7 +3,15 @@ import { Metadata, ResolvingMetadata } from "next";
 import { ClientBlogDetail } from "./_components/ClientBlogDetail";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
+
 import { UserProfile } from "@/types/api";
+import css from "./page.module.scss";
+import { Spacer } from "@/app/_components/Atoms/Spacer";
+import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
+import { Badge } from "@/app/_components/Atoms/Badge";
+import { Divider } from "@/app/_components/Atoms/Divider";
+import { CommentForm } from "@/app/_components/Organisms/CommentForm";
+import { CommentList } from "@/app/_components/Organisms/CommentList";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -31,7 +39,39 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
     getBlogDetail(blogId),
     getProfile(),
   ]);
-  return <ClientBlogDetail blog={blog} currentUserProfile={userProfile} />;
+  return (
+    <div>
+      <div className={css.title}>{blog.title}</div>
+      <Spacer height={20} />
+      <div className={css.descriptionArea}>
+        <div className={css.date}>{toStringYYYYMMDD_HHMMSS(blog.created)}</div>
+        <Spacer width={20} />
+        {blog.tags && (
+          <div className={css.tags}>
+            {blog.tags.map((tag) => {
+              return <Badge key={tag}>{tag}</Badge>;
+            })}
+          </div>
+        )}
+      </div>
+      <Spacer height={20} />
+      <div className={css.imageWrapper}>
+        <img
+          className={css.image}
+          src={blog.thumbnailImageFileName}
+          alt={blog.title}
+        />
+      </div>
+      <Spacer height={20} />
+      <ClientBlogDetail blog={blog} />
+      <Spacer height={50} />
+      <Divider />
+      <div className={css.commentTitle}>コメント</div>
+      <Spacer height={10} />
+      <CommentList blogId={blog.id} />
+      <CommentForm blogId={blog.id} commentUser={userProfile} />
+    </div>
+  );
 };
 
 async function getProfile(): Promise<UserProfile | undefined> {

@@ -42,3 +42,18 @@ export type UserProfile = {
   bio?: string;
   avatarImageFileURL?: string;
 };
+
+export type Comment = {
+  commentId: number;
+  blogId: number;
+  clientId?: string;
+  userId?: number;
+  avatarImageFileURL?: string;
+  nickname?: string;
+  content: string;
+  isEdited: boolean;
+  isDeleted: boolean;
+  threadId?: string;
+  created: number;
+  modified: number;
+};

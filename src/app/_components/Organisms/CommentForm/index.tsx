@@ -65,7 +65,6 @@ export const CommentForm = (props: Props) => {
 
   return (
     <div className={styles.commentForm}>
-      <div className={styles.title}>コメント</div>
       <div className={styles.avatar}>
         <AvatarImage
           imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
