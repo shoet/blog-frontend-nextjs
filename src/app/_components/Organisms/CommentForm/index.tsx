@@ -1,14 +1,15 @@
 "use client";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../Atoms/Button";
 import { MarkdownRenderer } from "../../Molecules/MarkdownRenderer";
 import styles from "./index.module.scss";
 import { TextToggle } from "../../Atoms/TextToggle";
 import { Divider } from "../../Atoms/Divider";
 import { AvatarImage } from "../../Molecules/AvatarImage";
-import { UserProfile } from "@/types/api";
+import { Comment, UserProfile } from "@/types/api";
 import { getHandlename } from "@/services/routeHandler";
-import { SkeletonLoader } from "../../Molecules/SkeletonLoader";
+import { toStringYYYYMMDD_HHMMSS_ja } from "@/utils/date";
+import { CommentList } from "../CommentList";
 
 const NoComment = () => {
   return (
@@ -22,26 +23,27 @@ const NoComment = () => {
 
 type Props = {
   blogId: number;
+  comments: Comment[];
   commentUser?: UserProfile;
   postComment?: (text: string) => void;
 };
 
 export const CommentForm = (props: Props) => {
-  const { blogId, commentUser, postComment } = props;
+  const { blogId, comments, commentUser, postComment } = props;
 
-  const [text, setText] = useState("");
+  const [comment, setComment] = useState("");
 
   const [anonymous, setAnonymous] = useState<string>();
 
   const handleChangeText = (text: string) => {
-    setText(text);
+    setComment(text);
   };
 
   const submitComment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (text.length === 0) return;
-    postComment?.(text);
-    setText("");
+    if (comment.length === 0) return;
+    postComment?.(comment);
+    setComment("");
   };
 
   const [showPreview, setShowPreview] = useState(false);
@@ -64,53 +66,59 @@ export const CommentForm = (props: Props) => {
   const defaultAvatarURL = "/avatar_default.png";
 
   return (
-    <div className={styles.commentForm}>
-      <div className={styles.avatar}>
-        <AvatarImage
-          imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
-        />
-        <div className={styles.name}>
-          {commentUser?.nickname || `匿名ユーザー(ID: ${anonymous || ""})`}
+    <div>
+      <CommentList comments={comments} />
+      <div className={styles.commentForm}>
+        <div className={styles.avatar}>
+          <AvatarImage
+            imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
+          />
+          <div className={styles.name}>
+            {commentUser?.nickname || `匿名ユーザー(ID: ${anonymous || ""})`}
+          </div>
         </div>
-      </div>
-      <div className={styles.toggle}>
-        <TextToggle
-          leftText="Markdown"
-          rightText="Preview"
-          onChangeToggle={() => handleToggle()}
-        />
-      </div>
-      <div className={styles.tabs} onClick={() => textareaRef.current?.focus()}>
-        {!showPreview ? (
-          <div className={styles.editor}>
-            <textarea
-              ref={textareaRef}
-              rows={5}
-              onChange={(e) => handleChangeText(e.target?.value)}
-              placeholder="コメントを投稿する"
-              value={text}
-            />
-          </div>
-        ) : (
-          <div className={styles.preview}>
-            {text.length !== 0 ? (
-              <MarkdownRenderer markdown={text} />
-            ) : (
-              <NoComment />
-            )}
-          </div>
-        )}
-      </div>
-      <Divider />
-      <div className={styles.sender}>
-        <Button
-          variant="secondaryDark"
-          onSubmit={submitComment}
-          round
-          disabled={text == ""}
+        <div className={styles.toggle}>
+          <TextToggle
+            leftText="Markdown"
+            rightText="Preview"
+            onChangeToggle={() => handleToggle()}
+          />
+        </div>
+        <div
+          className={styles.tabs}
+          onClick={() => textareaRef.current?.focus()}
         >
-          投稿する
-        </Button>
+          {!showPreview ? (
+            <div className={styles.editor}>
+              <textarea
+                ref={textareaRef}
+                rows={5}
+                onChange={(e) => handleChangeText(e.target?.value)}
+                placeholder="コメントを投稿する"
+                value={comment}
+              />
+            </div>
+          ) : (
+            <div className={styles.preview}>
+              {comment.length !== 0 ? (
+                <MarkdownRenderer markdown={comment} />
+              ) : (
+                <NoComment />
+              )}
+            </div>
+          )}
+        </div>
+        <Divider />
+        <div className={styles.sender}>
+          <Button
+            variant="secondaryDark"
+            onSubmit={submitComment}
+            round
+            disabled={comment == ""}
+          >
+            投稿する
+          </Button>
+        </div>
       </div>
     </div>
   );

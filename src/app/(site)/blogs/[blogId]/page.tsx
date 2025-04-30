@@ -11,7 +11,7 @@ import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
-import { CommentList } from "@/app/_components/Organisms/CommentList";
+import { getComments } from "@/services/getComments";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -33,12 +33,24 @@ export const generateMetadata = async (
   };
 };
 
+const Comment = async (props: { blogId: number }) => {
+  const [userProfile, { comments }] = await Promise.all([
+    getProfile(),
+    getComments(props.blogId),
+  ]);
+
+  return (
+    <CommentForm
+      blogId={props.blogId}
+      comments={comments}
+      commentUser={userProfile}
+    />
+  );
+};
+
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
-  const [blog, userProfile] = await Promise.all([
-    getBlogDetail(blogId),
-    getProfile(),
-  ]);
+  const blog = await getBlogDetail(blogId);
   return (
     <div>
       <div className={css.title}>{blog.title}</div>
@@ -68,8 +80,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
       <Divider />
       <div className={css.commentTitle}>コメント</div>
       <Spacer height={10} />
-      <CommentList blogId={blog.id} />
-      <CommentForm blogId={blog.id} commentUser={userProfile} />
+      <Comment blogId={blogId} />
     </div>
   );
 };

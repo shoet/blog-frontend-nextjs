@@ -1,21 +1,9 @@
 import { Comment } from "@/types/api";
 import styles from "./index.module.scss";
-import { getComments } from "@/services/getComments";
 import { AvatarImage } from "../../Molecules/AvatarImage";
 import { toStringYYYYMMDD_HHMMSS_ja } from "@/utils/date";
 
-type Props = {
-  blogId: number;
-};
-
-export const CommentList = async (props: Props) => {
-  const { comments } = await getComments(props.blogId);
-  return comments.length === 0 ? null : (
-    <CommentListPresenter comments={comments} />
-  );
-};
-
-export const CommentListPresenter = (props: { comments: Comment[] }) => {
+export const CommentList = (props: { comments: Comment[] }) => {
   const { comments } = props;
 
   return (

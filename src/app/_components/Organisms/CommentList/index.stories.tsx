@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { CommentListPresenter } from ".";
+import { CommentList } from ".";
 
 export default {
-  title: "Organisms/CommentListPresenter",
-  component: CommentListPresenter,
-} as Meta<typeof CommentListPresenter>;
+  title: "Organisms/CommentList",
+  component: CommentList,
+} as Meta<typeof CommentList>;
 
-type Story = StoryObj<typeof CommentListPresenter>;
+type Story = StoryObj<typeof CommentList>;
 
 export const Default: Story = {
   args: {
