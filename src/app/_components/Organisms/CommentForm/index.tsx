@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Button } from "../../Atoms/Button";
 import { MarkdownRenderer } from "../../Molecules/MarkdownRenderer";
 import styles from "./index.module.scss";
@@ -7,9 +7,8 @@ import { TextToggle } from "../../Atoms/TextToggle";
 import { Divider } from "../../Atoms/Divider";
 import { AvatarImage } from "../../Molecules/AvatarImage";
 import { Comment, UserProfile } from "@/types/api";
-import { getHandlename } from "@/services/routeHandler";
-import { toStringYYYYMMDD_HHMMSS_ja } from "@/utils/date";
 import { CommentList } from "../CommentList";
+import { useCommentForm } from "./hooks";
 
 const NoComment = () => {
   return (
@@ -31,35 +30,14 @@ type Props = {
 export const CommentForm = (props: Props) => {
   const { blogId, comments, commentUser, postComment } = props;
 
-  const [comment, setComment] = useState("");
-
-  const [anonymous, setAnonymous] = useState<string>();
-
-  const handleChangeText = (text: string) => {
-    setComment(text);
-  };
-
-  const submitComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (comment.length === 0) return;
-    postComment?.(comment);
-    setComment("");
-  };
-
-  const [showPreview, setShowPreview] = useState(false);
-
-  const handleToggle = () => {
-    setShowPreview(!showPreview);
-  };
-
-  useEffect(() => {
-    // ログインユーザーでない場合、匿名ユーザーとしてIDを生成する
-    if (props.commentUser) return;
-    (async () => {
-      const { handlename } = await getHandlename(blogId);
-      setAnonymous(handlename);
-    })();
-  }, [props.commentUser]);
+  const {
+    comment,
+    handlename,
+    showPreview,
+    previewToggle,
+    handleChangeComment,
+    submitComment,
+  } = useCommentForm({ blogId, commentUser });
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -74,14 +52,14 @@ export const CommentForm = (props: Props) => {
             imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
           />
           <div className={styles.name}>
-            {commentUser?.nickname || `匿名ユーザー(ID: ${anonymous || ""})`}
+            {commentUser?.nickname || `匿名ユーザー(ID: ${handlename || ""})`}
           </div>
         </div>
         <div className={styles.toggle}>
           <TextToggle
             leftText="Markdown"
             rightText="Preview"
-            onChangeToggle={() => handleToggle()}
+            onChangeToggle={previewToggle}
           />
         </div>
         <div
@@ -93,7 +71,7 @@ export const CommentForm = (props: Props) => {
               <textarea
                 ref={textareaRef}
                 rows={5}
-                onChange={(e) => handleChangeText(e.target?.value)}
+                onChange={(e) => handleChangeComment(e.target?.value)}
                 placeholder="コメントを投稿する"
                 value={comment}
               />
