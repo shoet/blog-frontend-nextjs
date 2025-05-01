@@ -24,20 +24,19 @@ type Props = {
   blogId: number;
   comments: Comment[];
   commentUser?: UserProfile;
-  postComment?: (text: string) => void;
 };
 
 export const CommentForm = (props: Props) => {
-  const { blogId, comments, commentUser, postComment } = props;
+  const { blogId, comments, commentUser } = props;
 
   const {
-    comment,
+    commentText,
     handlename,
     showPreview,
     previewToggle,
     handleChangeComment,
     submitComment,
-  } = useCommentForm({ blogId, commentUser });
+  } = useCommentForm({ blogId, comments, commentUser });
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -73,13 +72,13 @@ export const CommentForm = (props: Props) => {
                 rows={5}
                 onChange={(e) => handleChangeComment(e.target?.value)}
                 placeholder="コメントを投稿する"
-                value={comment}
+                value={commentText}
               />
             </div>
           ) : (
             <div className={styles.preview}>
-              {comment.length !== 0 ? (
-                <MarkdownRenderer markdown={comment} />
+              {commentText.length !== 0 ? (
+                <MarkdownRenderer markdown={commentText} />
               ) : (
                 <NoComment />
               )}
@@ -92,7 +91,7 @@ export const CommentForm = (props: Props) => {
             variant="secondaryDark"
             onSubmit={submitComment}
             round
-            disabled={comment == ""}
+            disabled={commentText == ""}
           >
             投稿する
           </Button>

@@ -1,22 +1,24 @@
+"use client";
 import { getHandlename } from "@/services/routeHandler";
-import { UserProfile } from "@/types/api";
+import { Comment, UserProfile } from "@/types/api";
 import { useEffect, useState } from "react";
 
 export const useCommentForm = (props: {
   blogId: number;
+  comments: Comment[];
   commentUser?: UserProfile;
 }) => {
-  const [comment, setComment] = useState("");
+  const [commentText, setCommentText] = useState("");
 
   const handleChangeComment = (text: string) => {
-    setComment(text);
+    setCommentText(text);
   };
 
   const submitComment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (comment.length === 0) return;
+    if (commentText.length === 0) return;
     // postComment?.(comment);
-    setComment("");
+    setCommentText("");
   };
 
   const [showPreview, setShowPreview] = useState(false);
@@ -35,7 +37,7 @@ export const useCommentForm = (props: {
   }, [props.commentUser]);
 
   return {
-    comment,
+    commentText,
     handlename,
     showPreview,
     previewToggle,
