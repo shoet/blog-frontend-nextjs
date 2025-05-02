@@ -1,5 +1,4 @@
 "use client";
-import React, { useRef } from "react";
 import { Button } from "../../Atoms/Button";
 import { MarkdownRenderer } from "../../Molecules/MarkdownRenderer";
 import styles from "./index.module.scss";
@@ -9,6 +8,7 @@ import { AvatarImage } from "../../Molecules/AvatarImage";
 import { Comment, UserProfile } from "@/types/api";
 import { CommentList } from "../CommentList";
 import { useCommentForm } from "./hooks";
+import clsx from "clsx";
 
 const NoComment = () => {
   return (
@@ -30,21 +30,22 @@ export const CommentForm = (props: Props) => {
   const { blogId, comments, commentUser } = props;
 
   const {
-    commentText,
+    textareaRef,
+    optimisticComment,
     handlename,
-    showPreview,
-    previewToggle,
-    handleChangeComment,
+    // showPreview,
+    // previewToggle,
     submitComment,
   } = useCommentForm({ blogId, comments, commentUser });
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const defaultAvatarURL = "/avatar_default.png";
 
   return (
-    <div>
-      <CommentList comments={comments} />
+    <form action={submitComment}>
+      <input hidden name="blogId" defaultValue={blogId} />
+      <input hidden name="clientId" defaultValue={handlename} />
+      <input hidden name="userId" defaultValue={commentUser?.userId} />
+      <CommentList comments={optimisticComment} />
       <div className={styles.commentForm}>
         <div className={styles.avatar}>
           <AvatarImage
@@ -54,6 +55,7 @@ export const CommentForm = (props: Props) => {
             {commentUser?.nickname || `匿名ユーザー(ID: ${handlename || ""})`}
           </div>
         </div>
+        {/*
         <div className={styles.toggle}>
           <TextToggle
             leftText="Markdown"
@@ -61,42 +63,54 @@ export const CommentForm = (props: Props) => {
             onChangeToggle={previewToggle}
           />
         </div>
+        */}
         <div
           className={styles.tabs}
-          onClick={() => textareaRef.current?.focus()}
+          onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
-          {!showPreview ? (
-            <div className={styles.editor}>
-              <textarea
-                ref={textareaRef}
-                rows={5}
-                onChange={(e) => handleChangeComment(e.target?.value)}
-                placeholder="コメントを投稿する"
-                value={commentText}
-              />
-            </div>
-          ) : (
-            <div className={styles.preview}>
-              {commentText.length !== 0 ? (
-                <MarkdownRenderer markdown={commentText} />
-              ) : (
-                <NoComment />
-              )}
-            </div>
-          )}
+          {/*
+          <div
+            className={clsx(
+              styles.editor,
+              showPreview ? styles.background : styles.surface,
+            )}
+          >
+            <textarea
+              name="comment"
+              ref={textareaRef}
+              rows={5}
+              placeholder="コメントを投稿する"
+            />
+          </div>
+          <div
+            className={clsx(
+              styles.preview,
+              showPreview ? styles.surface : styles.background,
+            )}
+          >
+            {textareaRef.current?.value.length !== 0 ? (
+              <MarkdownRenderer markdown={textareaRef.current?.value || ""} />
+            ) : (
+              <NoComment />
+            )}
+          </div>
+          */}
+          <div className={clsx(styles.editor)}>
+            <textarea
+              name="comment"
+              ref={textareaRef}
+              rows={5}
+              placeholder="コメントを投稿する"
+            />
+          </div>
         </div>
         <Divider />
         <div className={styles.sender}>
-          <Button
-            variant="secondaryDark"
-            onSubmit={submitComment}
-            round
-            disabled={commentText == ""}
-          >
+          <Button variant="secondaryDark" round type="submit">
             投稿する
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };

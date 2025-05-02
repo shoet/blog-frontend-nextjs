@@ -48,7 +48,7 @@ export type Comment = {
   blogId: number;
   clientId?: string;
   userId?: number;
-  avatarImageFileURL?: string;
+  avatarImageFileUrl?: string;
   nickname?: string;
   content: string;
   isEdited: boolean;

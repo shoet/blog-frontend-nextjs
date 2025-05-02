@@ -7,7 +7,10 @@ type GetCommentsResponse = {
 export async function getComments(
   blogId: number,
 ): Promise<GetCommentsResponse> {
-  return fetch(getAPIPath(`/blogs/${blogId}/comments`), { method: "GET" })
+  return fetch(getAPIPath(`/blogs/${blogId}/comments`), {
+    method: "GET",
+    next: { tags: ["fetch_comment"] },
+  })
     .then(handleSuccess)
     .catch(handleFailed);
 }

@@ -13,7 +13,7 @@ export const CommentList = (props: { comments: Comment[] }) => {
           <div key={idx} className={styles.commentRow}>
             <div className={styles.avatar}>
               <AvatarImage
-                imageURL={comment.avatarImageFileURL || "/avatar_default.png"}
+                imageURL={comment.avatarImageFileUrl || "/avatar_default.png"}
               />
               <div className={styles.name}>
                 {comment.nickname || comment.clientId}
