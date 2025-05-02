@@ -64,7 +64,7 @@ export class Lambda extends Construct {
     );
 
     const logGroup = new cdk.aws_logs.LogGroup(this, "LambdaLogGroup", {
-      logGroupName: `/aws/lambda/${stack.stackName}`,
+      logGroupName: `/aws/lambda/blog-frontend-${this.stage}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       retention: cdk.aws_logs.RetentionDays.TWO_WEEKS,
     });
@@ -73,6 +73,7 @@ export class Lambda extends Construct {
       this,
       "DockerImageFunction",
       {
+        functionName: `blog-frontend-${this.stage}`,
         code: cdk.aws_lambda.DockerImageCode.fromEcr(props.ecrRepository, {
           tag: imageTag,
         }),

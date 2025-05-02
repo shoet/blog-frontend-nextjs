@@ -47,3 +47,17 @@ export async function getUploadURL(
     .then(handleSuccess)
     .catch(handleFailed);
 }
+
+type GetHandlenameResponse = {
+  handlename: string;
+};
+
+export async function getHandlename(
+  blogId: number,
+): Promise<GetHandlenameResponse> {
+  const query = new URLSearchParams();
+  query.append("blogId", blogId.toString());
+  return fetch(`/api/handlename?${query.toString()}`, { method: "GET" })
+    .then(handleSuccess)
+    .catch(handleFailed);
+}

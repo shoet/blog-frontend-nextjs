@@ -6,7 +6,7 @@ import { ClientBlogEditFormState } from "./state";
 import {
   uploadFileForContent,
   uploadFileForThumbnail,
-} from "@/services/uploadFile";
+} from "@/services/routeHandler";
 
 export const useBlogEditForm = (props: {
   blog?: Blog;

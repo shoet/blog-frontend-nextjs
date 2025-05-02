@@ -1,10 +1,17 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
 import { Metadata, ResolvingMetadata } from "next";
+import { ClientBlogDetail } from "./_components/ClientBlogDetail";
+import { getServerSideCookie } from "@/utils/cookie";
+import { getUsersMe } from "@/services/getUsersMe";
+
+import { UserProfile } from "@/types/api";
 import css from "./page.module.scss";
-import { Badge } from "@/app/_components/Atoms/Badge";
-import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
-import { ClientMarkdownView } from "@/app/_components/Molecules/ClientMarkdownView";
+import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
+import { Badge } from "@/app/_components/Atoms/Badge";
+import { Divider } from "@/app/_components/Atoms/Divider";
+import { CommentForm } from "@/app/_components/Organisms/CommentForm";
+import { getComments } from "@/services/getComments";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -24,6 +31,21 @@ export const generateMetadata = async (
     title: `${blog.title} | ${title?.absolute}`,
     description: blog.description,
   };
+};
+
+const Comment = async (props: { blogId: number }) => {
+  const [userProfile, { comments }] = await Promise.all([
+    getProfile(),
+    getComments(props.blogId),
+  ]);
+
+  return (
+    <CommentForm
+      blogId={props.blogId}
+      comments={comments}
+      commentUser={userProfile}
+    />
+  );
 };
 
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
@@ -53,9 +75,25 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <ClientMarkdownView text={blog.content} />
+      <ClientBlogDetail blog={blog} />
+      <Spacer height={50} />
+      <Divider />
+      <div className={css.commentTitle}>コメント</div>
+      <Spacer height={10} />
+      <Comment blogId={blogId} />
     </div>
   );
 };
+
+async function getProfile(): Promise<UserProfile | undefined> {
+  const token = await getServerSideCookie("authToken");
+  if (!token) return;
+  try {
+    const user = await getUsersMe(token.value);
+    return user.profile;
+  } catch (e) {
+    console.error("Failed to fetch user profile", e);
+  }
+}
 
 export default BlogDetailPage;

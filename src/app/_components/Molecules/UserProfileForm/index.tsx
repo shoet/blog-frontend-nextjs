@@ -57,7 +57,7 @@ const UserProfileFormPresenter = (props: {
   bio?: string;
   isLoading?: boolean;
   validateErrors: ZodValidateError[];
-  avatarImageInputRef?: React.RefObject<HTMLInputElement>;
+  avatarImageInputRef?: React.RefObject<HTMLInputElement | null>;
   avatarImageClick?: () => void;
   avatarImageOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {

@@ -23,6 +23,7 @@ type TableOfContentContextType = {
   loadHeadings: () => void;
   cleanupHeadings: () => void;
   jumpToHeading: (key: string) => void;
+  watchRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const TableOfContentContext = createContext<TableOfContentContextType>({
@@ -30,6 +31,7 @@ const TableOfContentContext = createContext<TableOfContentContextType>({
   loadHeadings: () => {},
   cleanupHeadings: () => {},
   jumpToHeading: () => {},
+  watchRef: { current: null },
 });
 
 export const useTableOfContentContext = () => useContext(TableOfContentContext);
@@ -37,14 +39,18 @@ export const useTableOfContentContext = () => useContext(TableOfContentContext);
 export const TableOfContentContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
   const [headings, setHeadings] = useState<HeadingMap | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
+  const watchRef = useRef<HTMLDivElement>(null);
 
   const loadHeadings = () => {
-    if (!ref.current) {
+    if (!watchRef.current) {
       return;
     }
 
-    const elements = ref.current.querySelectorAll("h1,h2,h3");
+    const article = watchRef.current.querySelector("#article");
+    const elements = article?.querySelectorAll("h1,h2,h3");
+    if (!elements) {
+      return;
+    }
 
     const headingMap: HeadingMap = new Map();
     elements.forEach((e) => {
@@ -93,9 +99,10 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
         loadHeadings: loadHeadings,
         cleanupHeadings: cleanupHeadings,
         jumpToHeading: jumpToHeading,
+        watchRef: watchRef,
       }}
     >
-      <div ref={ref}>{children}</div>
+      <div>{children}</div>
     </TableOfContentContext.Provider>
   );
 };

@@ -1,10 +1,12 @@
 import { useRef } from "react";
 
 export const useTextArea = ({
+  onChangeText,
   minRows = 5,
   maxRows = 20,
   lineHeight = 20,
 }: {
+  onChangeText?: (text: string) => void;
   minRows?: number;
   maxRows?: number;
   lineHeight?: number;
@@ -20,6 +22,7 @@ export const useTextArea = ({
     } else {
       e.target.rows = rows;
     }
+    onChangeText?.(e.target.value);
   };
 
   return { textareaRef, onChange };

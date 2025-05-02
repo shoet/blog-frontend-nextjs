@@ -4,7 +4,6 @@ import { marked, MarkedOptions } from "marked";
 import hljs from "highlight.js";
 import css from "./index.module.scss";
 import "highlight.js/styles/monokai.css";
-import { useTableOfContentContext } from "../../Organisms/TableOfContentProvider";
 
 function addLinkTargetBlank(html: string): string {
   const regex = /<a href="(.*?)"/g;
@@ -12,9 +11,14 @@ function addLinkTargetBlank(html: string): string {
   return html.replace(regex, replacer);
 }
 
-export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
+type Props = {
+  markdown: string;
+  onEndLoad?: () => void;
+};
+
+export const MarkdownRenderer = (props: Props) => {
+  const { markdown, onEndLoad } = props;
   const [htmlContent, setHtmlContent] = useState("");
-  const { loadHeadings, cleanupHeadings } = useTableOfContentContext();
   marked.setOptions({
     langPrefix: "",
   } as MarkedOptions);
@@ -31,13 +35,6 @@ export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
     })();
   }, [markdown]);
 
-  useEffect(() => {
-    loadHeadings(); // TableOfContent用のh1,h2.h3を取得する
-    return () => {
-      cleanupHeadings(); // TableOfContentのクリーンアップ
-    };
-  }, [htmlContent]);
-
   const htmlref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (htmlref.current === null) {
@@ -45,6 +42,10 @@ export const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
     }
     hljs.highlightAll();
   }, [htmlref.current?.textContent]);
+
+  useEffect(() => {
+    onEndLoad && onEndLoad();
+  }, [htmlContent]);
 
   return (
     <div

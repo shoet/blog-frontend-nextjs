@@ -3,16 +3,20 @@
 import { useTextArea } from "./useTextArea";
 import styles from "./index.module.scss";
 import { ComponentProps, CSSProperties } from "react";
+import clsx from "clsx";
 
 type TextAreaProps = {
+  onChangeText?: (text: string) => void;
   maxRows?: number;
   minRows?: number;
+  border?: boolean;
 } & ComponentProps<"textarea">;
 
 export const TextArea = (props: TextAreaProps) => {
-  const { maxRows = 20, minRows = 5, ...rest } = props;
+  const { maxRows = 20, minRows = 5, border = true, ...rest } = props;
 
   const { textareaRef, onChange } = useTextArea({
+    onChangeText: props.onChangeText,
     minRows: minRows,
     maxRows: maxRows,
   });
@@ -23,7 +27,7 @@ export const TextArea = (props: TextAreaProps) => {
 
   return (
     <textarea
-      className={styles.textarea}
+      className={clsx(styles.textarea, border && styles.border)}
       style={style}
       ref={textareaRef}
       onChange={onChange}

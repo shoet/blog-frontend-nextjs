@@ -23,6 +23,7 @@ export type Blog = {
 export type User = {
   id: number;
   name: string;
+  profile?: UserProfile;
 };
 
 export type GitHubContributions = {
@@ -39,5 +40,20 @@ export type UserProfile = {
   userId: number;
   nickname: string;
   bio?: string;
-  avatarImageURL?: string;
+  avatarImageFileURL?: string;
+};
+
+export type Comment = {
+  commentId: number;
+  blogId: number;
+  clientId?: string;
+  userId?: number;
+  avatarImageFileUrl?: string;
+  nickname?: string;
+  content: string;
+  isEdited: boolean;
+  isDeleted: boolean;
+  threadId?: string;
+  created: number;
+  modified: number;
 };

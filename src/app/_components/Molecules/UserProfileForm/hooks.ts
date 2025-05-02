@@ -3,13 +3,13 @@
 import { useActionState, useRef, useState } from "react";
 import { userProfileEditStateAction } from "./actions";
 import { ZodValidateError } from "@/utils/validate";
-import { getUploadURL } from "@/services/uploadFile";
+import { getUploadURL } from "@/services/routeHandler";
 
 const useAvatarImage = (props: { avatarImageURL?: string }) => {
+  const [isAvatarImageUploading, setIsAvatarImageUploading] = useState(false);
   const [avatarImageURL, setAvataImageURL] = useState<string | undefined>(
     props.avatarImageURL,
   );
-  const [tmpImageURL, setTmpImageURL] = useState<string>();
   const [avatarImageValidateError, setAvataImageValidateError] =
     useState<ZodValidateError>();
   const avatarImageInputRef = useRef<HTMLInputElement>(null);
@@ -31,16 +31,18 @@ const useAvatarImage = (props: { avatarImageURL?: string }) => {
       return;
     }
     try {
+      setIsAvatarImageUploading(true);
       getUploadURL(file, "avatar_image").then(({ destinationUrl }) => {
-        if (tmpImageURL) {
-          URL.revokeObjectURL(tmpImageURL);
-          setTmpImageURL(undefined);
+        // アップロードが完了したら保存先のURLに差し替える
+        if (avatarImageURL) {
+          URL.revokeObjectURL(avatarImageURL);
         }
         setAvataImageURL(destinationUrl);
+        setIsAvatarImageUploading(false);
       });
+      // アップロード中は一時的にブラウザのローカルURLをセットする
       const newBlob = new Blob([file], { type: file.type });
       const tmpURL = URL.createObjectURL(newBlob);
-      setTmpImageURL(tmpURL);
       setAvataImageURL(tmpURL);
     } catch (err) {
       console.log(err);
@@ -52,7 +54,7 @@ const useAvatarImage = (props: { avatarImageURL?: string }) => {
   };
 
   return {
-    isLoading: tmpImageURL != undefined,
+    isUploading: isAvatarImageUploading,
     avatarImageURL,
     avatarImageInputRef,
     avatarImageClick,
@@ -84,7 +86,7 @@ export const useUserProfileEdit = (props: {
   );
 
   const {
-    isLoading: avatarImageURLLoading,
+    isUploading,
     avatarImageURL,
     avatarImageInputRef,
     avatarImageClick,
@@ -100,7 +102,7 @@ export const useUserProfileEdit = (props: {
   return {
     ...state.payload,
     avatarImageURL,
-    isLoading: isLoading || avatarImageURLLoading,
+    isLoading: isLoading || isUploading,
     errors: state.errors,
     validateErrors: validateErrors,
     action: serverAction,

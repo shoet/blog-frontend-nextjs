@@ -18,6 +18,7 @@ export const colors = {
   focusGreen: "#a3ccbe",
   focusPurple: "#8c5ce6",
   secondaryGray: "#DFE6DA",
+  secondaryGrayMore: "#c2c9bd",
   boxPlaceholderFG: "#CBD5C0",
   boxPlaceholderBG: "#DFE6DA",
 } as const;
