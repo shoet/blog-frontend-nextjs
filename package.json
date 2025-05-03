@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "hi-base32": "^0.5.1",
     "highlight.js": "^11.10.0",
+    "isomorphic-dompurify": "^2.24.0",
     "marked": "^13.0.2",
     "next": "^15.2.4",
     "next-mdx-remote": "^5.0.0",

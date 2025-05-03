@@ -12,6 +12,7 @@ import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
+import { marked, MarkedOptions } from "marked";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -51,6 +52,13 @@ const Comment = async (props: { blogId: number }) => {
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
+
+  marked.setOptions({
+    langPrefix: "",
+  } as MarkedOptions);
+
+  const blogHTML = await marked(blog.content, {});
+
   return (
     <div>
       <div className={css.title}>{blog.title}</div>
@@ -75,7 +83,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <ClientBlogDetail blog={blog} />
+      <ClientBlogDetail blogHTML={blogHTML} />
       <Spacer height={50} />
       <Divider />
       <div className={css.commentTitle}>コメント</div>
