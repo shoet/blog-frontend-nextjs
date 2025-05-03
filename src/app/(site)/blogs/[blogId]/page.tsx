@@ -12,8 +12,8 @@ import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
 import { marked, MarkedOptions } from "marked";
-import { HTMLRenderer } from "@/app/_components/Molecules/HTMLRenderer";
 import { TableOfContentListener } from "./_components/TableOfContentListener";
+import { ClientHTMLRenderer } from "@/app/_components/Molecules/ClientHTMLRenderer";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -85,7 +85,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
       </div>
       <Spacer height={20} />
       <TableOfContentListener>
-        <HTMLRenderer rawHTML={blogHTML} />
+        <ClientHTMLRenderer rawHTML={blogHTML} />
       </TableOfContentListener>
       <Spacer height={50} />
       <Divider />
