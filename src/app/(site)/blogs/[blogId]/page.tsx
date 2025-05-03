@@ -1,6 +1,5 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
 import { Metadata, ResolvingMetadata } from "next";
-import { ClientBlogDetail } from "./_components/ClientBlogDetail";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
 
@@ -13,6 +12,8 @@ import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
 import { marked, MarkedOptions } from "marked";
+import { HTMLRenderer } from "@/app/_components/Molecules/HTMLRenderer";
+import { TableOfContentListener } from "./_components/TableOfContentListener";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -83,7 +84,9 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <ClientBlogDetail blogHTML={blogHTML} />
+      <TableOfContentListener>
+        <HTMLRenderer rawHTML={blogHTML} />
+      </TableOfContentListener>
       <Spacer height={50} />
       <Divider />
       <div className={css.commentTitle}>コメント</div>

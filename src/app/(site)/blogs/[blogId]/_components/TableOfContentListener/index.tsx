@@ -1,11 +1,13 @@
 "use client";
 
 import { useTableOfContentContext } from "@/app/_components/Organisms/TableOfContentProvider";
-import { useEffect } from "react";
-import { HTMLRenderer } from "@/app/_components/Molecules/HTMLRenderer";
+import { ReactNode, useEffect } from "react";
 
-export const ClientBlogDetail = (props: { blogHTML: string }) => {
-  const { blogHTML } = props;
+/**
+ * TableOfContentListener は、目次用のContextにchildren内の見出し項目を通知するためのコンポーネントです。
+ */
+export const TableOfContentListener = (props: { children: ReactNode }) => {
+  const { children } = props;
   const { loadHeadings, cleanupHeadings, watchRef } =
     useTableOfContentContext();
 
@@ -18,9 +20,7 @@ export const ClientBlogDetail = (props: { blogHTML: string }) => {
 
   return (
     <div ref={watchRef}>
-      <div id="article">
-        <HTMLRenderer rawHTML={blogHTML} />
-      </div>
+      <div id="article">{children}</div>
     </div>
   );
 };

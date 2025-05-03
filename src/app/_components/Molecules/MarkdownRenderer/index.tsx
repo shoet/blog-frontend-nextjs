@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { marked, MarkedOptions } from "marked";
 import "highlight.js/styles/monokai.css";
-import { HTMLRenderer } from "../HTMLRenderer";
+import { ClientHTMLRenderer } from "../ClientHTMLRenderer";
 
 type Props = {
   markdown: string;
@@ -26,5 +26,5 @@ export const MarkdownRenderer = (props: Props) => {
     })();
   }, [markdown]);
 
-  return <HTMLRenderer rawHTML={htmlContent} />;
+  return <ClientHTMLRenderer rawHTML={htmlContent} />;
 };
