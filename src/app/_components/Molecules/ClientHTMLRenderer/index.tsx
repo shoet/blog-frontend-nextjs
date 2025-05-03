@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import css from "./index.module.scss";
 import "highlight.js/styles/monokai.css";
@@ -20,15 +20,21 @@ function addLinkTargetBlank(html: string): string {
  * HTMLRenderer は、HTMLを受け取り、サニタイズ処理、タグの補正、ハイライトの適用を行うコンポーネントです。
  */
 export const ClientHTMLRenderer = (props: Props) => {
-  let html = addLinkTargetBlank(props.rawHTML);
-  const parse = new DOMParser();
-  const dom = parse.parseFromString(html, "text/html");
-  dom.querySelectorAll("pre code").forEach((block) => {
-    const result = hljs.highlightAuto(block.textContent || "");
-    block.classList.add("hljs");
-    block.setHTMLUnsafe(result.value);
-  });
-  html = DOMPurify.sanitize(dom.body.innerHTML, {});
+  const [html, setHTML] = useState(props.rawHTML);
+
+  // 'use client'をつけてもClientComponentと判定されずビルドエラーになるため、useEffectで囲む
+  useEffect(() => {
+    let html = addLinkTargetBlank(props.rawHTML);
+    const parse = new DOMParser();
+    const dom = parse.parseFromString(html, "text/html");
+    dom.querySelectorAll("pre code").forEach((block) => {
+      const result = hljs.highlightAuto(block.textContent || "");
+      block.classList.add("hljs");
+      block.setHTMLUnsafe(result.value);
+    });
+    html = DOMPurify.sanitize(dom.body.innerHTML, {});
+    setHTML(html);
+  }, [props.rawHTML]);
   return (
     <div
       className={css.markdown}

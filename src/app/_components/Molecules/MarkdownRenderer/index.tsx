@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { marked, MarkedOptions } from "marked";
+import { marked } from "marked";
 import "highlight.js/styles/monokai.css";
 import { ClientHTMLRenderer } from "../ClientHTMLRenderer";
 
@@ -11,12 +11,9 @@ type Props = {
 export const MarkdownRenderer = (props: Props) => {
   const { markdown } = props;
   const [htmlContent, setHtmlContent] = useState("");
-  marked.setOptions({
-    langPrefix: "",
-  } as MarkedOptions);
 
   useEffect(() => {
-    (async function loadHighlightJs() {
+    (async () => {
       try {
         let mkd = await marked(markdown);
         setHtmlContent(mkd);
