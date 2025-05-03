@@ -1,6 +1,5 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
 import { Metadata, ResolvingMetadata } from "next";
-import { ClientBlogDetail } from "./_components/ClientBlogDetail";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
 
@@ -12,6 +11,9 @@ import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
+import { marked, MarkedOptions } from "marked";
+import { HTMLRenderer } from "@/app/_components/Molecules/HTMLRenderer";
+import { TableOfContentListener } from "./_components/TableOfContentListener";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -51,6 +53,13 @@ const Comment = async (props: { blogId: number }) => {
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
+
+  marked.setOptions({
+    langPrefix: "",
+  } as MarkedOptions);
+
+  const blogHTML = await marked(blog.content, {});
+
   return (
     <div>
       <div className={css.title}>{blog.title}</div>
@@ -75,7 +84,9 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <ClientBlogDetail blog={blog} />
+      <TableOfContentListener>
+        <HTMLRenderer rawHTML={blogHTML} />
+      </TableOfContentListener>
       <Spacer height={50} />
       <Divider />
       <div className={css.commentTitle}>コメント</div>

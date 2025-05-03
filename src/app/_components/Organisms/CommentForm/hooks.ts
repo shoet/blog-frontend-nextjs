@@ -17,10 +17,10 @@ export const useCommentForm = (props: {
     setMarkdownText(text);
   };
 
-  // const [showPreview, setShowPreview] = useState(false);
-  // const previewToggle = () => {
-  //   setShowPreview(!showPreview);
-  // };
+  const [showPreview, setShowPreview] = useState(false);
+  const previewToggle = () => {
+    setShowPreview(!showPreview);
+  };
 
   const [handlename, setHandlename] = useState<string>();
   useEffect(() => {
@@ -67,8 +67,8 @@ export const useCommentForm = (props: {
     optimisticComment,
     markdownText,
     handlename,
-    // showPreview,
-    // previewToggle,
+    showPreview,
+    previewToggle,
     handleChangeComment,
     submitComment,
   };

@@ -1,7 +1,9 @@
+"use client";
 import { Comment } from "@/types/api";
 import styles from "./index.module.scss";
 import { AvatarImage } from "../../Molecules/AvatarImage";
 import { toStringYYYYMMDD_HHMMSS_ja } from "@/utils/date";
+import { MarkdownRenderer } from "../../Molecules/MarkdownRenderer";
 
 export const CommentList = (props: { comments: Comment[] }) => {
   const { comments } = props;
@@ -22,7 +24,9 @@ export const CommentList = (props: { comments: Comment[] }) => {
                 {toStringYYYYMMDD_HHMMSS_ja(comment.created)}
               </div>
             </div>
-            <div className={styles.content}>{comment.content}</div>
+            <div className={styles.content}>
+              <MarkdownRenderer markdown={comment.content} />
+            </div>
           </div>
         );
       })}

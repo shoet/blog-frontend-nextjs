@@ -33,8 +33,8 @@ export const CommentForm = (props: Props) => {
     textareaRef,
     optimisticComment,
     handlename,
-    // showPreview,
-    // previewToggle,
+    showPreview,
+    previewToggle,
     submitComment,
   } = useCommentForm({ blogId, comments, commentUser });
 
@@ -55,7 +55,6 @@ export const CommentForm = (props: Props) => {
             {commentUser?.nickname || `匿名ユーザー(ID: ${handlename || ""})`}
           </div>
         </div>
-        {/*
         <div className={styles.toggle}>
           <TextToggle
             leftText="Markdown"
@@ -63,12 +62,10 @@ export const CommentForm = (props: Props) => {
             onChangeToggle={previewToggle}
           />
         </div>
-        */}
         <div
           className={styles.tabs}
           onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
-          {/*
           <div
             className={clsx(
               styles.editor,
@@ -93,15 +90,6 @@ export const CommentForm = (props: Props) => {
             ) : (
               <NoComment />
             )}
-          </div>
-          */}
-          <div className={clsx(styles.editor)}>
-            <textarea
-              name="comment"
-              ref={textareaRef}
-              rows={5}
-              placeholder="コメントを投稿する"
-            />
           </div>
         </div>
         <Divider />
