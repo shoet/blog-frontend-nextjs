@@ -1,22 +1,26 @@
 import { getBlogsAdmin } from "@/services/getBlogsAdmin";
-import { BlogTable } from "../_components/Organisms/BlogTable";
 import css from "./page.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import Link from "next/link";
 import { Button } from "@/app/_components/Atoms/Button";
+import { BlogEditTable } from "@/app/_components/Organisms/BlogEditTable";
+import { IconPlus } from "@/app/_components/Atoms/Icon";
 
 const AdminHomePage = async () => {
   const blogs = await getBlogsAdmin({ limit: 10 });
   return (
     <div className={css.page}>
-      <Spacer height={50} />
+      <Spacer height={20} />
       <div className={css.actionArea}>
-        <Button variant="primary">
-          <Link href="/admin/blogs/new">記事を投稿する</Link>
-        </Button>
+        <Link className={css.postButton} href="/admin/blogs/new">
+          <span>記事を投稿する</span>
+          <IconPlus />
+        </Link>
       </div>
-      <Spacer height={30} />
-      <BlogTable blogs={blogs} />
+      <Spacer height={20} />
+      <div className={css.blogList}>
+        <BlogEditTable blogs={blogs} />
+      </div>
     </div>
   );
 };
