@@ -12,6 +12,7 @@ export default function Error({
   reset: () => void;
 }) {
   const logoutFormRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   // LogoutのためのCookie操作のServerActionを呼び出す
   useEffect(() => {
@@ -19,7 +20,6 @@ export default function Error({
       if (error.message == "Unauthorized") {
         logoutFormRef.current.requestSubmit();
       } else {
-        const router = useRouter();
         router.push("/");
       }
     }
