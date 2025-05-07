@@ -7,6 +7,7 @@ import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 import { ToggleSwitch } from "../../Atoms/ToggleSwitch";
+import { ClientIsPublic } from "./_components/ClientIsPublic";
 
 type Props = {
   blogs: Blog[];
@@ -73,7 +74,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       <td>
         <div className={styles.isPublic}>
           <div className={styles.toggleSwitch}>
-            <ToggleSwitch defaultStatus={blog.isPublic} />
+            <ClientIsPublic blog={blog} />
           </div>
         </div>
       </td>
