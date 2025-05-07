@@ -93,9 +93,9 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         </Link>
       </td>
       <td>
-        <div className={styles.delete}>
+        <Link href={`/admin/blogs/${blog.id}/delete`} className={styles.delete}>
           <IconTrush />
-        </div>
+        </Link>
       </td>
     </tr>
   );
