@@ -6,6 +6,7 @@ import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
+import { ToggleSwitch } from "../../Atoms/ToggleSwitch";
 
 type Props = {
   blogs: Blog[];
@@ -71,15 +72,9 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       </td>
       <td>
         <div className={styles.isPublic}>
-          {blog.isPublic ? (
-            <Badge backgroundColor="green" color="white">
-              公開
-            </Badge>
-          ) : (
-            <Badge backgroundColor="gray" color="white">
-              非公開
-            </Badge>
-          )}
+          <div className={styles.toggleSwitch}>
+            <ToggleSwitch defaultStatus={blog.isPublic} />
+          </div>
         </div>
       </td>
       <td>{toStringYYYYMMDD_HHMMSS(blog.created)}</td>

@@ -1,0 +1,47 @@
+.toggle {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 3px;
+
+  transition: all 0.3s ease;
+}
+
+.toggle-active {
+  background-color: var(--switch-color-active);
+}
+
+.toggle-inactive {
+  background-color: var(--switch-color-inactive);
+}
+
+.toggleBackground {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+
+  .switch {
+    position: absolute;
+    z-index: 1;
+
+    width: 50%;
+    height: 100%;
+    padding: 5px;
+    background-color: white;
+    border-radius: 30px;
+
+    color: purple;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .switchPosition-active {
+    transform: translateX(50%);
+  }
+  .switchPosition-inactive {
+    transform: translateX(-50%);
+  }
+}

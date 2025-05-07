@@ -67,6 +67,11 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 3px;
+    align-items: center;
+    width: 100%;
+
+    .toggleSwitch {
+      width: 50px;
+    }
   }
 }
