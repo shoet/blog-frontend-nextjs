@@ -74,4 +74,18 @@
       width: 50px;
     }
   }
+
+  .edit,
+  .delete {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: gray;
+    }
+  }
 }

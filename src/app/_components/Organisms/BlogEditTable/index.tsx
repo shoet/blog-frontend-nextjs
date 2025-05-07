@@ -8,6 +8,7 @@ import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 import { ToggleSwitch } from "../../Atoms/ToggleSwitch";
 import { ClientIsPublic } from "./_components/ClientIsPublic";
+import { IconEdit, IconTrush } from "../../Atoms/Icon";
 
 type Props = {
   blogs: Blog[];
@@ -25,6 +26,8 @@ export const BlogEditTable = async (props: Props) => {
           <th>公開/非公開</th>
           <th>作成日時</th>
           <th>更新日時</th>
+          <th>編集</th>
+          <th>削除</th>
         </thead>
         <tbody>
           {blogs.map((b, idx) => {
@@ -80,6 +83,20 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       </td>
       <td>{toStringYYYYMMDD_HHMMSS(blog.created)}</td>
       <td>{toStringYYYYMMDD_HHMMSS(blog.modified)}</td>
+      <td>
+        <Link
+          href={`/admin/blogs/${blog.id}/edit`}
+          target="_blank"
+          className={styles.edit}
+        >
+          <IconEdit />
+        </Link>
+      </td>
+      <td>
+        <div className={styles.delete}>
+          <IconTrush />
+        </div>
+      </td>
     </tr>
   );
 };
