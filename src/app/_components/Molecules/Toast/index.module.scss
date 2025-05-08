@@ -1,0 +1,30 @@
+.toast {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+
+  background-color: #6666cc;
+  border-radius: 5px;
+  padding: 8px;
+  opacity: 0.9;
+
+  .content {
+    .title {
+      color: #e6e6e6;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .detail {
+      color: #e6e6e6;
+      font-size: 0.7rem;
+    }
+  }
+
+  .close {
+    color: #e6e6e6;
+    font-size: 1.2rem;
+    margin-right: 5px;
+  }
+}
