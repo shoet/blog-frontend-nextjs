@@ -1,3 +1,4 @@
+import { getPrivateBlogDetail } from "@/services/getBlogDetail";
 import { ClientDeleteConfirmDialog } from "./_components/ClientDeleteConfirmDialog";
 
 type AdminBlogDeleteProps = {
@@ -8,7 +9,8 @@ type AdminBlogDeleteProps = {
 
 const BlogDeletePage = async (props: AdminBlogDeleteProps) => {
   const { blogId } = await props.params;
-  return <ClientDeleteConfirmDialog blogId={blogId} />;
+  const blog = await getPrivateBlogDetail(blogId);
+  return <ClientDeleteConfirmDialog blog={blog} />;
 };
 
 export default BlogDeletePage;

@@ -9,12 +9,12 @@
 
   background-color: white;
   border: 1px solid var(--border-color);
-  border-radius: 15px;
+  border-radius: 12px;
   padding: 20px;
 }
 
 .title {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: bold;
 }
 
@@ -26,8 +26,13 @@
 .actionArea {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: center;
   gap: 20px;
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
 }
 
 .errorMessage {
