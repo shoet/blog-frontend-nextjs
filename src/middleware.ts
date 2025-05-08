@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { getUsersMe } from "./services/getUsersMe";
+import { FetchError } from "./services";
 
 export async function middleware(request: NextRequest) {
   if (
@@ -33,6 +34,12 @@ export async function authGuard(): Promise<boolean> {
     await getUsersMe(token.value);
     return true;
   } catch (e) {
+    if (e instanceof FetchError) {
+      if (e.status == 401) {
+        cookie.delete("authToken");
+        return false;
+      }
+    }
     return false;
   }
 }

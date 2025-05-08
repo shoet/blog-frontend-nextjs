@@ -3,13 +3,16 @@
 import { OverlayDialog } from "@/app/_components/Molecules/OverlayDialog";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import styles from "./index.module.scss";
+import { Blog } from "@/types/api";
+import { BlogCard } from "@/app/_components/Organisms/BlogCard";
 
-type ClientDeleteConfirmDialogProps = { blogId: number };
+type ClientDeleteConfirmDialogProps = { blog: Blog };
 
 export const ClientDeleteConfirmDialog = (
   props: ClientDeleteConfirmDialogProps,
 ) => {
-  const { blogId } = props;
+  const { blog } = props;
 
   const [errorMessage, setErrorMesage] = useState<string>();
   const formRef = useRef<HTMLFormElement>(null);
@@ -22,7 +25,7 @@ export const ClientDeleteConfirmDialog = (
 
   const onClickOK = async () => {
     try {
-      await deleteBlog(blogId);
+      await deleteBlog(blog.id);
       if (formRef.current) formRef.current.submit();
     } catch (err) {
       setErrorMesage("削除に失敗しました");
@@ -45,12 +48,30 @@ export const ClientDeleteConfirmDialog = (
       }}
     >
       <OverlayDialog
-        title="削除"
-        message={`BlogID: ${blogId} を削除しますか？`}
+        title="ブログ記事の削除"
         onClickOK={onClickOK}
         onClickCancel={onClickCancel}
         errorMessage={errorMessage}
-      />
+        okText="削除"
+        cancelText="キャンセル"
+      >
+        <DeleteConfirmDisplay blog={blog} />
+      </OverlayDialog>
     </form>
+  );
+};
+
+const DeleteConfirmDisplay = (props: { blog: Blog }) => {
+  const { blog } = props;
+  return (
+    <div className={styles.deleteConfirmDisplay}>
+      <div>以下のブログ記事を削除します。</div>
+      <div className={styles.alert}>
+        この操作は取り消せません。本当によろしいですか？
+      </div>
+      <div className={styles.blogDetail}>
+        <BlogCard blog={blog} />
+      </div>
+    </div>
   );
 };

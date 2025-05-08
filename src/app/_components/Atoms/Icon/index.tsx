@@ -13,6 +13,9 @@ import {
   faAngleRight,
   faAngleLeft,
   faCloudArrowUp,
+  faPlus,
+  faPenToSquare,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
@@ -57,3 +60,6 @@ export const IconXmark = withIconStyle(faXmark);
 export const IconArrowRight = withIconStyle(faAngleRight);
 export const IconArrowLeft = withIconStyle(faAngleLeft);
 export const IconUpload = withIconStyle(faCloudArrowUp);
+export const IconPlus = withIconStyle(faPlus);
+export const IconEdit = withIconStyle(faPenToSquare);
+export const IconTrush = withIconStyle(faTrash);

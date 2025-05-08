@@ -11,12 +11,20 @@ export type Story = StoryObj<typeof OverlayDialog>;
 export const Default: Story = {
   args: {
     title: "ダイアログ",
-    message: "OKしますか？",
     onClickOK: () => {
       console.log("OK");
     },
     onClickCancel: () => {
       console.log("Cancel");
     },
+  },
+  render: (args) => {
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <OverlayDialog {...args}>
+          <div>メッセージ</div>
+        </OverlayDialog>
+      </div>
+    );
   },
 };

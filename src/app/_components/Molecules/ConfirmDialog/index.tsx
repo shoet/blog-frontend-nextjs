@@ -7,14 +7,24 @@ import { Spacer } from "../../Atoms/Spacer";
 
 type ConfirmDialogProps = {
   title: string;
-  message: string;
+  okText?: string;
+  cancelText?: string;
   onClickOK: () => void;
   onClickCancel?: () => void;
   errorMessage?: string;
+  children?: React.ReactNode;
 };
 
 export const ConfirmDialog = (props: ConfirmDialogProps) => {
-  const { title, message, onClickOK, onClickCancel, errorMessage } = props;
+  const {
+    title,
+    okText,
+    cancelText,
+    children,
+    onClickOK,
+    onClickCancel,
+    errorMessage,
+  } = props;
 
   const style = {
     "--border-color": theme.colors.borderDark,
@@ -26,7 +36,7 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
       <div>
         <div className={css.title}>{title}</div>
         <Spacer height={10} />
-        <div className={css.message}>{message}</div>
+        <div className={css.message}>{children}</div>
         {errorMessage && (
           <>
             <Spacer height={10} />
@@ -37,11 +47,11 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
       <div className={css.actionArea}>
         {onClickCancel && (
           <Button variant="secondary" onClick={onClickCancel}>
-            Cancel
+            {cancelText ?? "Cancel"}
           </Button>
         )}
         <Button variant="primary" onClick={onClickOK}>
-          OK
+          {okText ?? "OK"}
         </Button>
       </div>
     </div>
