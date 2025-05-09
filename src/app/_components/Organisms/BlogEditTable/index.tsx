@@ -6,7 +6,6 @@ import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
-import { ToggleSwitch } from "../../Atoms/ToggleSwitch";
 import { ClientIsPublic } from "./_components/ClientIsPublic";
 import { IconEdit, IconTrush } from "../../Atoms/Icon";
 

@@ -1,5 +1,7 @@
 .toastProvider {
   position: relative;
+  overflow-x: hidden;
+  height: 100vh;
 
   .childrenContainer {
     position: absolute;
@@ -8,7 +10,7 @@
     height: 100%;
     width: 100%;
 
-    z-index: 2;
+    z-index: 1;
   }
 
   .toastContainer {
@@ -19,15 +21,16 @@
     left: 0;
     margin-top: 20px;
 
-    z-index: 1;
+    z-index: 0;
   }
 
   .toast {
-    position: absolute;
+    margin-top: 20px;
     top: 0;
     right: 0;
     transition: all 0.3s ease;
     padding-bottom: 5px;
+    z-index: 2;
   }
 
   .toastPosition-visiable {

@@ -77,29 +77,27 @@ export const ToastProvider = (props: { children: ReactNode }) => {
     >
       <div className={styles.toastProvider}>
         <div className={styles.childrenContainer}>{props.children}</div>
-        <div className={styles.toastContainer}>
-          {toastQueue.map((t, idx) => {
-            return (
-              t.state && (
-                <div
-                  key={t.id}
-                  className={clsx(
-                    styles.toast,
-                    styles[`toastPosition-${t.state}`],
-                  )}
-                  style={
-                    {
-                      // 消えるときに高さを維持したままにする
-                      "--toast-queue-order": toastQueue.length - idx - 1,
-                    } as CSSProperties
-                  }
-                >
-                  <Toast title={t.title} detail={t.detail} />
-                </div>
-              )
-            );
-          })}
-        </div>
+        {toastQueue.map((t, idx) => {
+          return (
+            t.state && (
+              <div
+                key={t.id}
+                className={clsx(
+                  styles.toast,
+                  styles[`toastPosition-${t.state}`],
+                )}
+                style={
+                  {
+                    // 消えるときに高さを維持したままにする
+                    "--toast-queue-order": toastQueue.length - idx - 1,
+                  } as CSSProperties
+                }
+              >
+                <Toast title={t.title} detail={t.detail} />
+              </div>
+            )
+          );
+        })}
       </div>
     </ToastContext.Provider>
   );
