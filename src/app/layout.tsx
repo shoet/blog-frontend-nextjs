@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Script from "next/script";
+import { ToastProvider } from "./_components/Molecules/ToastProvider";
 
 export default async function RootLayout({
   children,
@@ -12,7 +13,9 @@ export default async function RootLayout({
       <head>
         <Script src="/register-service-worker.js" />
       </head>
-      {children}
+      <body>
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }

@@ -1,6 +1,7 @@
 import { Blog } from "@/types/api";
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useRef } from "react";
 import { updateIsPublicServerAction } from "./actions";
+import { useToastContext } from "@/app/_components/Molecules/ToastProvider";
 
 type Props = {
   blog: Blog;
@@ -15,6 +16,8 @@ export const useIsPublic = (props: Props) => {
   const { blog } = props;
   const formRef = useRef<HTMLFormElement>(null);
 
+  const { queueToast } = useToastContext();
+
   const [state, action] = useActionState(
     async (state: State, _: FormData) => {
       const newState = !state.isPublic;
@@ -26,6 +29,10 @@ export const useIsPublic = (props: Props) => {
 
       try {
         await updateIsPublicServerAction(formData);
+        await queueToast(
+          "記事の更新",
+          `記事を${newState ? "公開" : "非公開"}状態に変更しました`,
+        );
       } catch (e) {
         console.error(e);
         return { ...state, errors: ["公開状態の更新に失敗しました"] };

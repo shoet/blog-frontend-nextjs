@@ -19,10 +19,10 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <body className={inter.className}>
+    <div className={inter.className}>
       <Header />
       {children}
       {modal}
-    </body>
+    </div>
   );
 }

@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <body className={inter.className}>
+    <div className={inter.className}>
       <div className={clsx(css.body)}>
         <div>
           <Spacer height={30} />
@@ -46,6 +46,6 @@ export default function RootLayout({
       </div>
       <Spacer height={50} />
       <Footer />
-    </body>
+    </div>
   );
 }
