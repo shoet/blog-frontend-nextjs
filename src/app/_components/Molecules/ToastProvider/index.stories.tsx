@@ -2,18 +2,18 @@ import { Meta, StoryObj } from "@storybook/react";
 import { ToastProvider, useToastContext } from ".";
 
 const ToastController = () => {
-  const { showToast, closeToast } = useToastContext();
+  const { queueToast } = useToastContext();
   return (
     <div>
       <div>
         <button
           onClick={() => {
-            showToast({ title: "title", detail: "detail" });
+            const ts = Date.now();
+            queueToast("title", ts.toString());
           }}
         >
           show toast
         </button>
-        <button onClick={closeToast}>hidden toast</button>
       </div>
     </div>
   );

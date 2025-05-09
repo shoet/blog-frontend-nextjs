@@ -17,6 +17,7 @@
     width: 100vw;
     top: 0;
     left: 0;
+    margin-top: 20px;
 
     z-index: 1;
   }
@@ -26,18 +27,19 @@
     top: 0;
     right: 0;
     transition: all 0.3s ease;
+    padding-bottom: 5px;
   }
 
   .toastPosition-visiable {
     position: absolute;
-    top: 20px;
     right: 20px;
+    transform: translateY(calc(100% * var(--toast-queue-order)));
   }
 
   .toastPosition-hidden {
     position: absolute;
-    top: 20px;
     right: 0;
-    transform: translateX(100%);
+    transform: translate(100%, calc(100% * var(--toast-queue-order)));
+    opacity: 0;
   }
 }
