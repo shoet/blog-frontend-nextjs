@@ -19,14 +19,16 @@ export const BlogEditTable = async (props: Props) => {
     <div className={styles.blogEditTable}>
       <table>
         <thead>
-          <th>タイトル</th>
-          <th>作成者</th>
-          <th>タグ</th>
-          <th>公開/非公開</th>
-          <th>作成日時</th>
-          <th>更新日時</th>
-          <th>編集</th>
-          <th>削除</th>
+          <tr>
+            <th>タイトル</th>
+            <th>作成者</th>
+            <th>タグ</th>
+            <th>公開/非公開</th>
+            <th>作成日時</th>
+            <th>更新日時</th>
+            <th>編集</th>
+            <th>削除</th>
+          </tr>
         </thead>
         <tbody>
           {blogs.map((b, idx) => {
