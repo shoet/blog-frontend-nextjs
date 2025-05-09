@@ -13,7 +13,9 @@ export default async function RootLayout({
       <head>
         <Script src="/register-service-worker.js" />
       </head>
-      <ToastProvider>{children}</ToastProvider>
+      <body>
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
