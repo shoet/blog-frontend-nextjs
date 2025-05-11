@@ -9,6 +9,7 @@ import { Comment, UserProfile } from "@/types/api";
 import { CommentList } from "../CommentList";
 import { useCommentForm } from "./hooks";
 import clsx from "clsx";
+import { RefObject, useState } from "react";
 
 const NoComment = () => {
   return (
@@ -29,23 +30,39 @@ type Props = {
 export const CommentForm = (props: Props) => {
   const { blogId, comments, commentUser } = props;
 
-  const {
-    textareaRef,
-    optimisticComment,
-    handlename,
-    showPreview,
-    previewToggle,
-    submitComment,
-  } = useCommentForm({ blogId, comments, commentUser });
-
-  const defaultAvatarURL = "/avatar_default.png";
+  const { textareaRef, optimisticComment, handlename, submitComment } =
+    useCommentForm({ blogId, comments, commentUser });
 
   return (
     <form action={submitComment}>
       <input hidden name="blogId" defaultValue={blogId} />
       <input hidden name="clientId" defaultValue={handlename} />
       <input hidden name="userId" defaultValue={commentUser?.userId} />
-      <CommentList comments={optimisticComment} />
+      <CommentFormPresenter
+        commentList={optimisticComment}
+        textareaRef={textareaRef}
+        commentUser={commentUser}
+        handlename={handlename}
+      />
+    </form>
+  );
+};
+
+export const CommentFormPresenter = (props: {
+  commentList: Comment[];
+  textareaRef: RefObject<HTMLTextAreaElement | null>;
+  commentUser?: UserProfile;
+  handlename?: string;
+}) => {
+  const { commentList, textareaRef, commentUser, handlename } = props;
+  const [showPreview, setShowPreview] = useState(false);
+  const previewToggle = () => {
+    setShowPreview(!showPreview);
+  };
+  const defaultAvatarURL = "/avatar_default.png";
+  return (
+    <>
+      <CommentList comments={commentList} />
       <div className={styles.commentForm}>
         <div className={styles.avatar}>
           <AvatarImage
@@ -99,6 +116,6 @@ export const CommentForm = (props: Props) => {
           </Button>
         </div>
       </div>
-    </form>
+    </>
   );
 };

@@ -17,11 +17,6 @@ export const useCommentForm = (props: {
     setMarkdownText(text);
   };
 
-  const [showPreview, setShowPreview] = useState(false);
-  const previewToggle = () => {
-    setShowPreview(!showPreview);
-  };
-
   const [handlename, setHandlename] = useState<string>();
   useEffect(() => {
     // ログインユーザーでない場合、匿名ユーザーとしてIDを生成する
@@ -67,8 +62,6 @@ export const useCommentForm = (props: {
     optimisticComment,
     markdownText,
     handlename,
-    showPreview,
-    previewToggle,
     handleChangeComment,
     submitComment,
   };
