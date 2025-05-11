@@ -26,19 +26,16 @@
   }
 
   .tabs {
-    min-height: 200px;
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 300px;
 
     .editor {
-      height: 100%;
       textarea {
         padding: 8px;
         height: 100%;
         width: 100%;
-        min-height: min-content;
-        field-sizing: content;
         border: none;
         outline: none;
         resize: none;
@@ -51,7 +48,7 @@
     }
 
     .preview {
-      min-height: 200px;
+      overflow: scroll;
     }
 
     .surface {
