@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { APP_DESCRIPTION, APP_TITLE } from "@/constant";
 import { Header } from "./_components/Organisms/Header";
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: `${APP_TITLE}【Admin】`,
@@ -19,7 +17,7 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <div className={inter.className}>
+    <div>
       <Header />
       {children}
       {modal}

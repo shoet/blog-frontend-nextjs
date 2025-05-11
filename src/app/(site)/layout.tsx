@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { APP_DESCRIPTION, APP_TITLE } from "@/constant";
@@ -10,8 +9,6 @@ import css from "./layout.module.scss";
 import clsx from "clsx";
 import { Spacer } from "../_components/Atoms/Spacer";
 import { TableOfContentContextProvider } from "../_components/Organisms/TableOfContentProvider";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -24,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={inter.className}>
+    <div>
       <div className={clsx(css.body)}>
         <div>
           <Spacer height={30} />
