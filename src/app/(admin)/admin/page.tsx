@@ -2,7 +2,6 @@ import { getBlogsAdmin } from "@/services/getBlogsAdmin";
 import css from "./page.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import Link from "next/link";
-import { Button } from "@/app/_components/Atoms/Button";
 import { BlogEditTable } from "@/app/_components/Organisms/BlogEditTable";
 import { IconPlus } from "@/app/_components/Atoms/Icon";
 

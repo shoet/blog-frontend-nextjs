@@ -124,7 +124,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
           name="content"
           markdownText={contentValue}
           onDragDrop={handleDropFileInTextArea}
-          onChange={handleChangeContent}
+          onChangeText={handleChangeContent}
         />
         <ValidateError state={state} field="content" />
       </div>

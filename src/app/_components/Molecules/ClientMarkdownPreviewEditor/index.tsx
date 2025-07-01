@@ -8,14 +8,14 @@ import { Spacer } from "../../Atoms/Spacer";
 
 type ClientMarkdownPreviewTextAreaProps = {
   markdownText?: string;
-  onChange?: (text: string) => void;
+  onChangeText?: (text: string) => void;
   onDragDrop?: (file: File) => void;
 } & Omit<ComponentProps<"textarea">, "onChange">;
 
 export const ClientMarkdownPreviewTextArea = (
   props: ClientMarkdownPreviewTextAreaProps,
 ) => {
-  const { markdownText = "", onChange, onDragDrop, ...textareaProps } = props;
+  const { markdownText = "", onChangeText: onChange, onDragDrop, ...textareaProps } = props;
   const [text, setText] = useState(markdownText);
 
   useEffect(() => {
