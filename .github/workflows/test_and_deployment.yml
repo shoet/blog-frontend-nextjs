@@ -114,6 +114,7 @@ jobs:
         run: npm run deploy:prod
 
       - name: slack_notify
+        if: success() || failure()
         uses: ./.github/actions/slack_notify
         with:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
