@@ -122,7 +122,7 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
         <label htmlFor="content">記事</label>
         <ClientMarkdownPreviewTextArea
           name="content"
-          markdownText={contentValue}
+          value={contentValue}
           onDragDrop={handleDropFileInTextArea}
           onChangeText={handleChangeContent}
         />

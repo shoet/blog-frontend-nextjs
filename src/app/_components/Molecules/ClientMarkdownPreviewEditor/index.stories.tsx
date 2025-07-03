@@ -26,7 +26,7 @@ export const Default: Story = {
     return (
       <ClientMarkdownPreviewTextArea
         {...args}
-        markdownText={markdown}
+        value={markdown}
         onChangeText={handleChangeText}
         onDragDrop={handleOnDragDrop}
       />
