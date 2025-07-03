@@ -1,0 +1,35 @@
+.container {
+  padding: 20px;
+}
+
+.verticalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.horizontalContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleArea {
+  width: 100%;
+
+  label {
+    width: auto;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+.buttonArea {
+  width: 100%;
+  justify-content: flex-end;
+}
