@@ -3,7 +3,14 @@
 import { Spinner } from '../../Atoms/Spinner';
 import styles from './index.module.scss';
 
-export const LoadingModal = () => {
+type Props = {
+  open?: boolean
+}
+
+export const LoadingModal = (props: Props) => {
+  if (!props.open) {
+    return null
+  }
   return (
     <>
       <div className={styles.background}></div>
