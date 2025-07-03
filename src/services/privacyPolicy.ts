@@ -12,16 +12,31 @@ export async function editPrivacyPolicy(
   id: string,
   content: string
 ): Promise<PrivacyPolicy> {
-  const token = (await getServerSideCookie("authToken"))?.value;
+  const token = (await getServerSideCookie('authToken'))?.value;
   if (!token) {
-    throw new Error("ログインしてください");
+    throw new Error('ログインしてください');
   }
   return fetch(getAPIPath(`/privacy_policy/${id}`), {
     method: 'PUT',
     body: JSON.stringify({ content: content }),
     headers: {
-      "Authorization": `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(handleSuccess)
+    .catch(handleFailed);
+}
+
+export async function deletePrivacyPolicy(id: string): Promise<PrivacyPolicy> {
+  const token = (await getServerSideCookie('authToken'))?.value;
+  if (!token) {
+    throw new Error('ログインしてください');
+  }
+  return fetch(getAPIPath(`/privacy_policy/${id}`), {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then(handleSuccess)
     .catch(handleFailed);

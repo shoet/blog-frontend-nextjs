@@ -1,7 +1,7 @@
 'use client';
 
 import { PrivacyPolicy } from '@/types/api';
-import { formAction } from './action';
+import { deleteFormAction, editFormAction } from './action';
 import styles from './index.module.scss';
 import clsx from 'clsx';
 import { useActionState, useState } from 'react';
@@ -12,6 +12,9 @@ import { ClientMarkdownPreviewTextArea } from '@/app/_components/Molecules/Clien
 import { Button } from '@/app/_components/Atoms/Button';
 import { State } from './state';
 import { LoadingModal } from '@/app/_components/Molecules/LoadingModal';
+import { IconTrush } from '@/app/_components/Atoms/Icon';
+import { Modal } from '@/app/_components/Molecules/Modal';
+import { ConfirmDialog } from '@/app/_components/Molecules/ConfirmDialog';
 
 type Props = {
   privacyPolicy?: PrivacyPolicy;
@@ -20,20 +23,26 @@ type Props = {
 export const ClientPrivacyPolicyEditor = (props: Props) => {
   const { privacyPolicy } = props;
 
-  const [state, action, isPending] = useActionState<State, FormData>(
-    formAction,
+  const [editState, editAction, isPendingEdit] = useActionState<State, FormData>(
+    editFormAction,
+    {}
+  );
+  const [deleteState, deleteAction, isPendingDelete] = useActionState<State, FormData>(
+    deleteFormAction,
     {}
   );
 
-  const nameError = getZodValidateError(state.zodError || [], 'name');
-  const contentError = getZodValidateError(state.zodError || [], 'content');
+  const nameError = getZodValidateError(editState.zodError || [], 'name');
+  const contentError = getZodValidateError(editState.zodError || [], 'content');
+  const deleteNameError = getZodValidateError(deleteState.zodError || [], 'name');
 
   const [name, setName] = useState<string | undefined>(privacyPolicy?.id);
+  const [showDelete, setShowDelete] = useState(false);
 
   return (
     <>
-      <form action={action}>
-        {state.message && <ErrorText>{state.message}</ErrorText>}
+      <form action={editAction}>
+        {editState.message && <ErrorText>{editState.message}</ErrorText>}
         <div className={clsx(styles.container, styles.verticalContainer)}>
           <div className={clsx(styles.titleArea)}>
             <div className={clsx(styles.horizontalContainer)}>
@@ -43,6 +52,14 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
+              {privacyPolicy && (
+                <div
+                  className={styles.deleteButton}
+                  onClick={() => setShowDelete(true)}
+                >
+                  <IconTrush />
+                </div>
+              )}
             </div>
             {nameError && <ErrorText>{nameError.error}</ErrorText>}
           </div>
@@ -60,7 +77,19 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
           </div>
         </div>
       </form>
-      <LoadingModal open={isPending} />
+      <LoadingModal open={isPendingEdit} />
+      <Modal open={showDelete}>
+        <form action={deleteAction}>
+          <input hidden name="name" defaultValue={privacyPolicy?.id || ""} />
+          <ConfirmDialog
+            title="削除しますか？"
+            onClickOK={() => {}}
+            enableSubmit
+            onClickCancel={() => setShowDelete(false)}
+            errorMessage={deleteState.message || deleteNameError?.error}
+          />
+        </form>
+      </Modal>
     </>
   );
 };
