@@ -37,7 +37,7 @@
     "remark-gfm": "^4.0.0",
     "serverless-domain-manager": "^7.4.0",
     "shiki": "^1.10.3",
-    "zod": "^3.23.8"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
