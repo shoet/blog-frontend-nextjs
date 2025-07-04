@@ -7,20 +7,19 @@ import { DragableTextarea } from "../../Atoms/DragableTextarea";
 import { Spacer } from "../../Atoms/Spacer";
 
 type ClientMarkdownPreviewTextAreaProps = {
-  markdownText?: string;
-  onChange?: (text: string) => void;
+  onChangeText?: (text: string) => void;
   onDragDrop?: (file: File) => void;
 } & Omit<ComponentProps<"textarea">, "onChange">;
 
 export const ClientMarkdownPreviewTextArea = (
   props: ClientMarkdownPreviewTextAreaProps,
 ) => {
-  const { markdownText = "", onChange, onDragDrop, ...textareaProps } = props;
-  const [text, setText] = useState(markdownText);
+  const { value, onChangeText: onChange, onDragDrop, ...textareaProps } = props;
+  const [text, setText] = useState(value);
 
   useEffect(() => {
-    setText(markdownText);
-  }, [markdownText]);
+    setText(value);
+  }, [value]);
 
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -35,7 +34,6 @@ export const ClientMarkdownPreviewTextArea = (
     <div className={css.markdownPreviewEditor}>
       <div className={clsx(css.editor, css.textEditor)}>
         <DragableTextarea
-          defaultValue={markdownText}
           onChange={handleChangeText}
           onDragDrop={handleDragDrop}
           value={text}
@@ -44,7 +42,7 @@ export const ClientMarkdownPreviewTextArea = (
       </div>
       <Spacer width={20} />
       <div className={css.preview}>
-        <MarkdownRenderer markdown={text} />
+        <MarkdownRenderer markdown={text as string || ""} />
       </div>
     </div>
   );

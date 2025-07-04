@@ -1,0 +1,30 @@
+.spinner {
+  svg {
+    // strokeDasharray: 20, // 20pxの線,20pxの隙間,20pxの線....という破線になる
+    // strokeDasharray: "20 20", // Safari向けに線が20、隙間が20と明示的にして上げる必要がある
+    // strokeDasharray: "10 20 30", // 10pxの線,20pxの隙間,30pxの線....という破線になる
+    // strokeDasharray: "calc(40 * 2 * 3.14) calc(40 * 2 * 3.14)", // 円周(半径*半径*3.14)で20px欠けた円を描く こうすると1週目に線がある、2週目に線がない円周を回る形になる
+    stroke-dasharray: calc(40*2*3.14 - 20) calc(40*2*3.14 - 20); // 少し余白を残す用
+    animation: loader 2s infinite, rotate 2s infinite linear;
+    vertical-align: middle;
+  }
+
+  @keyframes loader {
+    // strokeの始点をアニメーションで右にずらしていく
+    from {
+      stroke-dashoffset: calc(40*2*3.14 - 20); // 最初はすべて写っている
+    }
+    to {
+      stroke-dashoffset: -1 * calc(40*2*3.14 - 20); // 最終的に全部消える
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: none;
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

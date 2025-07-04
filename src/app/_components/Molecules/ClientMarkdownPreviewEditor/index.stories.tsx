@@ -15,7 +15,6 @@ export const Default: Story = {
     const [markdown, setMarkdown] = useState("");
 
     const handleOnDragDrop = (file: File) => {
-      console.log("### drop");
       const fileName = file.name;
       setMarkdown(`${markdown}\n${fileName}`);
     };
@@ -27,8 +26,8 @@ export const Default: Story = {
     return (
       <ClientMarkdownPreviewTextArea
         {...args}
-        markdownText={markdown}
-        onChange={handleChangeText}
+        value={markdown}
+        onChangeText={handleChangeText}
         onDragDrop={handleOnDragDrop}
       />
     );

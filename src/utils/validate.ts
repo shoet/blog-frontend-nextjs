@@ -1,4 +1,5 @@
 import { z, ZodError, ZodSchema } from "zod";
+import { ZodError as ZodErrorV4 } from "zod/v4";
 
 export type ZodValidateError = {
   field: string;
@@ -32,4 +33,13 @@ export function getZodValidateError(
   field: string,
 ): ZodValidateError | undefined {
   return errors.find((error) => error.field === field);
+}
+
+export function getZodValidateErrorsV4(e: ZodErrorV4): ZodValidateError[] {
+  return e.issues.map((issue) => {
+    return {
+      field: issue.path.join("."),
+      error: issue.message,
+    };
+  });
 }

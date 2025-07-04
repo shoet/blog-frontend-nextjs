@@ -9,8 +9,7 @@
   color: var(--text-color);
   border: 1px solid var(--border-color);
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: var(--focus-color);
     border-color: var(--focus-border-color);
   }

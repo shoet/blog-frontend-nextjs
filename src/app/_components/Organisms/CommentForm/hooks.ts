@@ -20,12 +20,13 @@ export const useCommentForm = (props: {
   const [handlename, setHandlename] = useState<string>();
   useEffect(() => {
     // ログインユーザーでない場合、匿名ユーザーとしてIDを生成する
-    if (commentUser) return;
-    (async () => {
+    async function fn() {
+      if (commentUser) return;
       const { handlename } = await getHandlename(blogId);
       setHandlename(handlename);
-    })();
-  }, [commentUser]);
+    }
+    fn();
+  }, [commentUser, blogId]);
 
   const [optimisticComment, addOptimistic] = useOptimistic<Comment[], Comment>(
     comments,

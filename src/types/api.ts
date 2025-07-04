@@ -57,3 +57,10 @@ export type Comment = {
   created: number;
   modified: number;
 };
+
+export type PrivacyPolicy = {
+  id: string
+  content: string
+  created: number;
+  modified: number;
+}
