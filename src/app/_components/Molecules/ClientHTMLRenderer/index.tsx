@@ -12,7 +12,7 @@ type Props = {
 // aタグにtarget="_blank"を追加する関数
 function addLinkTargetBlank(html: string): string {
   const regex = /<a href="(.*?)"/g;
-  const replacer = (_: string, p1: string) => `<a href="${p1}" target="_blank"`;
+  const replacer = (_: string, p1: string) => `<a href="${p1}" target="_blank" rel="noopener noreferrer"`;
   return html.replace(regex, replacer);
 }
 
@@ -24,15 +24,15 @@ export const ClientHTMLRenderer = (props: Props) => {
 
   // 'use client'をつけてもClientComponentと判定されずビルドエラーになるため、useEffectで囲む
   useEffect(() => {
-    let html = addLinkTargetBlank(props.rawHTML);
     const parse = new DOMParser();
-    const dom = parse.parseFromString(html, "text/html");
+    const dom = parse.parseFromString(props.rawHTML, "text/html");
     dom.querySelectorAll("pre code").forEach((block) => {
       const result = hljs.highlightAuto(block.textContent || "");
       block.classList.add("hljs");
       block.setHTMLUnsafe(result.value);
     });
-    html = DOMPurify.sanitize(dom.body.innerHTML, {});
+    let html = DOMPurify.sanitize(dom.body.innerHTML, {});
+    html = addLinkTargetBlank(html);
     setHTML(html);
   }, [props.rawHTML]);
   return (
