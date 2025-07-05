@@ -103,7 +103,7 @@ async function getProfile(): Promise<UserProfile | undefined> {
     const user = await getUsersMe(token.value);
     return user.profile;
   } catch (e) {
-    console.error("Failed to fetch user profile", e);
+    console.warn("Failed to fetch user profile", e);
   }
 }
 
