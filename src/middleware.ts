@@ -36,7 +36,9 @@ export async function authGuard(): Promise<boolean> {
   } catch (e) {
     if (e instanceof FetchError) {
       if (e.status == 401) {
-        cookie.delete("authToken");
+        if (cookie.has("authToken")) {
+          cookie.delete("authToken");
+        }
         return false;
       }
     }
