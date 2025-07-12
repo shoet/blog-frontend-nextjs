@@ -10,7 +10,7 @@ export const useDropzone = (props: { onChange?: (file: File) => void }) => {
   const [error, setError] = useState<DropzoneError>();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleOnDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+  const handleOnDrop = async (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
     setError(undefined);
     const fileList = e.dataTransfer.files;
