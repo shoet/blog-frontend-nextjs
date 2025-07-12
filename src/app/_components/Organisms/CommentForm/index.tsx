@@ -79,7 +79,8 @@ export const CommentFormPresenter = (props: {
             onChangeToggle={previewToggle}
           />
         </div>
-        <div
+        <button
+          type="button"
           className={styles.tabs}
           onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
@@ -108,7 +109,7 @@ export const CommentFormPresenter = (props: {
               <NoComment />
             )}
           </div>
-        </div>
+        </button>
         <Divider />
         <div className={styles.sender}>
           <Button variant="secondaryDark" round type="submit">
