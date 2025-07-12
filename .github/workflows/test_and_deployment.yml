@@ -47,8 +47,11 @@ jobs:
           restore-keys: |
             node-${{ runner.os }}-
 
-      - name: setup node_modules
+      - name: setup node_modules for cdk
         working-directory: cdk
+        run: npm ci
+
+      - name: setup node_modules
         run: npm ci
 
       - name: lint
