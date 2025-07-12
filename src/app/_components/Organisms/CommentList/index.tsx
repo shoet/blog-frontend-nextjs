@@ -1,5 +1,5 @@
 "use client";
-import { Comment } from "@/types/api";
+import type { Comment } from "@/types/api";
 import styles from "./index.module.scss";
 import { AvatarImage } from "../../Molecules/AvatarImage";
 import { toStringYYYYMMDD_HHMMSS_ja } from "@/utils/date";

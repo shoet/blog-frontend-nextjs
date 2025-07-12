@@ -1,5 +1,5 @@
 import { deleteBlog } from "@/services/deleteBlog";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const POST = async (
   request: NextRequest,

@@ -1,9 +1,9 @@
 "use client";
 import styles from "./index.module.scss";
-import { CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import {
-  Heading,
-  HeadingType,
+  type Heading,
+  type HeadingType,
   useTableOfContentContext,
 } from "../TableOfContentProvider";
 import { theme } from "@/themes";

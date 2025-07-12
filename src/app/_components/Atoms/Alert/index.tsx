@@ -1,4 +1,4 @@
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import styles from "./index.module.scss";
 import { IconXmark } from "../Icon";
 

@@ -1,5 +1,5 @@
 "use client";
-import { Tag } from "@/types/api";
+import type { Tag } from "@/types/api";
 import css from "./index.module.scss";
 import { theme } from "@/themes";
 import { Badge } from "../../Atoms/Badge";

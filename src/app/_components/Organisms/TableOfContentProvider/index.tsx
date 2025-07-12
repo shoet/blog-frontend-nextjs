@@ -1,7 +1,7 @@
 "use client";
 import {
   createContext,
-  PropsWithChildren,
+  type PropsWithChildren,
   useContext,
   useRef,
   useState,

@@ -2,7 +2,7 @@
 
 import { useActionState, useRef, useState } from "react";
 import { userProfileEditStateAction } from "./actions";
-import { ZodValidateError } from "@/utils/validate";
+import type { ZodValidateError } from "@/utils/validate";
 import { getUploadURL } from "@/services/routeHandler";
 
 const useAvatarImage = (props: { avatarImageURL?: string }) => {

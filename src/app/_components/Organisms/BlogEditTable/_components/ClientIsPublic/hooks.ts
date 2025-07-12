@@ -1,4 +1,4 @@
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { useActionState, useRef } from "react";
 import { updateIsPublicServerAction } from "./actions";
 import { useToastContext } from "@/app/_components/Molecules/ToastProvider";

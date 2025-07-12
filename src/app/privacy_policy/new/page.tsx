@@ -1,5 +1,5 @@
 import { authGuard } from "@/middleware";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 import { ClientPrivacyPolicyEditor } from "../_components/ClientPrivacyPolicyEditor";
 

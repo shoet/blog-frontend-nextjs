@@ -1,7 +1,7 @@
 import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import { rehypePrettyCode } from "rehype-pretty-code";
-import { NextConfig } from "next";
+import type { NextConfig } from "next";
 
 if (!process.env.CDN_HOST) {
   throw new Error("CDN_HOST is required");

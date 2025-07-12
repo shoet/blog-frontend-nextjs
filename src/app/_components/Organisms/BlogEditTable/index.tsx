@@ -1,6 +1,6 @@
 "use server";
 import { getUserProfile } from "@/services/userProfile";
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { AvatarImage } from "../../Molecules/AvatarImage";
 import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";

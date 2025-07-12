@@ -1,9 +1,9 @@
 "use client";
-import { Blog } from "@/types/api";
-import { ComponentProps } from "react";
+import type { Blog } from "@/types/api";
+import type { ComponentProps } from "react";
 import css from "./index.module.scss";
 import { Button } from "@/app/_components/Atoms/Button";
-import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
+import { Badge, type BadgeProps } from "@/app/_components/Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 

@@ -1,4 +1,4 @@
-import { PrivacyPolicy } from "@/types/api";
+import type { PrivacyPolicy } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 import { getServerSideCookie } from "@/utils/cookie";
 

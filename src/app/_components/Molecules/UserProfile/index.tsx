@@ -1,8 +1,8 @@
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { AvatarImage } from "../AvatarImage";
 import styles from "./index.module.scss";
 import { theme } from "@/themes";
-import { UserProfile as UserProfileType } from "@/types/api";
+import type { UserProfile as UserProfileType } from "@/types/api";
 import Link from "next/link";
 
 type Props = {

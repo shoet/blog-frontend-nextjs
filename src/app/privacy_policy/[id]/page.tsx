@@ -1,6 +1,6 @@
 import { MarkdownRenderer } from "@/app/_components/Molecules/MarkdownRenderer";
 import { getPrivacyPolicy } from "@/services/privacyPolicy";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 type PrivacyPolicyProps = {
   params: Promise<{

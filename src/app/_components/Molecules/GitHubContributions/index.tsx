@@ -1,6 +1,6 @@
-import { GitHubContributions } from "@/types/api";
+import type { GitHubContributions } from "@/types/api";
 import css from "./index.module.scss";
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 
 type GitHubContributionsProps = {
   contributions: GitHubContributions[];

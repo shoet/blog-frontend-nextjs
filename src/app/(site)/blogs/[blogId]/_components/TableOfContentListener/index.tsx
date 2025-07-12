@@ -1,7 +1,7 @@
 "use client";
 
 import { useTableOfContentContext } from "@/app/_components/Organisms/TableOfContentProvider";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 
 /**
  * TableOfContentListener は、目次用のContextにchildren内の見出し項目を通知するためのコンポーネントです。

@@ -1,7 +1,7 @@
 self.addEventListener("fetch", (event) => {
   if (event.request.method === "PUT" || event.request.method === "POST") {
     event.respondWith(
-      (async function () {
+      (async () => {
         const originalRequest = event.request;
         const clonedRequest = originalRequest.clone();
         const buffer = await clonedRequest.arrayBuffer();

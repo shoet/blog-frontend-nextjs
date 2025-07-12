@@ -2,7 +2,7 @@
 
 import { useTextArea } from "./useTextArea";
 import styles from "./index.module.scss";
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import clsx from "clsx";
 
 type TextAreaProps = {

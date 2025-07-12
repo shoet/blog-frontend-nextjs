@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import css from "./page.module.scss";
 import { ClientBlogEditForm } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm";
 import { blogPostSubmitAction } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm/actions";

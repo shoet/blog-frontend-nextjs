@@ -1,5 +1,5 @@
 import { getHandlename } from "@/services/getHandlename";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
   const query = new URL(request.url).searchParams;

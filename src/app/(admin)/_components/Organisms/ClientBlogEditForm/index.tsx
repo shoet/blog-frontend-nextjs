@@ -8,8 +8,8 @@ import { Dropzone } from "@/app/_components/Atoms/Dropzone";
 import { IconUpload } from "@/app/_components/Atoms/Icon";
 import { TagForm } from "@/app/_components/Molecules/TagForm";
 import { Button } from "@/app/_components/Atoms/Button";
-import { Blog } from "@/types/api";
-import { ClientBlogEditFormState, getClientBlogEditFormError } from "./state";
+import type { Blog } from "@/types/api";
+import { type ClientBlogEditFormState, getClientBlogEditFormError } from "./state";
 import { useBlogEditForm } from "./useBlogEditForm";
 
 type ClientBlogEditFormProps = {

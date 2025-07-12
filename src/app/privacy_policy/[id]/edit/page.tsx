@@ -1,6 +1,6 @@
 import { authGuard } from "@/middleware";
 import { getPrivacyPolicy } from "@/services/privacyPolicy";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 import { ClientPrivacyPolicyEditor } from "../../_components/ClientPrivacyPolicyEditor";
 import { IconTrush } from "@/app/_components/Atoms/Icon";

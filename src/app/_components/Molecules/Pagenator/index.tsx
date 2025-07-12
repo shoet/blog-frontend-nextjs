@@ -78,13 +78,13 @@ function paginate({
 
   var items: string[] = ["1"];
 
-  let prev = current === 1 ? null : current - 1;
-  let next = current === max ? null : current + 1;
+  const prev = current === 1 ? null : current - 1;
+  const next = current === max ? null : current + 1;
 
   if (current === 1 && max === 1) return { current, prev, next, items };
   if (current > 4) items.push("…");
 
-  let r = 2,
+  const r = 2,
     r1 = current - r,
     r2 = current + r;
 

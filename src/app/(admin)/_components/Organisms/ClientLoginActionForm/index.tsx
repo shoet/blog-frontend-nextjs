@@ -1,5 +1,5 @@
 "use client";
-import { LoginActionFormState } from "./state";
+import type { LoginActionFormState } from "./state";
 import { loginServerAction } from "./action";
 import { LoginActionForm } from "../LoginActionForm";
 import { useActionState } from "react";

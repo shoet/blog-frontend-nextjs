@@ -1,8 +1,8 @@
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { theme } from "@/themes";
 import { Spacer } from "../../Atoms/Spacer";
 import { LoadingNextImage } from "../../Molecules/LoadingNextImage";

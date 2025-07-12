@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { GitHubContributionsGrid } from ".";
-import { GitHubContributions } from "@/types/api";
+import type { GitHubContributions } from "@/types/api";
 
 export default {
   title: "Molecules/GitHubContributionsGrid",

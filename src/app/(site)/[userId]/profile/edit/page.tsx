@@ -1,7 +1,7 @@
 import { UserProfileForm } from "@/app/_components/Molecules/UserProfileForm";
 import { authGuard } from "@/middleware";
 import { getUserProfile } from "@/services/userProfile";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 
 type UserProfileEditProps = {

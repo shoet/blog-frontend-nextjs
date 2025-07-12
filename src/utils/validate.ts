@@ -1,5 +1,5 @@
-import { z, ZodError, ZodSchema } from "zod";
-import { ZodError as ZodErrorV4 } from "zod/v4";
+import type { z, ZodError, ZodSchema } from "zod";
+import type { ZodError as ZodErrorV4 } from "zod/v4";
 
 export type ZodValidateError = {
   field: string;

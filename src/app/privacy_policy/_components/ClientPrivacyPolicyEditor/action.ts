@@ -1,7 +1,7 @@
 "use server";
 
 import { getZodValidateErrorsV4 } from "@/utils/validate";
-import { State } from "./state";
+import type { State } from "./state";
 import { z } from "zod/v4";
 import {
   deletePrivacyPolicy,

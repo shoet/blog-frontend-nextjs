@@ -1,4 +1,4 @@
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { BlogCard } from "../BlogCard";
 import css from "./index.module.scss";
 import { Spacer } from "../../Atoms/Spacer";

@@ -1,5 +1,5 @@
 import { BlogCardListContainer } from "@/app/_components/Organisms/BlogCardListContainer";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
 export const generateMetadata = async (
   _: any,

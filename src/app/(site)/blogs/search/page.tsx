@@ -1,8 +1,8 @@
 import { searchBlogs } from "@/services/searchBlogs";
-import { ResolvingMetadata } from "next";
+import type { ResolvingMetadata } from "next";
 import css from "./page.module.scss";
-import { Badge, BadgeProps } from "@/app/_components/Atoms/Badge";
-import { ComponentProps } from "react";
+import { Badge, type BadgeProps } from "@/app/_components/Atoms/Badge";
+import type { ComponentProps } from "react";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { BLOG_PER_PAGE } from "@/constant";
 import { BlogCardList } from "@/app/_components/Organisms/BlogCardList";

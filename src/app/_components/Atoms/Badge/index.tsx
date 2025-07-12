@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import styles from "./index.module.scss";
-import React, { ComponentProps, CSSProperties } from "react";
+import React, { type ComponentProps, type CSSProperties } from "react";
 
 export type BadgeProps = {
   color?: string;

@@ -1,4 +1,4 @@
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import css from "./index.module.scss";
 
 type SpacerProps = { width?: number; height?: number } & ComponentProps<"div">;

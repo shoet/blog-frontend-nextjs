@@ -1,4 +1,4 @@
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
 type GetBlogsResponse = {

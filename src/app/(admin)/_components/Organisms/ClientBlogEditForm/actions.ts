@@ -1,8 +1,8 @@
 "use server";
 import { ZodError } from "zod";
 import {
-  ClientBlogEditFormError,
-  ClientBlogEditFormState,
+  type ClientBlogEditFormError,
+  type ClientBlogEditFormState,
   emptyFormState,
 } from "./state";
 import { ClientBlogEditFormSchema, ClientBlogPostFormSchema } from "./validate";

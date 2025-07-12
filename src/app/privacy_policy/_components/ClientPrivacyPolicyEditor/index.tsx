@@ -1,6 +1,6 @@
 "use client";
 
-import { PrivacyPolicy } from "@/types/api";
+import type { PrivacyPolicy } from "@/types/api";
 import { deleteFormAction, editFormAction } from "./action";
 import styles from "./index.module.scss";
 import clsx from "clsx";
@@ -10,7 +10,7 @@ import { ErrorText } from "@/app/_components/Atoms/ErrorText";
 import { TextInput } from "@/app/_components/Atoms/TextInput";
 import { ClientMarkdownPreviewTextArea } from "@/app/_components/Molecules/ClientMarkdownPreviewEditor";
 import { Button } from "@/app/_components/Atoms/Button";
-import { State } from "./state";
+import type { State } from "./state";
 import { LoadingModal } from "@/app/_components/Molecules/LoadingModal";
 import { IconTrush } from "@/app/_components/Atoms/Icon";
 import { Modal } from "@/app/_components/Molecules/Modal";

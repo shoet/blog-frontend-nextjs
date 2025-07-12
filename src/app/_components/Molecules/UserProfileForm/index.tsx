@@ -1,11 +1,12 @@
 "use client";
-import React, { CSSProperties } from "react";
+import type React from "react";
+import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 import styles from "./index.module.scss";
 import { theme } from "@/themes";
 import { AvatarImage } from "../AvatarImage";
 import { useUserProfileEdit } from "./hooks";
-import { getZodValidateError, ZodValidateError } from "@/utils/validate";
+import { getZodValidateError, type ZodValidateError } from "@/utils/validate";
 
 type Props = {
   userId: number;

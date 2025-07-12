@@ -1,4 +1,4 @@
-import { ZodValidateError } from "@/utils/validate";
+import type { ZodValidateError } from "@/utils/validate";
 
 export type LoginActionFormState = {
   validateErrors?: ZodValidateError[];

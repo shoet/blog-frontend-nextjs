@@ -1,7 +1,7 @@
 "use client";
 
 import { ToggleSwitch } from "@/app/_components/Atoms/ToggleSwitch";
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { useIsPublic } from "./hooks";
 
 type Props = {

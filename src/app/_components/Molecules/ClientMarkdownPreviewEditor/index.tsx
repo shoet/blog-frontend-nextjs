@@ -1,5 +1,6 @@
 "use client";
-import React, { ComponentProps, useEffect, useState } from "react";
+import type React from "react";
+import { type ComponentProps, useEffect, useState } from "react"
 import { MarkdownRenderer } from "../MarkdownRenderer";
 import css from "./index.module.scss";
 import clsx from "clsx";

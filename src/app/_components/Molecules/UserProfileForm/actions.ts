@@ -3,7 +3,7 @@
 import { getZodValidateErrors } from "@/utils/validate";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { UserProfileEditState } from "./state";
+import type { UserProfileEditState } from "./state";
 import { updateUserProfile } from "@/services/userProfile";
 
 export const userProfileEditStateAction = async (

@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { ConfirmDialog } from "../ConfirmDialog";
 import css from "./index.module.scss";
 import { IconXmark } from "../../Atoms/Icon";

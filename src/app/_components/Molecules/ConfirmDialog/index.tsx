@@ -1,5 +1,5 @@
 "use client";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 import css from "./index.module.scss";
 import { theme } from "@/themes";

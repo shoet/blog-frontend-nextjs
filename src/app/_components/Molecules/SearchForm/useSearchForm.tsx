@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import type React from "react";
+import { useRef } from "react";
 
 type useSearchFormProps = {
   onSubmit?: (keyword: string) => void;

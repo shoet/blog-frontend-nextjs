@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { TextArea } from "../TextArea";
 import { useDragableTextarea } from "./useDragableTextarea";
 

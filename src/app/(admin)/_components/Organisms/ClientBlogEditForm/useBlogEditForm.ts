@@ -1,8 +1,8 @@
 "use client";
 import { useFormState } from "react-dom";
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { useState } from "react";
-import { ClientBlogEditFormState } from "./state";
+import type { ClientBlogEditFormState } from "./state";
 import {
   uploadFileForContent,
   uploadFileForThumbnail,

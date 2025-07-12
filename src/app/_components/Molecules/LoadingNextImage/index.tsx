@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ReactEventHandler, useState } from "react";
+import { type ReactEventHandler, useState } from "react";
 import { SkeletonLoader } from "../SkeletonLoader";
 import css from "./index.module.scss";
 

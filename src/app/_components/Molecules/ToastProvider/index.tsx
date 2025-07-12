@@ -4,8 +4,8 @@ import styles from "./index.module.scss";
 
 import {
   createContext,
-  CSSProperties,
-  ReactNode,
+  type CSSProperties,
+  type ReactNode,
   useContext,
   useState,
 } from "react";

@@ -1,5 +1,5 @@
 "use client";
-import { CSSProperties, useState } from "react";
+import { type CSSProperties, useState } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import { theme } from "@/themes";

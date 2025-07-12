@@ -1,6 +1,6 @@
 "use client";
 import css from "./index.module.scss";
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import { theme } from "@/themes";
 import { useTagForm } from "./useTagForm";
 import { CloseableBadge } from "../CloseableBadge";

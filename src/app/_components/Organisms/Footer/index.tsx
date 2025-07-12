@@ -2,7 +2,7 @@ import { theme } from "@/themes";
 import { IconGitHub, IconTwitter, IconYoutube } from "../../Atoms/Icon";
 import css from "./index.module.scss";
 import Link from "next/link";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 export const Footer = () => {
   return (
     <div
