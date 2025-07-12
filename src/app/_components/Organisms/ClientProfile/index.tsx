@@ -4,7 +4,7 @@ import css from "./index.module.scss";
 import { IconGitHub, IconTwitter, IconYoutube } from "../../Atoms/Icon";
 import { theme } from "@/themes";
 import { Spacer } from "../../Atoms/Spacer";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 
 type ProfileProps = {

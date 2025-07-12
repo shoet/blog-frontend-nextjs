@@ -15,7 +15,7 @@ export const MarkdownRenderer = (props: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        let mkd = await marked(markdown);
+        const mkd = await marked(markdown);
         setHtmlContent(mkd);
       } catch (error) {
         console.error(error);

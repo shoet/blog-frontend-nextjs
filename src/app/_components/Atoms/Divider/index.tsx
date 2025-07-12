@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import css from "./index.module.scss";
 import { theme } from "@/themes";
 

@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { PrivacyPolicy } from '@/types/api';
-import { deleteFormAction, editFormAction } from './action';
-import styles from './index.module.scss';
-import clsx from 'clsx';
-import { useActionState, useState } from 'react';
-import { getZodValidateError } from '@/utils/validate';
-import { ErrorText } from '@/app/_components/Atoms/ErrorText';
-import { TextInput } from '@/app/_components/Atoms/TextInput';
-import { ClientMarkdownPreviewTextArea } from '@/app/_components/Molecules/ClientMarkdownPreviewEditor';
-import { Button } from '@/app/_components/Atoms/Button';
-import { State } from './state';
-import { LoadingModal } from '@/app/_components/Molecules/LoadingModal';
-import { IconTrush } from '@/app/_components/Atoms/Icon';
-import { Modal } from '@/app/_components/Molecules/Modal';
-import { ConfirmDialog } from '@/app/_components/Molecules/ConfirmDialog';
+import type { PrivacyPolicy } from "@/types/api";
+import { deleteFormAction, editFormAction } from "./action";
+import styles from "./index.module.scss";
+import clsx from "clsx";
+import { useActionState, useState } from "react";
+import { getZodValidateError } from "@/utils/validate";
+import { ErrorText } from "@/app/_components/Atoms/ErrorText";
+import { TextInput } from "@/app/_components/Atoms/TextInput";
+import { ClientMarkdownPreviewTextArea } from "@/app/_components/Molecules/ClientMarkdownPreviewEditor";
+import { Button } from "@/app/_components/Atoms/Button";
+import type { State } from "./state";
+import { LoadingModal } from "@/app/_components/Molecules/LoadingModal";
+import { IconTrush } from "@/app/_components/Atoms/Icon";
+import { Modal } from "@/app/_components/Molecules/Modal";
+import { ConfirmDialog } from "@/app/_components/Molecules/ConfirmDialog";
 
 type Props = {
   privacyPolicy?: PrivacyPolicy;
@@ -23,18 +23,21 @@ type Props = {
 export const ClientPrivacyPolicyEditor = (props: Props) => {
   const { privacyPolicy } = props;
 
-  const [editState, editAction, isPendingEdit] = useActionState<State, FormData>(
-    editFormAction,
-    {}
-  );
-  const [deleteState, deleteAction, isPendingDelete] = useActionState<State, FormData>(
-    deleteFormAction,
-    {}
-  );
+  const [editState, editAction, isPendingEdit] = useActionState<
+    State,
+    FormData
+  >(editFormAction, {});
+  const [deleteState, deleteAction, isPendingDelete] = useActionState<
+    State,
+    FormData
+  >(deleteFormAction, {});
 
-  const nameError = getZodValidateError(editState.zodError || [], 'name');
-  const contentError = getZodValidateError(editState.zodError || [], 'content');
-  const deleteNameError = getZodValidateError(deleteState.zodError || [], 'name');
+  const nameError = getZodValidateError(editState.zodError || [], "name");
+  const contentError = getZodValidateError(editState.zodError || [], "content");
+  const deleteNameError = getZodValidateError(
+    deleteState.zodError || [],
+    "name",
+  );
 
   const [name, setName] = useState<string | undefined>(privacyPolicy?.id);
   const [showDelete, setShowDelete] = useState(false);
@@ -46,19 +49,20 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
         <div className={clsx(styles.container, styles.verticalContainer)}>
           <div className={clsx(styles.titleArea)}>
             <div className={clsx(styles.horizontalContainer)}>
-              <label>タイトル</label>
+              <label htmlFor="name">タイトル</label>
               <TextInput
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               {privacyPolicy && (
-                <div
+                <button
+                  type="button"
                   className={styles.deleteButton}
                   onClick={() => setShowDelete(true)}
                 >
                   <IconTrush />
-                </div>
+                </button>
               )}
             </div>
             {nameError && <ErrorText>{nameError.error}</ErrorText>}
@@ -83,7 +87,7 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
           <input hidden name="name" defaultValue={privacyPolicy?.id || ""} />
           <ConfirmDialog
             title="削除しますか？"
-            onClickOK={() => {}}
+            onClickOK={() => { }}
             enableSubmit
             onClickCancel={() => setShowDelete(false)}
             errorMessage={deleteState.message || deleteNameError?.error}

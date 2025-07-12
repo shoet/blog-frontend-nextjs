@@ -1,9 +1,9 @@
 "use client";
 import styles from "./index.module.scss";
-import { CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import {
-  Heading,
-  HeadingType,
+  type Heading,
+  type HeadingType,
   useTableOfContentContext,
 } from "../TableOfContentProvider";
 import { theme } from "@/themes";
@@ -54,18 +54,19 @@ export const TableOfContentComponent = (props: {
       }
     >
       <div className={styles.titleSummary}>目次</div>
-      {headings.map((heading, idx) => {
+      {headings.map((heading) => {
         return (
-          <div
-            key={idx}
+          <button
+            type="button"
             className={clsx(styles.heading, styles[`heading-${heading.type}`])}
+            key={heading.content}
             style={headingsStyle[heading.type]}
             onClick={() => {
-              onClick && onClick(heading);
+              onClick?.(heading);
             }}
           >
             {getHeadingMessage(heading)}
-          </div>
+          </button>
         );
       })}
     </div>

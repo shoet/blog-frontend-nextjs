@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Navigation } from ".";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 export default {
   title: "Molecules/Navigation",

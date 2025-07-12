@@ -4,8 +4,8 @@ import styles from "./index.module.scss";
 
 import {
   createContext,
-  CSSProperties,
-  ReactNode,
+  type CSSProperties,
+  type ReactNode,
   useContext,
   useState,
 } from "react";
@@ -25,7 +25,7 @@ type ToastContent = {
 };
 
 const ToastContext = createContext<ToastContextType>({
-  queueToast: async () => {},
+  queueToast: async () => { },
 });
 
 export const useToastContext = () => useContext(ToastContext);
@@ -44,7 +44,7 @@ export const ToastProvider = (props: { children: ReactNode }) => {
   const updateState = (id: string, state: State) => {
     setToastQueue((prev) => {
       return prev.map((q) => {
-        if (q.id == id) {
+        if (q.id === id) {
           return { ...q, state };
         }
         return q;
@@ -53,7 +53,7 @@ export const ToastProvider = (props: { children: ReactNode }) => {
   };
 
   const remove = (id: string) => {
-    setToastQueue((prev) => prev.filter((q) => q.id != id));
+    setToastQueue((prev) => prev.filter((q) => q.id !== id));
   };
 
   const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import css from "./index.module.scss";
 import { Divider } from "../../Atoms/Divider";
 

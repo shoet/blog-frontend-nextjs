@@ -34,6 +34,7 @@ export const SkeletonLoader = (props: { rows?: number }) => {
     >
       <div className={css.skeleton}>
         {Array.from({ length: rows }).map((_, idx) => (
+          // biome-ignore lint: lint/suspicious/noArrayIndexKey
           <SkeletonRow key={idx} rowNum={(idx % 5) + 1} />
         ))}
       </div>

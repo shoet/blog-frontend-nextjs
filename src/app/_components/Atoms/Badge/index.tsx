@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import styles from "./index.module.scss";
-import React, { ComponentProps, CSSProperties } from "react";
+import React, { type ComponentProps, type CSSProperties } from "react";
 
 export type BadgeProps = {
   color?: string;
@@ -26,6 +26,7 @@ export const Badge = (props: BadgeProps) => {
   } as CSSProperties;
 
   return (
+    // biome-ignore lint: lint/a11y/useKeyWithClickEvents
     <span
       className={clsx(styles.container, focusColor && styles.containerFocus)}
       style={style}

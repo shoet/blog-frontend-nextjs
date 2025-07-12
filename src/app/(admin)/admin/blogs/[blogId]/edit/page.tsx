@@ -1,5 +1,5 @@
 import { getPrivateBlogDetail } from "@/services/getBlogDetail";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import css from "./page.module.scss";
 import { ClientBlogEditForm } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm";
 import { blogEditSubmitAction } from "@/app/(admin)/_components/Organisms/ClientBlogEditForm/actions";

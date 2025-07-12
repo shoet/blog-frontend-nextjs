@@ -1,6 +1,6 @@
 "use server";
 import { z } from "zod";
-import { LoginActionFormState } from "./state";
+import type { LoginActionFormState } from "./state";
 import { assertZodSchema, getZodValidateErrors } from "@/utils/validate";
 import { login } from "@/services/login";
 import { cookies } from "next/headers";

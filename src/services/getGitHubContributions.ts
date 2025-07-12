@@ -1,4 +1,4 @@
-import { GitHubContributions } from "@/types/api";
+import type { GitHubContributions } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
 export async function getGitHubContributions(): Promise<GitHubContributions[]> {

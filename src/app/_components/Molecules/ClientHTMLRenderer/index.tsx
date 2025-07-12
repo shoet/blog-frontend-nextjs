@@ -12,7 +12,8 @@ type Props = {
 // aタグにtarget="_blank"を追加する関数
 function addLinkTargetBlank(html: string): string {
   const regex = /<a href="(.*?)"/g;
-  const replacer = (_: string, p1: string) => `<a href="${p1}" target="_blank" rel="noopener noreferrer"`;
+  const replacer = (_: string, p1: string) =>
+    `<a href="${p1}" target="_blank" rel="noopener noreferrer"`;
   return html.replace(regex, replacer);
 }
 
@@ -38,6 +39,7 @@ export const ClientHTMLRenderer = (props: Props) => {
   return (
     <div
       className={css.markdown}
+      // biome-ignore lint: lint/correctness/noUnusedImports
       dangerouslySetInnerHTML={{ __html: html || "" }}
     />
   );

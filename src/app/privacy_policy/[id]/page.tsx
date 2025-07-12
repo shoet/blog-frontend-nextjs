@@ -1,6 +1,6 @@
-import { MarkdownRenderer } from '@/app/_components/Molecules/MarkdownRenderer';
-import { getPrivacyPolicy } from '@/services/privacyPolicy';
-import { Metadata } from 'next';
+import { MarkdownRenderer } from "@/app/_components/Molecules/MarkdownRenderer";
+import { getPrivacyPolicy } from "@/services/privacyPolicy";
+import type { Metadata } from "next";
 
 type PrivacyPolicyProps = {
   params: Promise<{
@@ -11,7 +11,7 @@ type PrivacyPolicyProps = {
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
     title: `プライバシーポリシー`,
-    description: 'プライバシーポリシー',
+    description: "プライバシーポリシー",
   };
 };
 

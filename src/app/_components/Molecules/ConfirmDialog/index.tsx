@@ -1,5 +1,5 @@
 "use client";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
 import css from "./index.module.scss";
 import { theme } from "@/themes";
@@ -12,7 +12,7 @@ type ConfirmDialogProps = {
   onClickOK: () => void;
   onClickCancel?: () => void;
   errorMessage?: string;
-  enableSubmit?: boolean
+  enableSubmit?: boolean;
   children?: React.ReactNode;
 };
 
@@ -51,17 +51,15 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
             {cancelText ?? "Cancel"}
           </Button>
         )}
-        {
-          props.enableSubmit ? (
-            <Button variant="primary" type="submit" onSubmit={onClickOK}>
-              {okText ?? "OK"}
-            </Button>
-          ) : (
-            <Button variant="primary" onClick={onClickOK}>
-              {okText ?? "OK"}
-            </Button>
-          )
-        }
+        {props.enableSubmit ? (
+          <Button variant="primary" type="submit" onSubmit={onClickOK}>
+            {okText ?? "OK"}
+          </Button>
+        ) : (
+          <Button variant="primary" onClick={onClickOK}>
+            {okText ?? "OK"}
+          </Button>
+        )}
       </div>
     </div>
   );

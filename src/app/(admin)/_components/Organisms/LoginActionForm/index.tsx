@@ -1,6 +1,6 @@
 import { ErrorText } from "@/app/_components/Atoms/ErrorText";
 import css from "./index.module.scss";
-import { getZodValidateError, ZodValidateError } from "@/utils/validate";
+import { getZodValidateError, type ZodValidateError } from "@/utils/validate";
 import { TextInput } from "@/app/_components/Atoms/TextInput";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { Button } from "@/app/_components/Atoms/Button";

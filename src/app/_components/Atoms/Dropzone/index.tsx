@@ -36,18 +36,19 @@ export const Dropzone = (props: DropzoneProps) => {
   return (
     <div>
       <input hidden type="file" onChange={handleOnInputChange} ref={inputRef} />
-      <div
+      <button
+        type="button"
         className={clsx(css.dropzone, isError && css["dropzone--error"])}
         onDrop={handleOnDrop}
         onDragOver={handleOnDragOver}
         onClick={handleOnClickInput}
       >
         {children ? children : <DropzoneDisplay />}
-      </div>
+      </button>
       {error && (
         <div>
-          {error.errors.map((msg, idx) => {
-            return <div key={idx}>{msg}</div>;
+          {error.errors.map((msg) => {
+            return <div key={msg}>{msg}</div>;
           })}
         </div>
       )}

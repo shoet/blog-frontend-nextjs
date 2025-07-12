@@ -1,11 +1,11 @@
-import { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import {
   faGithub,
   faTwitter,
   faYoutube,
-  IconDefinition,
+  type IconDefinition,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faMagnifyingGlass,
@@ -18,7 +18,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SizeProp } from "@fortawesome/fontawesome-svg-core";
+import type { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 type IconProps = {
   color?: string;

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getUsersMe } from "./services/getUsersMe";
 import { FetchError } from "./services";
 
@@ -29,16 +29,14 @@ export const config = {
 export async function authGuard(): Promise<boolean> {
   const cookie = await cookies();
   const token = cookie.get("authToken");
-  if (!token || token.value == "") return false;
+  if (!token || token.value === "") return false;
   try {
     await getUsersMe(token.value);
     return true;
   } catch (e) {
     if (e instanceof FetchError) {
-      if (e.status == 401) {
-        if (cookie.has("authToken")) {
-          cookie.delete("authToken");
-        }
+      if (e.status === 401) {
+        cookie.delete("authToken");
         return false;
       }
     }

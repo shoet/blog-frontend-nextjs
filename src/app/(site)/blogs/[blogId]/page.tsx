@@ -1,9 +1,9 @@
 import { getBlogDetail } from "@/services/getBlogDetail";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
 
-import { UserProfile } from "@/types/api";
+import type { UserProfile } from "@/types/api";
 import css from "./page.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
@@ -11,7 +11,7 @@ import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
-import { marked, MarkedOptions } from "marked";
+import { marked, type MarkedOptions } from "marked";
 import { TableOfContentListener } from "./_components/TableOfContentListener";
 import { ClientHTMLRenderer } from "@/app/_components/Molecules/ClientHTMLRenderer";
 
@@ -103,7 +103,7 @@ async function getProfile(): Promise<UserProfile | undefined> {
     const user = await getUsersMe(token.value);
     return user.profile;
   } catch (e) {
-    console.error("Failed to fetch user profile", e);
+    console.warn("Failed to fetch user profile", e);
   }
 }
 

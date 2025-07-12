@@ -4,7 +4,7 @@ import { OverlayDialog } from "@/app/_components/Molecules/OverlayDialog";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import styles from "./index.module.scss";
-import { Blog } from "@/types/api";
+import type { Blog } from "@/types/api";
 import { BlogCard } from "@/app/_components/Organisms/BlogCard";
 
 type ClientDeleteConfirmDialogProps = { blog: Blog };

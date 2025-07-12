@@ -1,5 +1,6 @@
 "use client";
-import React, { ComponentProps, useEffect, useState } from "react";
+import type React from "react";
+import { type ComponentProps, useEffect, useState } from "react"
 import { MarkdownRenderer } from "../MarkdownRenderer";
 import css from "./index.module.scss";
 import clsx from "clsx";
@@ -42,7 +43,7 @@ export const ClientMarkdownPreviewTextArea = (
       </div>
       <Spacer width={20} />
       <div className={css.preview}>
-        <MarkdownRenderer markdown={text as string || ""} />
+        <MarkdownRenderer markdown={(text as string) || ""} />
       </div>
     </div>
   );

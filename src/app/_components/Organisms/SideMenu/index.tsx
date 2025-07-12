@@ -1,4 +1,4 @@
-import { ComponentProps, Suspense } from "react";
+import { type ComponentProps, Suspense } from "react";
 import css from "./index.module.scss";
 import { TagsContainer } from "../TagsContainer";
 import { GitHubContributionsContainer } from "../GitHubContributionsContainer";

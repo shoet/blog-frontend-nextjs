@@ -5,11 +5,11 @@ import styles from "./index.module.scss";
 import { TextToggle } from "../../Atoms/TextToggle";
 import { Divider } from "../../Atoms/Divider";
 import { AvatarImage } from "../../Molecules/AvatarImage";
-import { Comment, UserProfile } from "@/types/api";
+import type { Comment, UserProfile } from "@/types/api";
 import { CommentList } from "../CommentList";
 import { useCommentForm } from "./hooks";
 import clsx from "clsx";
-import { RefObject, useState } from "react";
+import { type RefObject, useState } from "react";
 
 const NoComment = () => {
   return (
@@ -79,7 +79,8 @@ export const CommentFormPresenter = (props: {
             onChangeToggle={previewToggle}
           />
         </div>
-        <div
+        <button
+          type="button"
           className={styles.tabs}
           onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
@@ -108,7 +109,7 @@ export const CommentFormPresenter = (props: {
               <NoComment />
             )}
           </div>
-        </div>
+        </button>
         <Divider />
         <div className={styles.sender}>
           <Button variant="secondaryDark" round type="submit">

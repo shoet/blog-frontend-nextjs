@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { Dropdown, DropdownOption } from ".";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Dropdown, type DropdownOption } from ".";
 
 export default {
   title: "Atoms/Dropdown",

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ToastProvider, useToastContext } from ".";
 
 const ToastController = () => {
@@ -7,6 +7,7 @@ const ToastController = () => {
     <div>
       <div>
         <button
+          type="button"
           onClick={() => {
             const ts = Date.now();
             queueToast("title", ts.toString());

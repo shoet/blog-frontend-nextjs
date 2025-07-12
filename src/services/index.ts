@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "@/constant";
-import { notFound, unauthorized } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export const getAPIPath = (path: string) => `${API_BASE_URL}${path}`;
 export class FetchError extends Error {
@@ -22,11 +22,7 @@ export const handleSuccess = async (response: Response) => {
 
 export const handleFailed = (error: unknown) => {
   if (error instanceof FetchError) {
-    console.warn("fetch error: ", error.message);
-    if (error.status == 401) {
-      unauthorized();
-    }
-    if (error.status == 404) {
+    if (error.status === 404) {
       notFound();
     }
   } else if (error instanceof Error) {

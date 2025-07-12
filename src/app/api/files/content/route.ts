@@ -1,7 +1,7 @@
 import { getSignedURLForContent } from "@/services/getSignedURL";
 import { putFileToSignedURL } from "@/services/putFileToSignedURL";
 import { generateBase32EncodedUuid } from "@/utils/uuid";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   const form = await request.formData();

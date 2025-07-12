@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./errors.module.scss";
 
-export default function Error() {
+export default function ErrorPage() {
   return (
     <div className={styles.errorPage}>
       <div className={styles.container}>

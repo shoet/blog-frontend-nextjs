@@ -1,7 +1,7 @@
 import { UserProfile } from "@/app/_components/Molecules/UserProfile";
 import { getUsersMe } from "@/services/getUsersMe";
 import { getUserProfile } from "@/services/userProfile";
-import { Metadata, ResolvingMetadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { cookies } from "next/headers";
 
 type UserProfileProps = {
@@ -48,6 +48,6 @@ async function isShowEdit(userId: number) {
   const token = cookie.get("authToken");
   if (!token) return false;
   const user = await getUsersMe(token.value);
-  if (userId == user.id) return true;
+  if (userId === user.id) return true;
   return false;
 }

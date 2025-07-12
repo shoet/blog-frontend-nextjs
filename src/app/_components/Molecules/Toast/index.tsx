@@ -17,9 +17,9 @@ export const Toast = (props: Props) => {
         <div className={styles.detail}>{detail}</div>
       </div>
       {onClickClose && (
-        <div className={styles.close} onClick={onClickClose}>
+        <button type="button" className={styles.close} onClick={onClickClose}>
           <IconXmark />
-        </div>
+        </button>
       )}
     </div>
   );

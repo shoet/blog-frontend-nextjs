@@ -1,4 +1,4 @@
-import { Comment } from "@/types/api";
+import type { Comment } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
 type GetCommentsResponse = {

@@ -1,6 +1,6 @@
 "use client";
 import { getHandlename } from "@/services/routeHandler";
-import { Comment, UserProfile } from "@/types/api";
+import type { Comment, UserProfile } from "@/types/api";
 import { useEffect, useOptimistic, useRef, useState } from "react";
 import { postCommentServerAction } from "./actions";
 

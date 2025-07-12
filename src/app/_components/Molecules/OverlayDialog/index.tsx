@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { ConfirmDialog } from "../ConfirmDialog";
 import css from "./index.module.scss";
 import { IconXmark } from "../../Atoms/Icon";
@@ -18,10 +18,11 @@ export const OverlayDialog = (props: OverlayDialogProps) => {
   const { children, ...rest } = props;
   return (
     <div className={css.overlayDialog}>
-      <div
+      <button
+        type="button"
         className={css.overlayDialogBackground}
         onClick={rest.onClickCancel}
-      ></div>
+      ></button>
       <div className={css.dialog}>
         <ConfirmDialog {...rest}>{children}</ConfirmDialog>
         <IconXmark

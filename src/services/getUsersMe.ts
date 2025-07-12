@@ -1,4 +1,4 @@
-import { User } from "@/types/api";
+import type { User } from "@/types/api";
 import { getAPIPath, handleFailed, handleSuccess } from ".";
 
 export async function getUsersMe(authToken: string): Promise<User> {
