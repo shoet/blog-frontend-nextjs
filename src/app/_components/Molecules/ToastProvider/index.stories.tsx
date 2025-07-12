@@ -7,6 +7,7 @@ const ToastController = () => {
     <div>
       <div>
         <button
+          type="button"
           onClick={() => {
             const ts = Date.now();
             queueToast("title", ts.toString());
