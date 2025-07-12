@@ -51,6 +51,9 @@ jobs:
         working-directory: cdk
         run: npm ci
 
+      - name: lint
+        run: npm run lint
+
       - name: setup Next.js .env
         run: bash fetch_next_env.sh dev
 
