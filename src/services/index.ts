@@ -22,7 +22,7 @@ export const handleSuccess = async (response: Response) => {
 
 export const handleFailed = (error: unknown) => {
   if (error instanceof FetchError) {
-    if (error.status == 404) {
+    if (error.status === 404) {
       notFound();
     }
   } else if (error instanceof Error) {
