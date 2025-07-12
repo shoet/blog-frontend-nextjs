@@ -14,8 +14,12 @@ export const DragableTextarea = (props: DragableTextAreaProps) => {
     onChange: onDragDrop,
   });
   return (
-    <div onDragOver={handleOnDragOver} onDrop={handleOnDrop}>
-      <TextArea maxRows={maxRows} minRows={minRows} {...rest} />
-    </div>
+    <TextArea
+      onDragOver={handleOnDragOver}
+      onDrop={handleOnDrop}
+      maxRows={maxRows}
+      minRows={minRows}
+      {...rest}
+    />
   );
 };

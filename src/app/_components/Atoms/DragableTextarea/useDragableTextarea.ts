@@ -12,11 +12,11 @@ export const useDragableTextarea = ({
 }) => {
   const [error, setError] = useState<DragableTextareaError>();
 
-  const handleOnDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleOnDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
   };
 
-  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleOnDrop = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const fileList = e.dataTransfer.files;
     if (fileList.length === 0) return;
