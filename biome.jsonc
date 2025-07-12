@@ -1,0 +1,24 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "vcs": {
+    "enabled": true, // バージョン管理システムと連携するか
+    "clientKind": "git",
+    "useIgnoreFile": true // .gitignoreに書いてあるものは対象から除外する
+  },
+  "files": {
+    "includes": ["**"],
+    "ignoreUnknown": false // 処理できないファイルに遭遇した場合はエラーを吐く
+  },
+  "formatter": { "enabled": true, "indentStyle": "space" },
+  "linter": {
+    "enabled": true,
+    "rules": { "recommended": true }
+  },
+  "javascript": {
+    "formatter": { "quoteStyle": "double", "jsxQuoteStyle": "double" }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  }
+}
