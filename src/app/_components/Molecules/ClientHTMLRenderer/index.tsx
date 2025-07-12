@@ -39,6 +39,7 @@ export const ClientHTMLRenderer = (props: Props) => {
   return (
     <div
       className={css.markdown}
+      // biome-ignore lint: lint/correctness/noUnusedImports
       dangerouslySetInnerHTML={{ __html: html || "" }}
     />
   );
