@@ -31,8 +31,8 @@ export const BlogEditTable = async (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((b, idx) => {
-            return <BlogEditTableRow key={idx} blog={b} />;
+          {blogs.map((b) => {
+            return <BlogEditTableRow key={b.id} blog={b} />;
           })}
         </tbody>
       </table>
@@ -66,9 +66,9 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       </td>
       <td>
         <div className={styles.tags}>
-          {blog.tags?.map((tag, idx) => {
+          {blog.tags?.map((tag) => {
             return (
-              <Badge key={idx} backgroundColor="black" color="white">
+              <Badge key={tag} backgroundColor="black" color="white">
                 {tag}
               </Badge>
             );
