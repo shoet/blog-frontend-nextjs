@@ -29,13 +29,13 @@ export const config = {
 export async function authGuard(): Promise<boolean> {
   const cookie = await cookies();
   const token = cookie.get("authToken");
-  if (!token || token.value == "") return false;
+  if (!token || token.value === "") return false;
   try {
     await getUsersMe(token.value);
     return true;
   } catch (e) {
     if (e instanceof FetchError) {
-      if (e.status == 401) {
+      if (e.status === 401) {
         cookie.delete("authToken");
         return false;
       }

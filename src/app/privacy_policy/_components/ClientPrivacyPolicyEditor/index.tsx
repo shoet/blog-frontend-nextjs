@@ -49,19 +49,20 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
         <div className={clsx(styles.container, styles.verticalContainer)}>
           <div className={clsx(styles.titleArea)}>
             <div className={clsx(styles.horizontalContainer)}>
-              <label>タイトル</label>
+              <label htmlFor="name">タイトル</label>
               <TextInput
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               {privacyPolicy && (
-                <div
+                <button
+                  type="button"
                   className={styles.deleteButton}
                   onClick={() => setShowDelete(true)}
                 >
                   <IconTrush />
-                </div>
+                </button>
               )}
             </div>
             {nameError && <ErrorText>{nameError.error}</ErrorText>}
@@ -86,7 +87,7 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
           <input hidden name="name" defaultValue={privacyPolicy?.id || ""} />
           <ConfirmDialog
             title="削除しますか？"
-            onClickOK={() => {}}
+            onClickOK={() => { }}
             enableSubmit
             onClickCancel={() => setShowDelete(false)}
             errorMessage={deleteState.message || deleteNameError?.error}
