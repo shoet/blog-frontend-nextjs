@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type DropzoneError = {
   errors: string[];
@@ -14,12 +14,12 @@ export const useDropzone = (props: { onChange?: (file: File) => void }) => {
     e.preventDefault();
     setError(undefined);
     const fileList = e.dataTransfer.files;
-    if (fileList.length == 0) return;
+    if (fileList.length === 0) return;
     if (fileList.length > 1) {
       setError({ errors: ["アップロードできるファイルは1つだけです。"] });
     }
     setFile(fileList[0]);
-    onChange && onChange(fileList[0]);
+    onChange?.(fileList[0]);
   };
 
   const handleOnDragOver = (e: React.DragEvent) => {
@@ -37,7 +37,7 @@ export const useDropzone = (props: { onChange?: (file: File) => void }) => {
       setError({ errors: ["アップロードできるファイルは1つだけです。"] });
     }
     setFile(fileList[0]);
-    onChange && onChange(fileList[0]);
+    onChange?.(fileList[0]);
   };
 
   return {
