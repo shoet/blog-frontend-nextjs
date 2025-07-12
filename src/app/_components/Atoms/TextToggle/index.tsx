@@ -23,19 +23,20 @@ export const TextToggle = (props: Props) => {
   } = props;
   const [status, setStatus] = useState<ToggleStatus>(defaultStatus);
   const handleOnClickToggle = () => {
-    const newStatus = status == "left" ? "right" : "left";
+    const newStatus = status === "left" ? "right" : "left";
     setStatus(newStatus);
-    onChangeToggle && onChangeToggle(newStatus);
+    onChangeToggle?.(newStatus);
   };
 
   const style = {
     "--switch-color": switchColor,
   } as CSSProperties;
   return (
+    // biome-ignore lint: lint/a
     <div
       className={styles.toggle}
       style={style}
-      onClick={() => handleOnClickToggle()}
+      onClick={handleOnClickToggle}
     >
       <div className={styles.toggleBackground}>
         <div className={clsx(styles.toggleTextWrapper, styles.toggleLeft)}>

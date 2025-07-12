@@ -22,7 +22,7 @@ export const ToggleSwitch = (props: Props) => {
   const handleOnClickToggle = () => {
     const newStatus = !status;
     setStatus(newStatus);
-    onChangeToggle && onChangeToggle(newStatus);
+    onChangeToggle?.(newStatus);
   };
 
   const style = {
@@ -30,7 +30,8 @@ export const ToggleSwitch = (props: Props) => {
     "--switch-color-inactive": baseColor,
   } as CSSProperties;
   return (
-    <div
+    <button
+      type="button"
       className={clsx(
         styles.toggle,
         styles[`toggle-${status ? "active" : "inactive"}`],
@@ -46,6 +47,6 @@ export const ToggleSwitch = (props: Props) => {
           )}
         />
       </div>
-    </div>
+    </button>
   );
 };
