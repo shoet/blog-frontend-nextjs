@@ -10,9 +10,9 @@ export const CommentList = (props: { comments: Comment[] }) => {
 
   return (
     <div className={styles.commentList}>
-      {comments.map((comment, idx) => {
+      {comments.map((comment) => {
         return (
-          <div key={idx} className={styles.commentRow}>
+          <div key={comment.commentId} className={styles.commentRow}>
             <div className={styles.avatar}>
               <AvatarImage
                 imageURL={comment.avatarImageFileUrl || "/avatar_default.png"}
