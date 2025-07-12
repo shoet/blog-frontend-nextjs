@@ -6,7 +6,7 @@
     "useIgnoreFile": true // .gitignoreに書いてあるものは対象から除外する
   },
   "files": {
-    "includes": ["**"],
+    "includes": ["**", "!cdk"],
     "ignoreUnknown": false // 処理できないファイルに遭遇した場合はエラーを吐く
   },
   "formatter": { "enabled": true, "indentStyle": "space" },

@@ -59,8 +59,8 @@ export type Comment = {
 };
 
 export type PrivacyPolicy = {
-  id: string
-  content: string
+  id: string;
+  content: string;
   created: number;
   modified: number;
-}
+};

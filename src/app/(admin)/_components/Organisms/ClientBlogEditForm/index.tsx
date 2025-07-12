@@ -33,7 +33,7 @@ const PreviewImage = (props: { src?: string }) => {
   if (props.src) {
     return (
       <div>
-        <img src={props.src} />
+        <img src={props.src} alt="thumbnail_preview" />
       </div>
     );
   } else {

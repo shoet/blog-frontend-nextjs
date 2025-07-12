@@ -42,7 +42,7 @@ export const ClientMarkdownPreviewTextArea = (
       </div>
       <Spacer width={20} />
       <div className={css.preview}>
-        <MarkdownRenderer markdown={text as string || ""} />
+        <MarkdownRenderer markdown={(text as string) || ""} />
       </div>
     </div>
   );

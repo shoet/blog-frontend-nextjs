@@ -1,7 +1,7 @@
-import { authGuard } from '@/middleware';
-import { Metadata, ResolvingMetadata } from 'next';
-import { redirect } from 'next/navigation';
-import { ClientPrivacyPolicyEditor } from '../_components/ClientPrivacyPolicyEditor';
+import { authGuard } from "@/middleware";
+import { Metadata, ResolvingMetadata } from "next";
+import { redirect } from "next/navigation";
+import { ClientPrivacyPolicyEditor } from "../_components/ClientPrivacyPolicyEditor";
 
 type PrivacyPolicyProps = {
   params: Promise<{
@@ -11,18 +11,18 @@ type PrivacyPolicyProps = {
 
 export const generateMetadata = async (
   _: PrivacyPolicyProps,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> => {
   const { title } = await parent;
   return {
     title: `プライバシーポリシー | ${title?.absolute}`,
-    description: 'プライバシーポリシー',
+    description: "プライバシーポリシー",
   };
 };
 
 export default async function Page(props: PrivacyPolicyProps) {
   if (!(await authGuard())) {
-    return redirect('/admin/signin');
+    return redirect("/admin/signin");
   }
-  return <ClientPrivacyPolicyEditor />
+  return <ClientPrivacyPolicyEditor />;
 }

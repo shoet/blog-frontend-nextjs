@@ -1,4 +1,4 @@
-import styles from './index.module.scss';
+import styles from "./index.module.scss";
 
 export const Spinner = () => {
   return (
@@ -8,7 +8,7 @@ export const Spinner = () => {
         width={100}
         viewBox="0 0 100 100"
         style={{
-          fill: 'none', // 塗りつぶしなし
+          fill: "none", // 塗りつぶしなし
         }}
       >
         <circle
