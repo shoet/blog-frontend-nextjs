@@ -27,7 +27,7 @@ const ContributionColumn = (props: { contribution: GitHubContributions }) => {
       {contribution.contributionDays.map((cd, idx) => {
         return (
           <div
-            key={idx}
+            key={cd.date}
             style={{
               paddingBottom:
                 contribution.contributionDays.length - 1 === idx
@@ -57,23 +57,22 @@ export const GitHubContributionsGrid = (props: GitHubContributionsProps) => {
   const { contributions } = props;
 
   return (
-    <>
-      <a href="https://github.com/shoet" target="_black">
-        <GitHubContributionsRow backgroundColor="">
-          {contributions.map((c, idx) => {
-            return (
-              <div
-                key={idx}
-                style={{
-                  marginLeft: 0 === idx ? "0" : "0.1rem",
-                }}
-              >
-                <ContributionColumn contribution={c} />
-              </div>
-            );
-          })}
-        </GitHubContributionsRow>
-      </a>
-    </>
+    <a href="https://github.com/shoet" target="_black">
+      <GitHubContributionsRow backgroundColor="">
+        {contributions.map((c, idx) => {
+          return (
+            <div
+              // biome-ignore lint: lint/suspicious/noArrayIndexKey
+              key={idx}
+              style={{
+                marginLeft: 0 === idx ? "0" : "0.1rem",
+              }}
+            >
+              <ContributionColumn contribution={c} />
+            </div>
+          );
+        })}
+      </GitHubContributionsRow>
+    </a>
   );
 };
