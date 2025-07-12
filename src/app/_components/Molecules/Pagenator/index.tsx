@@ -17,7 +17,8 @@ const PagenatorButton = (props: {
 }) => {
   const { pageNumber, onClick, isCurrent = false } = props;
   return (
-    <div
+    <button
+      type="button"
       className={clsx(
         css.pagenatorButton,
         isCurrent && css.pagenatorButtonActive,
@@ -25,7 +26,7 @@ const PagenatorButton = (props: {
       onClick={onClick}
     >
       {pageNumber}
-    </div>
+    </button>
   );
 };
 
@@ -46,7 +47,7 @@ export const Pagenator = (props: PagenatorProps) => {
       <div className={css.pagenator}>
         {pages.items.map((pageNum, index) => (
           <PagenatorButton
-            key={index}
+            key={pageNum}
             pageNumber={pageNum}
             onClick={() =>
               pageNum !== currentPage.toString() &&
