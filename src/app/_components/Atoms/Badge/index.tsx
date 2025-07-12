@@ -26,6 +26,7 @@ export const Badge = (props: BadgeProps) => {
   } as CSSProperties;
 
   return (
+    // biome-ignore lint: lint/a11y/useKeyWithClickEvents
     <span
       className={clsx(styles.container, focusColor && styles.containerFocus)}
       style={style}
