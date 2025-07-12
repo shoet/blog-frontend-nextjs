@@ -11,6 +11,7 @@ export const Spinner = () => {
           fill: "none", // 塗りつぶしなし
         }}
       >
+        <title>Loading...</title>
         <circle
           className={styles.circle}
           cx={50} // 中心点のx座標
