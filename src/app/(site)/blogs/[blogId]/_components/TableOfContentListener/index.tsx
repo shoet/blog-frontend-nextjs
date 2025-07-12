@@ -16,7 +16,7 @@ export const TableOfContentListener = (props: { children: ReactNode }) => {
     return () => {
       cleanupHeadings();
     };
-  }, []);
+  }, [loadHeadings, cleanupHeadings]);
 
   return (
     <div ref={watchRef}>

@@ -2,6 +2,7 @@
 import {
   createContext,
   type PropsWithChildren,
+  useCallback,
   useContext,
   useRef,
   useState,
@@ -28,9 +29,9 @@ type TableOfContentContextType = {
 
 const TableOfContentContext = createContext<TableOfContentContextType>({
   headingMap: null,
-  loadHeadings: () => {},
-  cleanupHeadings: () => {},
-  jumpToHeading: () => {},
+  loadHeadings: () => { },
+  cleanupHeadings: () => { },
+  jumpToHeading: () => { },
   watchRef: { current: null },
 });
 
@@ -41,7 +42,10 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
   const [headings, setHeadings] = useState<HeadingMap | null>(null);
   const watchRef = useRef<HTMLDivElement>(null);
 
-  const loadHeadings = () => {
+  /**
+   * loadHeadings は、watchRefで参照した要素内から、目次の見出しを抽出する
+   */
+  const loadHeadings = useCallback(() => {
     if (!watchRef.current) {
       return;
     }
@@ -72,25 +76,27 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
     return () => {
       setHeadings(null);
     };
-  };
+  }, [])
 
-  const cleanupHeadings = () => {
-    setHeadings(null);
-    document.children[0].scrollTo(0, 0);
-  };
+  const cleanupHeadings = useCallback(
+    () => {
+      setHeadings(null);
+      document.children[0].scrollTo(0, 0);
+    }, [])
 
-  const jumpToHeading = (key: string) => {
-    const heading = headings?.get(key);
-    if (heading) {
-      const h = document.querySelectorAll(heading.type);
-      h.forEach((e) => {
-        if (e.textContent === heading.content) {
-          e.scrollIntoView();
-          return;
-        }
-      });
-    }
-  };
+  const jumpToHeading = useCallback(
+    (key: string) => {
+      const heading = headings?.get(key);
+      if (heading) {
+        const h = document.querySelectorAll(heading.type);
+        h.forEach((e) => {
+          if (e.textContent === heading.content) {
+            e.scrollIntoView();
+            return;
+          }
+        });
+      }
+    }, [headings])
 
   return (
     <TableOfContentContext.Provider
