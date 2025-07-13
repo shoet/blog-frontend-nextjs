@@ -1,39 +1,35 @@
 import { clsx } from "clsx";
-import styles from "./index.module.scss";
-import React, { type ComponentProps, type CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
+
+type BadgeVariant = "black" | "green" | "orange" | "pink";
+
+const ColorVarinats: Record<BadgeVariant, string> = {
+  "black": "bg-black text-white",
+  "green": "bg-green-500 text-white",
+  "orange": "bg-orange-500 text-white",
+  "pink": "bg-pink-500 text-white",
+}
 
 export type BadgeProps = {
-  color?: string;
-  backgroundColor?: string;
+  variant?: BadgeVariant
   focusColor?: string;
   onClick?: () => void;
-} & ComponentProps<"span">;
+} & ComponentProps<"button">;
 
 export const Badge = (props: BadgeProps) => {
-  const {
-    color = "white",
-    backgroundColor = "black",
-    focusColor,
-    onClick,
-    children,
-    ...rest
-  } = props;
+  const { children, variant = "black", onClick, focusColor, ...rest } = props
+  const colorVariant = ColorVarinats[variant]
 
   const style = {
-    "--container-color": color,
-    "--container-bg-color": backgroundColor,
     "--container-focus-color": focusColor,
   } as CSSProperties;
 
-  return (
-    // biome-ignore lint: lint/a11y/useKeyWithClickEvents
-    <span
-      className={clsx(styles.container, focusColor && styles.containerFocus)}
-      style={style}
-      onClick={onClick}
-      {...rest}
-    >
-      {children}
-    </span>
-  );
-};
+  return <button
+    onClick={onClick}
+    className={clsx(`rounded-sm px-1.5 py-0.5 font-bold text-sm ${colorVariant}`, {
+      "cursor-pointer": onClick,
+      "hover:bg-[var(--container-focus-color)]": focusColor,
+    })} style={style} {...rest}>
+    {children}
+  </button>
+}

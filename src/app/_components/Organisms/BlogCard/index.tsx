@@ -38,7 +38,7 @@ export const BlogCard = (props: BlogCardProps) => {
         <div className={styles.tags}>
           {blog.tags?.map((t) => {
             return (
-              <Badge key={t} color="white" backgroundColor="black">
+              <Badge key={t} variant="black">
                 {t}
               </Badge>
             );

@@ -3,7 +3,7 @@ import type { Blog } from "@/types/api";
 import type { ComponentProps } from "react";
 import css from "./index.module.scss";
 import { Button } from "@/app/_components/Atoms/Button";
-import { Badge, type BadgeProps } from "@/app/_components/Atoms/Badge";
+import { Badge } from "@/app/_components/Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 
@@ -16,17 +16,13 @@ type ClientBlogTableRowProps = {
 export const ClientBlogTableRow = (props: ClientBlogTableRowProps) => {
   const { blog, onClickEdit, onClickDelete, ...rest } = props;
 
-  const badgeProps: BadgeProps = blog.isPublic
-    ? { color: "white", backgroundColor: "orange" }
-    : { color: "black", backgroundColor: "gray" };
-
   return (
     <tr className={css.blogTableRow} {...rest}>
       <td className={css.id}>{blog.id}</td>
       <td className={css.title}>{blog.title}</td>
       <td className={css.createdAt}>{toStringYYYYMMDD_HHMMSS(blog.created)}</td>
       <td className={css.isPublished}>
-        <Badge {...badgeProps}>{blog.isPublic ? "公開" : "非公開"}</Badge>
+        <Badge variant={blog.isPublic ? "orange" : "black"}>{blog.isPublic ? "公開" : "非公開"}</Badge>
       </td>
       <td className={css.edit}>
         <Link href={`/admin/blogs/${blog.id}/edit`}>

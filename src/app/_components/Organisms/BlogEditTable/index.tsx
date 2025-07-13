@@ -68,7 +68,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         <div className={styles.tags}>
           {blog.tags?.map((tag) => {
             return (
-              <Badge key={tag} backgroundColor="black" color="white">
+              <Badge key={tag} variant="black">
                 {tag}
               </Badge>
             );
