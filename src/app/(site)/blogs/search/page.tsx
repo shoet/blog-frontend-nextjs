@@ -48,7 +48,9 @@ const TagOrKeyword = (
   const result = tag || keyword;
   return (
     <div {...rest}>
-      <span className={css.SearchResultDescription}>Searched by tag:</span>
+      <span className={css.SearchResultDescription}>
+        {props.keyword ? "Searched by keyword:" : "Searched by tag:"}
+      </span>
       <Badge variant={props.keyword ? "pink" : "black"}>{result}</Badge>
     </div>
   );
