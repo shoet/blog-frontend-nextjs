@@ -1,35 +1,48 @@
 import type { ComponentProps, CSSProperties } from "react";
-import styles from "./index.module.scss";
 import { IconXmark } from "../Icon";
+import clsx from "clsx";
+
+type AlertVariant = "info" | "warn" | "error" | "success" | "black"
+
+const ColorVariants: Record<AlertVariant, string> = {
+  "info": "bg-blue-300 text-white",
+  "warn": "bg-orange-300 text-white",
+  "error": "bg-red-300 text-white",
+  "success": "bg-green-300 text-white",
+  "black": "bg-black text-white",
+}
 
 type AlertProps = {
-  backgroundColor?: string;
-  color?: string;
+  variant?: AlertVariant
   borderColor?: string;
   onClick?: () => void;
 } & ComponentProps<"div">;
 
 export const Alert = (props: AlertProps) => {
   const {
-    backgroundColor = "black",
-    color = "white",
+    variant = "black",
     borderColor,
     onClick,
     children,
     ...rest
   } = props;
 
-  const containerDecoration = {
-    backgroundColor: backgroundColor,
-    color: color,
+  const style = {
+    "--border-color": borderColor
   } as CSSProperties;
 
-  if (borderColor) {
-    containerDecoration.border = `1px solid ${borderColor}`;
-  }
-
   return (
-    <div className={styles.container} style={containerDecoration} {...rest}>
+    <div
+      className={clsx(
+        "flex flex-row justify-between rounded-md px-2 py-1 font-bold",
+        ColorVariants[variant],
+        {
+          "border-1 border-[var(--border-color)] border-solid": borderColor,
+        }
+      )}
+      style={style}
+      {...rest}
+    >
       <div>{children}</div>
       <IconXmark onClick={onClick} focus />
     </div>
