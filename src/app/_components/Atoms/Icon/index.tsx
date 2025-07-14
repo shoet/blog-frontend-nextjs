@@ -1,5 +1,4 @@
 import type { ComponentProps, CSSProperties } from "react";
-import styles from "./index.module.scss";
 import clsx from "clsx";
 import {
   faGithub,
@@ -33,15 +32,18 @@ const withIconStyle = (Icon: IconDefinition) => {
 
     const style = {
       "--focus-color": focusColor,
-      "--foreground-color": color,
+      "--fg-color": color,
     } as CSSProperties;
 
     return (
       <div
         className={clsx(
-          styles.iconWrapper,
-          focus && styles.iconWrapperFocus, // optional
-          focusColor && styles.iconWrapperFocusColor, // optional
+          "inline-block transition-colors duration-100 ease-in-out",
+          {
+            "text-[var(--fg-color)]": color,
+            "hover:cursor-pointer": focus,
+            "hover:cursor-pointer hover:text-[var(--focus-color)]": focusColor,
+          }
         )}
         style={style}
         {...rest}

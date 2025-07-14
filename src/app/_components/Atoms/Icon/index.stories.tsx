@@ -25,4 +25,4 @@ export const ArrowRight = () => <IconArrowRight />;
 export const ArrorLeft = () => <IconArrowLeft />;
 export const IconFocusColor = () => <IconGitHub focusColor="#7ccca4" />;
 export const IconSize = () => <IconGitHub size="4x" />;
-export const IconColor = () => <IconGitHub color="red" />;
+export const IconColor = () => <IconGitHub color="green" />;
