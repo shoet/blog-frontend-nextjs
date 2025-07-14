@@ -28,8 +28,7 @@ export const TagForm = (props: TagFromProps) => {
           return (
             <CloseableBadge
               key={tag}
-              color="white"
-              backgroundColor="black"
+              variant="black"
               onClickClose={() => onClickCloseTag && onClickCloseTag(tag)}
             >
               {tag}
