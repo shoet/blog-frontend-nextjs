@@ -64,4 +64,4 @@ export const IconArrowLeft = withIconStyle(faAngleLeft);
 export const IconUpload = withIconStyle(faCloudArrowUp);
 export const IconPlus = withIconStyle(faPlus);
 export const IconEdit = withIconStyle(faPenToSquare);
-export const IconTrush = withIconStyle(faTrash);
+export const IconTrash = withIconStyle(faTrash);

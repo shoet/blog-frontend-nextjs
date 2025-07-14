@@ -7,7 +7,7 @@ import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 import { ClientIsPublic } from "./_components/ClientIsPublic";
-import { IconEdit, IconTrush } from "../../Atoms/Icon";
+import { IconEdit, IconTrash } from "../../Atoms/Icon";
 
 type Props = {
   blogs: Blog[];
@@ -95,7 +95,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       </td>
       <td>
         <Link href={`/admin/blogs/${blog.id}/delete`} className={styles.delete}>
-          <IconTrush />
+          <IconTrash />
         </Link>
       </td>
     </tr>

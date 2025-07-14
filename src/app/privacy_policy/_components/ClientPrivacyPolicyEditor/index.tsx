@@ -12,7 +12,7 @@ import { ClientMarkdownPreviewTextArea } from "@/app/_components/Molecules/Clien
 import { Button } from "@/app/_components/Atoms/Button";
 import type { State } from "./state";
 import { LoadingModal } from "@/app/_components/Molecules/LoadingModal";
-import { IconTrush } from "@/app/_components/Atoms/Icon";
+import { IconTrash } from "@/app/_components/Atoms/Icon";
 import { Modal } from "@/app/_components/Molecules/Modal";
 import { ConfirmDialog } from "@/app/_components/Molecules/ConfirmDialog";
 
@@ -61,7 +61,7 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
                   className={styles.deleteButton}
                   onClick={() => setShowDelete(true)}
                 >
-                  <IconTrush />
+                  <IconTrash />
                 </button>
               )}
             </div>
