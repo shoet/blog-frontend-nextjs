@@ -25,6 +25,7 @@ export const Badge = (props: BadgeProps) => {
   } as CSSProperties;
 
   return <button
+    type="button"
     onClick={onClick}
     className={clsx(`rounded-sm px-1.5 py-0.5 font-bold text-sm ${colorVariant}`, {
       "cursor-pointer": onClick,

@@ -37,7 +37,7 @@ export const Alert = (props: AlertProps) => {
         "flex flex-row justify-between rounded-md px-2 py-1 font-bold",
         ColorVariants[variant],
         {
-          "border-1 border-[var(--border-color)] border-solid": borderColor,
+          "border border-[var(--border-color)] border-solid": borderColor,
         }
       )}
       style={style}
