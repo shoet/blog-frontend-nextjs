@@ -3,7 +3,7 @@ import type { ComponentProps, CSSProperties } from "react";
 
 type BadgeVariant = "black" | "green" | "orange" | "pink";
 
-const ColorVarinats: Record<BadgeVariant, string> = {
+const ColorVariants: Record<BadgeVariant, string> = {
   "black": "bg-black text-white",
   "green": "bg-green-500 text-white",
   "orange": "bg-orange-500 text-white",
@@ -18,7 +18,7 @@ export type BadgeProps = {
 
 export const Badge = (props: BadgeProps) => {
   const { children, variant = "black", onClick, focusColor, ...rest } = props
-  const colorVariant = ColorVarinats[variant]
+  const colorVariant = ColorVariants[variant]
 
   const style = {
     "--container-focus-color": focusColor,
