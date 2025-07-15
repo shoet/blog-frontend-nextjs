@@ -41,8 +41,8 @@ const withIconStyle = (Icon: IconDefinition) => {
           "inline-block transition-colors duration-100 ease-in-out",
           {
             "text-[var(--fg-color)]": color,
-            "hover:cursor-pointer": focus,
-            "hover:cursor-pointer hover:text-[var(--focus-color)]": focusColor,
+            "hover:cursor-pointer": focus || focusColor,
+            "hover:text-[var(--focus-color)]": focusColor,
           }
         )}
         style={style}
