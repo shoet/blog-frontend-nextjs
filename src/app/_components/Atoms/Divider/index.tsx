@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import css from "./index.module.scss";
 import { theme } from "@/themes";
+import clsx from "clsx";
 
 export const Divider = (props: { width?: number; height?: number }) => {
   const { width = "1", height = "1" } = props;
@@ -9,5 +9,8 @@ export const Divider = (props: { width?: number; height?: number }) => {
     "--width": width,
     "--color": theme.colors.secondaryGrayMore,
   } as CSSProperties;
-  return <div className={css.divider} style={style} />;
+  return <div className={clsx(
+    "border border-[var(--color)] border-solid",
+    "h-[var(--height)] w-[var(--width)]",
+  )} style={style} />;
 };
