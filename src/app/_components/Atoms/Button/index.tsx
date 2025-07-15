@@ -80,9 +80,9 @@ export const Button = (props: ButtonProps) => {
     <button
       className={clsx(
         "cursor-pointer px-4 py-2 font-bold",
-        clsx("text-[var(--fg-color)]", "bg-[var(--bg-color)]", "border border-[var(--border-color)]"),
-        clsx("disabled:cursor-not-allowed", "disabled:bg-[var(--disabled-bg)]"),
-        clsx("hover:bg-[var(--hover-bg)]"),
+        "text-[var(--fg-color)]", "bg-[var(--bg-color)]", "border border-[var(--border-color)]", // normal
+        "disabled:cursor-not-allowed", "disabled:bg-[var(--disabled-bg)]", // disabled
+        "hover:bg-[var(--hover-bg)]", // hover
         round ? "rounded-full" : "rounded-md"
       )}
       {...rest}
