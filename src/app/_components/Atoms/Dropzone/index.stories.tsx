@@ -25,3 +25,20 @@ export const Default: Story = {
     );
   },
 };
+
+export const DefaultWind: Story = {
+  render: (args) => {
+    const [file, setFile] = useState<File>();
+    const handleOnChange = (file?: File) => {
+      if (file) {
+        setFile(file);
+      }
+    };
+    return (
+      <div>
+        {file && <div>File: {file.name}</div>}
+        <Dropzone onChange={handleOnChange} {...args} />
+      </div>
+    );
+  },
+};
