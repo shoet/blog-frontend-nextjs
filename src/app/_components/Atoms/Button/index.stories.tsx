@@ -12,6 +12,7 @@ export const Primary: Story = {
   args: {
     variant: "primary",
     children: "PrimaryButton",
+    disabled: false,
   },
 };
 
@@ -19,5 +20,6 @@ export const Secondary: Story = {
   args: {
     variant: "secondary",
     children: "SecondaryButton",
+    disabled: false,
   },
 };

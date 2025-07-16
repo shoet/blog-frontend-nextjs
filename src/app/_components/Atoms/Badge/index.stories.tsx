@@ -13,9 +13,8 @@ export const Default: Story = {
     return <Badge {...args}>Badge</Badge>;
   },
   args: {
-    backgroundColor: "green",
-    color: "white",
-    focusColor: "darkgreen",
+    variant: "black",
     onClick: () => console.log("clicked"),
   },
 };
+

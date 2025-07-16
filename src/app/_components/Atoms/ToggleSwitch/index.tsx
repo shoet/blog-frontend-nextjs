@@ -1,6 +1,5 @@
 "use client";
 import { type CSSProperties, useState } from "react";
-import styles from "./index.module.scss";
 import clsx from "clsx";
 import { theme } from "@/themes";
 
@@ -29,24 +28,22 @@ export const ToggleSwitch = (props: Props) => {
     "--switch-color-active": activeColor,
     "--switch-color-inactive": baseColor,
   } as CSSProperties;
+
   return (
     <button
       type="button"
-      className={clsx(
-        styles.toggle,
-        styles[`toggle-${status ? "active" : "inactive"}`],
-      )}
+      onClick={handleOnClickToggle}
       style={style}
-      onClick={() => handleOnClickToggle()}
-    >
-      <div className={styles.toggleBackground}>
-        <div
-          className={clsx(
-            styles.switch,
-            styles[`switchPosition-${status ? "active" : "inactive"}`],
-          )}
-        />
-      </div>
+      className={clsx(
+        "relative h-[30px] w-full rounded-full p-1 outline-none",
+        "ease transition-colors duration-300",
+        status ? "bg-[var(--switch-color-active)]" : "bg-[var(--switch-color-inactive)]"
+      )}>
+      <div className={clsx(
+        "h-full w-1/2 rounded-full bg-white",
+        "ease transition-transform duration-300",
+        status ? "translate-x-full" : ""
+      )} />
     </button>
-  );
-};
+  )
+}

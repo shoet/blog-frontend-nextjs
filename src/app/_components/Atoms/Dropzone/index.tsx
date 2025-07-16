@@ -1,6 +1,5 @@
 "use client";
 import { IconUpload } from "../Icon";
-import css from "./index.module.scss";
 import { useDropzone } from "./useDropzone";
 import clsx from "clsx";
 
@@ -8,17 +7,6 @@ type DropzoneProps = {
   isError?: boolean;
   onChange?: (file?: File) => void;
   children?: React.ReactNode;
-};
-
-const DropzoneDisplay = () => {
-  return (
-    <div className={clsx(css.defaultDisplay)}>
-      <IconUpload size="2x" color="gray" />
-      <div className={clsx(css.description)}>
-        クリックまたは、ファイルをドラッグしてください
-      </div>
-    </div>
-  );
 };
 
 export const Dropzone = (props: DropzoneProps) => {
@@ -34,16 +22,33 @@ export const Dropzone = (props: DropzoneProps) => {
     onChange,
   });
   return (
-    <div>
+    <div className={clsx()}>
       <input hidden type="file" onChange={handleOnInputChange} ref={inputRef} />
       <button
         type="button"
-        className={clsx(css.dropzone, isError && css["dropzone--error"])}
+        className={clsx(
+          "flex flex-col justify-center",
+          "h-full w-full rounded-md p-5",
+          "cursor-pointer",
+          "border-2 border-dashed",
+          isError ? "border-red-500" : "border-gray-500",
+        )}
         onDrop={handleOnDrop}
         onDragOver={handleOnDragOver}
         onClick={handleOnClickInput}
       >
-        {children ? children : <DropzoneDisplay />}
+        {children ? children : (
+          <div className={clsx(
+            "flex flex-col gap-5 align-middle"
+          )}>
+            <IconUpload size="2x" color="gray" />
+            <div className={clsx(
+              "font-medium text-gray-500"
+            )}>
+              クリックまたは、ファイルをドラッグしてください
+            </div>
+          </div>
+        )}
       </button>
       {error && (
         <div>
@@ -53,5 +58,5 @@ export const Dropzone = (props: DropzoneProps) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}

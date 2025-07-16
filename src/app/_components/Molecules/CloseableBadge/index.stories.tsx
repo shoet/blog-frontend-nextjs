@@ -10,8 +10,7 @@ export type Story = StoryObj<typeof CloseableBadge>;
 
 export const Default: Story = {
   args: {
-    color: "white",
-    backgroundColor: "black",
+    variant: "black"
   },
 
   render: (args) => {

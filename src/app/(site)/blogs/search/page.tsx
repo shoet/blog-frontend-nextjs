@@ -1,7 +1,7 @@
 import { searchBlogs } from "@/services/searchBlogs";
 import type { ResolvingMetadata } from "next";
 import css from "./page.module.scss";
-import { Badge, type BadgeProps } from "@/app/_components/Atoms/Badge";
+import { Badge } from "@/app/_components/Atoms/Badge";
 import type { ComponentProps } from "react";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { BLOG_PER_PAGE } from "@/constant";
@@ -46,19 +46,12 @@ const TagOrKeyword = (
 ) => {
   const { tag, keyword, ...rest } = props;
   const result = tag || keyword;
-  var badgeStyle: BadgeProps = {};
-  if (props.tag) {
-    badgeStyle.backgroundColor = "black";
-    badgeStyle.color = "white";
-  }
-  if (props.keyword) {
-    badgeStyle.backgroundColor = "pink";
-    badgeStyle.color = "white";
-  }
   return (
     <div {...rest}>
-      <span className={css.SearchResultDescription}>Searched by tag:</span>
-      <Badge {...badgeStyle}>{result}</Badge>
+      <span className={css.SearchResultDescription}>
+        {props.keyword ? "Searched by keyword:" : "Searched by tag:"}
+      </span>
+      <Badge variant={props.keyword ? "pink" : "black"}>{result}</Badge>
     </div>
   );
 };

@@ -1,7 +1,9 @@
 import { API_BASE_URL } from "@/constant";
 import { notFound } from "next/navigation";
 
-export const getAPIPath = (path: string) => `${API_BASE_URL}${path}`;
+export const getAPIPath = (path: string) => {
+  return `${API_BASE_URL}${path}`;
+};
 export class FetchError extends Error {
   status: number;
   statusText: string;
