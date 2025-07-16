@@ -5,5 +5,5 @@ export const ErrorText = (props: ComponentProps<"div">) => {
   const style = {
     "--text-color": theme.colors.danger,
   } as CSSProperties;
-  return <div className="text-sm text-[var(--text-color)]" {...props} style={style} />
+  return <div className="text-[var(--text-color)] text-sm" {...props} style={style} />
 };
