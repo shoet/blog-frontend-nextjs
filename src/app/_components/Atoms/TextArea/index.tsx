@@ -1,8 +1,6 @@
 "use client";
-
 import { useTextArea } from "./useTextArea";
-import styles from "./index.module.scss";
-import type { ComponentProps, CSSProperties } from "react";
+import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 type TextAreaProps = {
@@ -20,15 +18,15 @@ export const TextArea = (props: TextAreaProps) => {
     minRows: minRows,
     maxRows: maxRows,
   });
-  const style = {
-    "--font-size": "18px",
-    "--line-height": "20px",
-  } as CSSProperties;
 
   return (
     <textarea
-      className={clsx(styles.textarea, border && styles.border)}
-      style={style}
+      className={clsx(
+        "w-full resize-none rounded-sm px-1 py-1 outline-none",
+        "text-sm/normal",
+        "placeholder:text-gray-300 placeholder:text-sm",
+        border ? "border border-black border-solid" : "border-none",
+      )}
       ref={textareaRef}
       onChange={onChange}
       wrap="soft"
