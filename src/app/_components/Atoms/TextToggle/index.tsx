@@ -39,10 +39,11 @@ export const TextToggle = (props: Props) => {
       style={style}
       className={clsx(
         "bg-[var(--background-color)]",
-        "h-[30px] w-full rounded-full p-1"
+        "h-[30px] w-full rounded-full p-1",
+        "outline-none",
       )}>
       <div className={clsx(
-        "relative flex h-full flex-row items-center justify-center ",
+        "relative flex h-full flex-row items-center justify-center",
       )}>
         <div className={clsx(
           "absolute h-full w-1/2 rounded-full bg-white text-center transition-transform duration-300 ease-in-out",
