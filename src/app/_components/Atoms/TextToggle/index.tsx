@@ -62,5 +62,4 @@ export const TextToggle = (props: Props) => {
       </div>
     </button>
   )
-
 }

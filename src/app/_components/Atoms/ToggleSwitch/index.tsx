@@ -42,7 +42,7 @@ export const ToggleSwitch = (props: Props) => {
       <div className={clsx(
         "h-full w-1/2 rounded-full bg-white",
         "ease transition-transform duration-300",
-        status ? "translate-x-1/1" : ""
+        status ? "translate-x-full" : ""
       )} />
     </button>
   )

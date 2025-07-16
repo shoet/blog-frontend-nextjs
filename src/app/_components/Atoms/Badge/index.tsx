@@ -24,13 +24,15 @@ export const Badge = (props: BadgeProps) => {
     "--container-focus-color": focusColor,
   } as CSSProperties;
 
-  return <button
-    type="button"
-    onClick={onClick}
-    className={clsx(`rounded-sm px-1.5 py-0.5 font-bold text-sm ${colorVariant}`, {
-      "cursor-pointer": onClick,
-      "hover:bg-[var(--container-focus-color)]": focusColor,
-    })} style={style} {...rest}>
-    {children}
-  </button>
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={clsx(`rounded-sm px-1.5 py-0.5 font-bold text-sm ${colorVariant}`, {
+        "cursor-pointer": onClick,
+        "hover:bg-[var(--container-focus-color)]": focusColor,
+      })} style={style} {...rest}>
+      {children}
+    </button>
+  )
 }
