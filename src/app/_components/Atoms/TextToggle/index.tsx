@@ -1,5 +1,4 @@
 import { type CSSProperties, useState } from "react";
-import styles from "./index.module.scss";
 import clsx from "clsx";
 import { theme } from "@/themes";
 
@@ -29,40 +28,38 @@ export const TextToggle = (props: Props) => {
   };
 
   const style = {
-    "--switch-color": switchColor,
+    "--active-text-color": switchColor,
+    "--background-color": switchColor,
   } as CSSProperties;
+
   return (
-    // biome-ignore lint: lint/a
-    <div
-      className={styles.toggle}
-      style={style}
+    <button
+      type="button"
       onClick={handleOnClickToggle}
-    >
-      <div className={styles.toggleBackground}>
-        <div className={clsx(styles.toggleTextWrapper, styles.toggleLeft)}>
-          <div
-            className={clsx(
-              styles.text,
-              status === "left" ? styles.active : styles.notActive,
-            )}
-          >
-            {leftText}
-          </div>
-        </div>
-        <div className={clsx(styles.toggleTextWrapper, styles.toggleRight)}>
-          <div
-            className={clsx(
-              styles.text,
-              status === "right" ? styles.active : styles.notActive,
-            )}
-          >
-            {rightText}
-          </div>
-        </div>
-        <div
-          className={clsx(styles.switch, styles[`switchPosition-${status}`])}
-        />
+      style={style}
+      className={clsx(
+        "bg-[var(--background-color)]",
+        "h-[30px] w-full rounded-full p-1"
+      )}>
+      <div className={clsx(
+        "relative flex h-full flex-row items-center justify-center ",
+      )}>
+        <div className={clsx(
+          "absolute h-full w-1/2 rounded-full bg-white text-center transition-transform duration-300 ease-in-out",
+          status === "left" ? "-translate-x-1/2" : "translate-x-1/2"
+        )}></div>
+        <div className={clsx(
+          "absolute left-0 w-1/2 text-center font-bold",
+          "transition-colors duration-300 ease-linear",
+          status === "left" ? 'text-[var(--active-text-color)]' : "text-white"
+        )}>{leftText}</div>
+        <div className={clsx(
+          "absolute right-0 w-1/2 text-center font-bold",
+          "transition-colors duration-300 ease-linear",
+          status === "right" ? 'text-[var(--active-text-color)]' : "text-white"
+        )}>{rightText}</div>
       </div>
-    </div>
-  );
-};
+    </button>
+  )
+
+}
