@@ -1,5 +1,4 @@
-import type { ComponentProps, CSSProperties } from "react";
-import css from "./index.module.scss";
+import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 type TextInputProps = {
@@ -10,21 +9,15 @@ type TextInputProps = {
 export const TextInput = (props: TextInputProps) => {
   const { hasBorder = true, isError = false, ...rest } = props;
 
-  const style = {
-    "--border-color": "gray",
-    "--border-color-error": "red",
-  } as CSSProperties;
-
   return (
     <input
       className={clsx(
-        css.input,
-        hasBorder && css["input--has-border"],
-        isError && css["input--has-border--error"],
+        "rounded-sm border-none p-2 text-sm",
+        hasBorder && "border-2 border-gray-500 border-solid",
+        isError && "border-red-500",
       )}
-      style={style}
       type="text"
       {...rest}
     />
   );
-};
+}
