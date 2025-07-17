@@ -1,7 +1,5 @@
-import Link from "next/link";
 import type { ComponentProps } from "react";
-import css from "./index.module.scss";
-import { Divider } from "../../Atoms/Divider";
+import clsx from "clsx";
 
 export type NavigationItem = {
   title: string;
@@ -12,20 +10,27 @@ type NavigationProps = { items: NavigationItem[] } & ComponentProps<"nav">;
 
 export const Navigation = (props: NavigationProps) => {
   const { items, ...rest } = props;
+
   return (
-    <nav className={css.navigation} {...rest}>
-      <div className={css.navigationItems}>
-        {items.map((i, idx) => {
+    <nav className={clsx(
+      "flex flex-row items-center justify-center"
+    )}
+      {...rest}
+    >
+      {
+        items.map((i, idx) => {
           return (
-            <>
-              <div key={i.title} className={css.navigationItem}>
-                <Link href={i.href}>{i.title}</Link>
-              </div>
-              {idx !== items.length - 1 && <Divider />}
-            </>
-          );
-        })}
-      </div>
+            <a
+              href={i.href}
+              key={i.title}
+              className={clsx(
+                "px-2 hover:text-gray-400",
+                idx !== items.length - 1 && "border-r border-r-black border-solid",
+              )}>{i.title}</a>
+          )
+        })
+      }
     </nav>
-  );
-};
+  )
+
+}
