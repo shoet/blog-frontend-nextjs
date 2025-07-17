@@ -11,7 +11,7 @@ type TextAreaProps = {
 } & ComponentProps<"textarea">;
 
 export const TextArea = (props: TextAreaProps) => {
-  const { maxRows = 20, minRows = 5, border = true, ...rest } = props;
+  const { maxRows = 20, minRows = 5, border = true, className, ...rest } = props;
 
   const { textareaRef, onChange } = useTextArea({
     onChangeText: props.onChangeText,
@@ -26,6 +26,7 @@ export const TextArea = (props: TextAreaProps) => {
         "text-sm/normal",
         "placeholder:text-gray-300 placeholder:text-sm",
         border ? "border border-black border-solid" : "border-none",
+        className,
       )}
       ref={textareaRef}
       onChange={onChange}
