@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import type { Blog } from "@/types/api";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import type { ClientBlogEditFormState } from "./state";
 import {
   uploadFileForContent,
@@ -88,7 +88,7 @@ export const useBlogEditForm = (props: {
     }
   };
 
-  const [state, formAction] = useFormState(
+  const [state, formAction, isPending] = useActionState(
     async (
       _: ClientBlogEditFormState,
       formData: FormData,
@@ -122,5 +122,6 @@ export const useBlogEditForm = (props: {
     handleChangeContent,
     contentValue,
     isPublic,
+    isPending,
   };
 };

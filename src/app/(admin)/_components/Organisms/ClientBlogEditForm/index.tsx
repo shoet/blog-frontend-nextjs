@@ -11,6 +11,7 @@ import { Button } from "@/app/_components/Atoms/Button";
 import type { Blog } from "@/types/api";
 import { type ClientBlogEditFormState, getClientBlogEditFormError } from "./state";
 import { useBlogEditForm } from "./useBlogEditForm";
+import { LoadingModal } from "@/app/_components/Molecules/LoadingModal";
 
 type ClientBlogEditFormProps = {
   blog?: Blog;
@@ -64,88 +65,92 @@ export const ClientBlogEditForm = (props: ClientBlogEditFormProps) => {
     handleChangeContent,
     contentValue,
     isPublic,
+    isPending,
   } = useBlogEditForm({ blog, serverFormAction });
 
   return (
-    <form action={formAction}>
-      <input hidden type="text" name="id" defaultValue={blog?.id} />
-      <input hidden type="text" name="user_id" defaultValue={blog?.authorId} />
-      <div className={css.title}>
-        <label htmlFor="title">タイトル</label>
-        <TextInput
-          placeholder="Title"
-          name="title"
-          defaultValue={state.title}
-        />
-        <ValidateError state={state} field="title" />
-      </div>
-      <Spacer height={16} />
-      <div className={css.description}>
-        <label htmlFor="description">概要</label>
-        <TextArea
-          name="description"
-          placeholder="Description"
-          rows={2}
-          maxRows={2}
-          defaultValue={state.description}
-        />
-        <ValidateError state={state} field="description" />
-      </div>
-      <Spacer height={16} />
-      <div className={css.title}>
-        <label htmlFor="tags">タグ</label>
-        <TagForm
-          className={css.tagsForm}
-          tags={tags}
-          onSubmit={handleEnterTags}
-          onClickCloseTag={handleDeleteTags}
-        />
-      </div>
-      <Spacer height={16} />
-      <div className={css.thumbnail}>
-        <label htmlFor="thumbnail_image_url">サムネイル</label>
-        <Dropzone onChange={handleUploadThumbnail}>
-          <div className={css.dropzoneContent}>
-            <PreviewImage src={previewImage} />
-          </div>
-          <input
-            hidden
-            type="text"
-            name="thumbnail_image_url"
-            defaultValue={state.thumbnailUrl}
-            value={previewImage}
+    <>
+      <form action={formAction}>
+        <input hidden type="text" name="id" defaultValue={blog?.id} />
+        <input hidden type="text" name="user_id" defaultValue={blog?.authorId} />
+        <div className={css.title}>
+          <label htmlFor="title">タイトル</label>
+          <TextInput
+            placeholder="Title"
+            name="title"
+            defaultValue={state.title}
           />
-        </Dropzone>
-      </div>
-      <Spacer height={16} />
-      <div>
-        <label htmlFor="content">記事</label>
-        <ClientMarkdownPreviewTextArea
-          name="content"
-          value={contentValue}
-          onDragDrop={handleDropFileInTextArea}
-          onChangeText={handleChangeContent}
-        />
-        <ValidateError state={state} field="content" />
-      </div>
-      <Spacer height={16} />
-      <div className={css.actionArea}>
-        <div className={css.isPublic}>
-          <span>記事を公開する</span>
-          <input
-            type="checkbox"
-            name="is_public"
-            checked={isPublic}
-            value={isPublic ? 1 : 0}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              handleChangeIsPublic(e.target.checked);
-            }}
+          <ValidateError state={state} field="title" />
+        </div>
+        <Spacer height={16} />
+        <div className={css.description}>
+          <label htmlFor="description">概要</label>
+          <TextArea
+            name="description"
+            placeholder="Description"
+            rows={2}
+            maxRows={2}
+            defaultValue={state.description}
+          />
+          <ValidateError state={state} field="description" />
+        </div>
+        <Spacer height={16} />
+        <div className={css.title}>
+          <label htmlFor="tags">タグ</label>
+          <TagForm
+            className={css.tagsForm}
+            tags={tags}
+            onSubmit={handleEnterTags}
+            onClickCloseTag={handleDeleteTags}
           />
         </div>
-        <Button type="submit" variant="primary">
-          変更を保存する
-        </Button>
-      </div>
-    </form>
+        <Spacer height={16} />
+        <div className={css.thumbnail}>
+          <label htmlFor="thumbnail_image_url">サムネイル</label>
+          <Dropzone onChange={handleUploadThumbnail}>
+            <div className={css.dropzoneContent}>
+              <PreviewImage src={previewImage} />
+            </div>
+            <input
+              hidden
+              type="text"
+              name="thumbnail_image_url"
+              defaultValue={state.thumbnailUrl}
+              value={previewImage}
+            />
+          </Dropzone>
+        </div>
+        <Spacer height={16} />
+        <div>
+          <label htmlFor="content">記事</label>
+          <ClientMarkdownPreviewTextArea
+            name="content"
+            value={contentValue}
+            onDragDrop={handleDropFileInTextArea}
+            onChangeText={handleChangeContent}
+          />
+          <ValidateError state={state} field="content" />
+        </div>
+        <Spacer height={16} />
+        <div className={css.actionArea}>
+          <div className={css.isPublic}>
+            <span>記事を公開する</span>
+            <input
+              type="checkbox"
+              name="is_public"
+              checked={isPublic}
+              value={isPublic ? 1 : 0}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                handleChangeIsPublic(e.target.checked);
+              }}
+            />
+          </div>
+          <Button type="submit" variant="primary">
+            変更を保存する
+          </Button>
+        </div>
+      </form>
+      <LoadingModal open={isPending} />
+    </>
   );
 };
