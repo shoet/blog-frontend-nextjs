@@ -108,3 +108,19 @@ export const Default: Story = {
     ],
   },
 };
+
+export const DefaultWind: Story = {
+  args: {
+    contributions: [
+      ...contributions,
+      ...contributions,
+      ...contributions,
+      ...contributions,
+      ...contributions,
+      ...contributions,
+    ],
+  },
+  render: (args) => {
+    return <GitHubContributionsGridWind {...args} />
+  }
+};
