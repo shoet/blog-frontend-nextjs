@@ -10,7 +10,7 @@ export type Story = StoryObj<typeof LoadingNextImage>;
 
 export const Default: Story = {
   args: {
-    src: "https://placehold.jp/150x150.png",
+    src: "http://notfoundimage",
     alt: "placeholder",
     fill: true,
   },
