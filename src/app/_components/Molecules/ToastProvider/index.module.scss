@@ -1,48 +1,21 @@
-.toastProvider {
-  position: relative;
-  overflow-x: hidden;
-  height: 100vh;
+.toast {
+  margin-top: 20px;
+  top: 0;
+  right: 0;
+  transition: all 0.3s ease;
+  padding-bottom: 5px;
+  z-index: 2;
+}
 
-  .childrenContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+.toastPosition-visiable {
+  position: absolute;
+  right: 20px;
+  transform: translateY(calc(100% * var(--toast-queue-order)));
+}
 
-    z-index: 1;
-  }
-
-  .toastContainer {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    margin-top: 20px;
-
-    z-index: 0;
-  }
-
-  .toast {
-    margin-top: 20px;
-    top: 0;
-    right: 0;
-    transition: all 0.3s ease;
-    padding-bottom: 5px;
-    z-index: 2;
-  }
-
-  .toastPosition-visiable {
-    position: absolute;
-    right: 20px;
-    transform: translateY(calc(100% * var(--toast-queue-order)));
-  }
-
-  .toastPosition-hidden {
-    position: absolute;
-    right: 0;
-    transform: translate(100%, calc(100% * var(--toast-queue-order)));
-    opacity: 0;
-  }
+.toastPosition-hidden {
+  position: absolute;
+  right: 0;
+  transform: translate(100%, calc(100% * var(--toast-queue-order)));
+  opacity: 0;
 }
