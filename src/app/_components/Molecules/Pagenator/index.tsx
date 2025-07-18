@@ -1,33 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import css from "./index.module.scss";
 import clsx from "clsx";
 
 type PagenatorProps = {
   totalItems: number;
   currentPage: number;
   itemsPerPage: number;
-};
-
-const PagenatorButton = (props: {
-  pageNumber: string;
-  onClick: () => void;
-  isCurrent?: boolean;
-}) => {
-  const { pageNumber, onClick, isCurrent = false } = props;
-  return (
-    <button
-      type="button"
-      className={clsx(
-        css.pagenatorButton,
-        isCurrent && css.pagenatorButtonActive,
-      )}
-      onClick={onClick}
-    >
-      {pageNumber}
-    </button>
-  );
 };
 
 export const Pagenator = (props: PagenatorProps) => {
@@ -44,18 +23,27 @@ export const Pagenator = (props: PagenatorProps) => {
 
   return (
     pages && (
-      <div className={css.pagenator}>
-        {pages.items.map((pageNum, index) => (
-          <PagenatorButton
-            key={pageNum}
-            pageNumber={pageNum}
-            onClick={() =>
-              pageNum !== currentPage.toString() &&
-              handleClickPage(parseInt(pageNum))
-            }
-            isCurrent={pageNum === currentPage.toString()}
-          />
-        ))}
+      <div className={clsx(
+        "flex flex-row items-center justify-center gap-2"
+      )}>
+        {pages.items.map((pageNum, _index) => {
+          const isCurrent = pageNum === currentPage.toString()
+          return (
+            <button
+              type="button"
+              key={pageNum}
+              className={clsx(
+                "cursor-pointer rounded-md border border-black border-solid p-2 text-sm",
+                isCurrent && "cursor-default bg-gray-500 font-bold",
+              )}
+              onClick={() =>
+                !isCurrent &&
+                handleClickPage(parseInt(pageNum))
+              }
+            >{pageNum}</button>
+          )
+        }
+        )}
       </div>
     )
   );
