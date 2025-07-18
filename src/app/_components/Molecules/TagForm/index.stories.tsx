@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TagForm } from ".";
+import { TagForm, TagFormWind } from ".";
 import { useState } from "react";
 
 export default {
