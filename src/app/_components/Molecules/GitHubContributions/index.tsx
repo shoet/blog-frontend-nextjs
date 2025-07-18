@@ -10,7 +10,7 @@ export const GitHubContributionsGrid = (props: GitHubContributionsProps) => {
   const { contributions } = props;
   return (
     <a href="https://github.com/shoet" target="_black">
-      <div dir="rtl" className={clsx("flex flex-row gap-0.5 overflow-hidden")}>
+      <div dir="ltr" className={clsx("flex flex-row justify-end gap-0.5 overflow-hidden")}>
         {
           contributions.map((w, idxX) => {
             return (
