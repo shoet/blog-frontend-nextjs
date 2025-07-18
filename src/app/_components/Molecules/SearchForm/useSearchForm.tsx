@@ -14,6 +14,9 @@ export const useSearchForm = (props: useSearchFormProps) => {
     const text = inputRef.current?.value;
     if (text) {
       onSubmit && onSubmit(text);
+      if (inputRef.current) {
+        inputRef.current.value = ""
+      }
     }
   };
 
