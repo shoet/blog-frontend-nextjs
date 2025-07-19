@@ -1,12 +1,10 @@
 "use client";
 import type React from "react";
-import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
-import styles from "./index.module.scss";
-import { theme } from "@/themes";
 import { AvatarImage } from "../AvatarImage";
 import { useUserProfileEdit } from "./hooks";
 import { getZodValidateError, type ZodValidateError } from "@/utils/validate";
+import clsx from "clsx";
 
 type Props = {
   userId: number;
@@ -16,8 +14,6 @@ type Props = {
 };
 
 export const UserProfileForm = (props: Props) => {
-  const defaultAvatarImageURL = "/avatar_default.png";
-
   const {
     userId,
     avatarImageURL,
@@ -35,11 +31,13 @@ export const UserProfileForm = (props: Props) => {
   return (
     <form action={action}>
       {errors.length > 0 && (
-        <div className={styles.alert}>プロフィールの更新に失敗しました。</div>
+        <div className={clsx(
+          "mb-[20px] rounded-sm bg-[#fff1f1] px-2 py-1 text-[#ff0f0f] text-sm",
+        )}>プロフィールの更新に失敗しました。</div>
       )}
       <input hidden name="userId" value={userId} />
       <UserProfileFormPresenter
-        avatarImageURL={avatarImageURL || defaultAvatarImageURL}
+        avatarImageURL={avatarImageURL}
         nickname={nickname}
         bio={bio}
         isLoading={isLoading}
@@ -52,9 +50,9 @@ export const UserProfileForm = (props: Props) => {
   );
 };
 
-const UserProfileFormPresenter = (props: {
+export const UserProfileFormPresenter = (props: {
   nickname?: string;
-  avatarImageURL: string;
+  avatarImageURL?: string;
   bio?: string;
   isLoading?: boolean;
   validateErrors: ZodValidateError[];
@@ -62,9 +60,10 @@ const UserProfileFormPresenter = (props: {
   avatarImageClick?: () => void;
   avatarImageOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
+  const defaultAvatarImageURL = "/avatar_default.png";
   const {
     nickname,
-    avatarImageURL,
+    avatarImageURL = defaultAvatarImageURL,
     bio,
     isLoading,
     validateErrors = [],
@@ -72,58 +71,75 @@ const UserProfileFormPresenter = (props: {
     avatarImageClick,
     avatarImageOnChange,
   } = props;
-  const style = {
-    "--title-color": theme.colors.black,
-    "--border-color": theme.colors.borderDark,
-    "--editor-background-color": theme.colors.secondaryDark,
-    "--font-color-error": theme.colors.dangerDark,
-  } as CSSProperties;
 
   const nicknameError = getZodValidateError(validateErrors, "nickname");
 
+  const labelClass = `
+    font-bold text-md text-black
+  `
+  const textInputClass = `
+    w-full rounded-md bg-[#dfe6da]
+    p-2 text-md outline-none placeholder:text-gray-400
+  `
+
+  const errorTextClass = `
+    text-sm text-red-500
+  `
+
   return (
-    <div className={styles.userProfile} style={style}>
-      <div className={styles.avatar}>
+    <div className={clsx(
+      "grid grid-cols-[1fr_3fr]",
+    )}>
+      <div className={clsx(
+        "flex flex-col items-center justify-start gap-[10px]",
+        "cursor-pointer pr-[20px]",
+      )}>
         <AvatarImage
           imageURL={avatarImageURL}
-          onClick={() => avatarImageClick && avatarImageClick()}
+          onClick={() => avatarImageClick?.()}
         />
-        <input
-          hidden
-          type="file"
-          ref={avatarImageInputRef}
-          onChange={avatarImageOnChange}
-        />
-        <input hidden value={avatarImageURL} name="avatarImageURL" />
         <button
           type="button"
-          className={styles.avatarChangeButton}
-          onClick={() => avatarImageClick && avatarImageClick()}
+          className={clsx(
+            "cursor-pointer text-[#919191] text-md hover:brightness-[0.7]",
+          )}
+          onClick={() => avatarImageClick?.()}
         >
           変更する
         </button>
+        <input hidden type="file" ref={avatarImageInputRef} onChange={avatarImageOnChange} />
+        <input hidden value={avatarImageURL} name="avatarImageURL" />
       </div>
-      <div className={styles.editor}>
+      <div className={clsx(
+        "flex flex-col gap-[20px]"
+      )}>
         <div>
-          <div className={styles.title}>表示名</div>
+          <div className={clsx(labelClass)}>表示名</div>
           <input
             name="nickname"
             defaultValue={nickname}
             placeholder="表示名を入力"
+            className={clsx(textInputClass,)}
           />
           {nicknameError && (
-            <div className={styles.validateError}>{nicknameError.error}</div>
+            <div className={clsx(errorTextClass)}>{nicknameError.error}</div>
           )}
         </div>
         <div>
-          <div className={styles.title}>自己紹介</div>
+          <div className={clsx(labelClass)}>自己紹介</div>
           <textarea
             name="bio"
             defaultValue={bio}
             placeholder="自己紹介を入力"
+            className={clsx(
+              textInputClass,
+              "field-sizing-content min-h-[100px] resize-none",
+            )}
           />
         </div>
-        <div className={styles.sender}>
+        <div className={clsx(
+          "mt-[20px] flex flex-row justify-end"
+        )}>
           <Button type="submit" variant="secondaryDark" disabled={isLoading}>
             更新する
           </Button>
