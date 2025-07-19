@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react";
 import clsx from "clsx";
+import Link from "next/link";
 
 export type NavigationItem = {
   title: string;
@@ -20,13 +21,13 @@ export const Navigation = (props: NavigationProps) => {
       {
         items.map((i, idx) => {
           return (
-            <a
+            <Link
               href={i.href}
               key={i.title}
               className={clsx(
                 "px-2 hover:text-gray-400",
                 idx !== items.length - 1 && "border-r border-r-black border-solid",
-              )}>{i.title}</a>
+              )}>{i.title}</Link>
           )
         })
       }
