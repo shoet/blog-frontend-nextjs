@@ -51,7 +51,7 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
         "flex w-full flex-row justify-center gap-[20px]",
       )}>
         {onClickCancel && (
-          <Button variant="secondary" className={"w-full"} onClick={onClickCancel}>
+          <Button type="button" variant="secondary" className={"w-full"} onClick={onClickCancel}>
             {cancelText ?? "Cancel"}
           </Button>
         )}
