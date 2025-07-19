@@ -18,9 +18,13 @@ export const OverlayDialog = (props: OverlayDialogProps) => {
   const { children, ...rest } = props;
 
   return (
-    <div className={clsx(
-      "fixed top-0 left-0 h-dvh w-dvw bg-gray-700 opacity-70",
-    )}>
+    // biome-ignore lint: lint/a
+    <div
+      className={clsx(
+        "fixed top-0 left-0 h-dvh w-dvw bg-gray-700 opacity-70",
+      )}
+      onClick={rest.onClickCancel}
+    >
       <div className="-translate-1/2 absolute top-1/2 left-1/2">
         <ConfirmDialog {...rest}>{children}</ConfirmDialog>
         <IconXmark
