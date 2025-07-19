@@ -1,9 +1,9 @@
 "use client";
-import css from "./index.module.scss";
 import type { ComponentProps, CSSProperties } from "react";
 import { theme } from "@/themes";
 import { useTagForm } from "./useTagForm";
 import { CloseableBadge } from "../CloseableBadge";
+import clsx from "clsx";
 
 type TagFromProps = {
   tags: string[];
@@ -22,21 +22,35 @@ export const TagForm = (props: TagFromProps) => {
   } as CSSProperties;
 
   return (
-    <div className={css.tagForm} style={style}>
-      <div className={css.tags}>
+    <div
+      className={clsx(
+        "flex flex-start flex-row gap-2 p-2",
+        "rounded-md border border-[var(--border-color)] border-solid",
+      )}
+      style={style}
+    >
+      <div className={clsx(
+        "flex flex-row justify-center gap-2",
+      )}>
         {tags.map((tag) => {
           return (
             <CloseableBadge
               key={tag}
               variant="black"
-              onClickClose={() => onClickCloseTag && onClickCloseTag(tag)}
+              onClickClose={() => onClickCloseTag?.(tag)}
             >
               {tag}
             </CloseableBadge>
           );
         })}
       </div>
-      <input type="text" ref={inputRef} onKeyDown={onKeyDownEnter} {...rest} />
+      <input
+        type="text"
+        className={clsx("w-full border-none outline-none")}
+        ref={inputRef}
+        onKeyDown={onKeyDownEnter}
+        {...rest}
+      />
     </div>
   );
 };

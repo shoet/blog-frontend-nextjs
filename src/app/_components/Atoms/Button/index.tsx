@@ -72,7 +72,7 @@ const ButtonVariants: { [key in ButtonVariants]: ButtonStyle } = {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { variant = "primary", round = false, ...rest } = props;
+  const { variant = "primary", round = false, className, ...rest } = props;
 
   const buttonStyle = ButtonVariants[variant]
 
@@ -83,7 +83,8 @@ export const Button = (props: ButtonProps) => {
         "text-[var(--fg-color)]", "bg-[var(--bg-color)]", "border border-[var(--border-color)]", // normal
         "disabled:cursor-not-allowed", "disabled:bg-[var(--disabled-bg)]", // disabled
         "hover:bg-[var(--hover-bg)]", // hover
-        round ? "rounded-full" : "rounded-md"
+        round ? "rounded-full" : "rounded-md",
+        className,
       )}
       {...rest}
       style={{

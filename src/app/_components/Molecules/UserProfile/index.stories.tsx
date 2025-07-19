@@ -15,5 +15,6 @@ export const Default: Story = {
       nickname: "shoet",
       bio: "description description description",
     },
+    showEdit: true,
   },
 };

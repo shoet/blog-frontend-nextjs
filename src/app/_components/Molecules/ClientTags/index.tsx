@@ -1,9 +1,9 @@
 "use client";
 import type { Tag } from "@/types/api";
-import css from "./index.module.scss";
 import { theme } from "@/themes";
 import { Badge } from "../../Atoms/Badge";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 type TagsProps = {
   tags: Tag[];
@@ -19,7 +19,7 @@ export const ClientTags = (props: TagsProps) => {
   };
 
   return (
-    <div className={css.tagsContainer}>
+    <div className={clsx("flex flex-wrap gap-1")}>
       {tags.map((t) => {
         return (
           <Badge

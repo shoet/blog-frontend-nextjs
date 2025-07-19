@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { UserProfileForm } from ".";
+import { UserProfileForm, UserProfileFormPresenter } from ".";
 
 export default {
   title: "Molecules/UserProfileForm/Presenter",
-  component: UserProfileForm,
-} as Meta<typeof UserProfileForm>;
+  component: UserProfileFormPresenter,
+} as Meta<typeof UserProfileFormPresenter>;
 
-type Story = StoryObj<typeof UserProfileForm>;
+type Story = StoryObj<typeof UserProfileFormPresenter>;
 
 export const Default: Story = {};

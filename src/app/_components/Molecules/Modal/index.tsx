@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import styles from "./index.module.scss";
+import clsx from "clsx";
 
 type Props = {
   children: ReactNode;
@@ -14,8 +14,12 @@ export const Modal = (props: Props) => {
   }
   return (
     <>
-      <div className={styles.background}></div>
-      <div className={styles.container}>{props.children}</div>
+      <div className={clsx(
+        "fixed top-0 left-0 z-[0] h-dvh w-dvw bg-gray-400 opacity-70"
+      )}></div>
+      <div className={clsx(
+        "-translate-1/2 fixed top-1/2 left-1/2 z-[1]"
+      )}>{props.children}</div>
     </>
   );
 };

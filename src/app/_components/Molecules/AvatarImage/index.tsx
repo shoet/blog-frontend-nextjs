@@ -1,4 +1,4 @@
-import styles from "./index.module.scss";
+import clsx from "clsx";
 import type { ComponentProps } from "react";
 
 type Props = {
@@ -10,10 +10,12 @@ export const AvatarImage = (props: Props) => {
   const { imageURL, alt, ...rest } = props;
   return (
     <img
-      className={styles.avatarImage}
+      className={clsx("aspect-square w-full rounded-full object-cover")}
       src={imageURL}
       alt={alt ?? "profile"}
       {...rest}
     />
   );
 };
+
+

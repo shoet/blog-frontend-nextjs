@@ -1,9 +1,9 @@
 "use client";
 import type { ComponentProps, CSSProperties } from "react";
-import styles from "./index.module.scss";
 import { theme } from "@/themes";
 import { IconGlass } from "../../Atoms/Icon";
 import { useSearchForm } from "./useSearchForm";
+import clsx from "clsx";
 
 type SearchFormProps = {
   onSubmit?: (keyword: string) => void;
@@ -21,14 +21,25 @@ export const SearchForm = (props: SearchFormProps) => {
   } as CSSProperties;
 
   return (
-    <div className={styles.searchForm} style={style}>
+    <div
+      className={clsx(
+        "flex flex-row items-center px-2 py-1",
+        "rounded-md border border-[var(--border-color)] border-solid",
+      )}
+      style={style}>
       <input
         type="text"
+        className={clsx(
+          "w-full border-none outline-none placeholder:text-[--placeholder-color]",
+        )}
         ref={inputRef}
         onKeyDown={handleOnKeydownInput}
         {...rest}
       />
-      <button type="reset" onClick={handleOnClickButton}>
+      <button
+        type="button"
+        className="cursor-pointer"
+        onClick={handleOnClickButton}>
         <IconGlass size="sm" color={theme.colors.placeholder} />
       </button>
     </div>

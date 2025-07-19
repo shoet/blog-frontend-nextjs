@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { type ReactEventHandler, useState } from "react";
 import { SkeletonLoader } from "../SkeletonLoader";
-import css from "./index.module.scss";
+import clsx from "clsx";
 
 type LoadingNextImageProps = {
   src: string;
@@ -22,7 +22,7 @@ export const LoadingNextImage = (props: LoadingNextImageProps) => {
   return (
     <>
       {isLoading && (
-        <div className={css.skeletonWrapper}>
+        <div className={clsx("flex h-full flex-col justify-center")}>
           <SkeletonLoader />
         </div>
       )}

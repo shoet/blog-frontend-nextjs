@@ -1,8 +1,8 @@
 "use client";
 import type { ReactNode } from "react";
 import { ConfirmDialog } from "../ConfirmDialog";
-import css from "./index.module.scss";
 import { IconXmark } from "../../Atoms/Icon";
+import clsx from "clsx";
 
 type OverlayDialogProps = {
   title: string;
@@ -16,21 +16,27 @@ type OverlayDialogProps = {
 
 export const OverlayDialog = (props: OverlayDialogProps) => {
   const { children, ...rest } = props;
+
   return (
-    <div className={css.overlayDialog}>
-      <button
-        type="button"
-        className={css.overlayDialogBackground}
-        onClick={rest.onClickCancel}
-      ></button>
-      <div className={css.dialog}>
+    // biome-ignore lint: lint/a
+    <div
+      className={clsx("fixed inset-0")}
+    >
+      {/*
+        biome-ignore lint: lint/a
+      */}
+      <div
+        className="absolute inset-0 bg-gray-700/70"
+        onClick={() => rest.onClickCancel?.()}
+      />
+      <div className="-translate-1/2 absolute top-1/2 left-1/2">
         <ConfirmDialog {...rest}>{children}</ConfirmDialog>
         <IconXmark
-          className={css.xmark}
+          className={clsx("-top-[50px] absolute right-0 cursor-pointer text-gray-200")}
           size="3x"
-          onClick={rest.onClickCancel}
+          onClick={() => rest.onClickCancel?.()}
         />
       </div>
     </div>
-  );
-};
+  )
+}

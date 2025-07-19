@@ -2,7 +2,6 @@
 import type React from "react";
 import { type ComponentProps, useEffect, useState } from "react"
 import { MarkdownRenderer } from "../MarkdownRenderer";
-import css from "./index.module.scss";
 import clsx from "clsx";
 import { DragableTextarea } from "../../Atoms/DragableTextarea";
 import { Spacer } from "../../Atoms/Spacer";
@@ -32,17 +31,25 @@ export const ClientMarkdownPreviewTextArea = (
   };
 
   return (
-    <div className={css.markdownPreviewEditor}>
-      <div className={clsx(css.editor, css.textEditor)}>
+    <div className={clsx("flex min-h-[500px] w-full flex-row items-start")}>
+      <div className={clsx("w-1/2")} >
         <DragableTextarea
           onChange={handleChangeText}
           onDragDrop={handleDragDrop}
           value={text}
           {...textareaProps}
+          className={clsx(
+            "min-h-[500px] w-full rounded-sm p-4",
+            "field-sizing-content resize-none outline-none",
+          )}
         />
       </div>
       <Spacer width={20} />
-      <div className={css.preview}>
+      <div className={clsx(
+        "sticky top-0 w-1/2 p-2",
+        "rounded-sm border border-black border-solid",
+        "max-h-dvh min-h-[500px] overflow-y-scroll"
+      )}>
         <MarkdownRenderer markdown={(text as string) || ""} />
       </div>
     </div>

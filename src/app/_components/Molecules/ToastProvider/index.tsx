@@ -75,15 +75,23 @@ export const ToastProvider = (props: { children: ReactNode }) => {
         queueToast: setTimedToast,
       }}
     >
-      <div className={styles.toastProvider}>
-        <div className={styles.childrenContainer}>{props.children}</div>
+      <div className={clsx(
+        "relative h-dvh overflow-x-hidden"
+      )}>
+        <div
+          className={clsx(
+            "absolute top-0 left-0 z-[1] h-full w-full"
+          )}>
+          {props.children}
+        </div>
         {toastQueue.map((t, idx) => {
           return (
             t.state && (
               <div
                 key={t.id}
                 className={clsx(
-                  styles.toast,
+                  "top-0 right-0 z-[2] mt-[20px] pb-[5px]",
+                  "ease transition-all duration-300",
                   styles[`toastPosition-${t.state}`],
                 )}
                 style={
