@@ -1,54 +1,52 @@
 import type { Blog } from "@/types/api";
-import styles from "./index.module.scss";
 import { Badge } from "../../Atoms/Badge";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
-import type { CSSProperties } from "react";
-import { theme } from "@/themes";
-import { Spacer } from "../../Atoms/Spacer";
 import { LoadingNextImage } from "../../Molecules/LoadingNextImage";
+import clsx from "clsx";
 
 type BlogCardProps = {
   blog: Blog;
 };
+
 export const BlogCard = (props: BlogCardProps) => {
   const { blog } = props;
 
-  const style = {
-    "--title-font-size": theme.fontSizes.extraExtraLarge,
-    "--description-font-size": theme.fontSizes.medium,
-    "--datetime-font-size": theme.fontSizes.medium,
-    "--datetime-font-color": theme.colors.gray,
-    "--border-color": theme.colors.border,
-  } as CSSProperties;
-
   return (
-    <div className={styles.blogCard} style={style}>
-      <div className={styles.imageWrapper}>
+    <div
+      className={clsx(
+        "p-4 flex flex-row items-center justify-start gap-4",
+        "border border-gray-200 rounded-xl",
+      )}
+    >
+      <div className={clsx("min-w-[200px] min-h-[150px] relative shrink-0")}>
         <LoadingNextImage
           src={blog.thumbnailImageFileName}
           alt={blog.title}
           fill
-          className={styles.image}
+          className={clsx(
+            "relative object-center object-contain w-full h-full",
+          )}
         />
       </div>
-      <Spacer width={20} />
-      <div className={styles.contentWrapper}>
-        <div className={styles.title}>{blog.title}</div>
-        <Spacer height={15} />
-        <div className={styles.tags}>
-          {blog.tags?.map((t) => {
-            return (
+      <div className={clsx("min-w-0 flex-1 break-words")}>
+        <div className={clsx("text-2xl font-bold")}>{blog.title}</div>
+        <div className={clsx("flex flex-col gap-2 mt-6")}>
+          <div
+            className={clsx(
+              "flex flex-row items-center justify-start gap-1",
+              " flex-wrap",
+            )}
+          >
+            {blog.tags?.map((t) => (
               <Badge key={t} variant="black">
                 {t}
               </Badge>
-            );
-          })}
-        </div>
-        <Spacer height={15} />
-        <div className={styles.description}>{blog.description}</div>
-        <Spacer height={15} />
-        <div className={styles.datetime}>
-          {toStringYYYYMMDD_HHMMSS(blog.created)}
+            ))}
+          </div>
+          <div className={clsx("text-md")}>{blog.description}</div>
+          <div className={clsx("text-sm font-bold text-gray-500")}>
+            {toStringYYYYMMDD_HHMMSS(blog.created)}
+          </div>
         </div>
       </div>
     </div>
