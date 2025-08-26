@@ -1,9 +1,9 @@
 import type { Blog } from "@/types/api";
 import { BlogCard } from "../BlogCard";
-import css from "./index.module.scss";
 import { Spacer } from "../../Atoms/Spacer";
 import Link from "next/link";
 import { Pagenator } from "../../Molecules/Pagenator";
+import clsx from "clsx";
 
 type BlogCardListProps = {
   blogs: Blog[];
@@ -17,7 +17,7 @@ export const BlogCardList = (props: BlogCardListProps) => {
 
   return (
     <div>
-      <div className={css.blogs}>
+      <div className={clsx("flex flex-col gap-2")}>
         {blogs.map((b) => {
           return (
             <Link href={`/blogs/${b.id}`} key={b.id}>
