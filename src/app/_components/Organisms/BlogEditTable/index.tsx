@@ -8,6 +8,7 @@ import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import Link from "next/link";
 import { ClientIsPublic } from "./_components/ClientIsPublic";
 import { IconEdit, IconTrash } from "../../Atoms/Icon";
+import clsx from "clsx";
 
 type Props = {
   blogs: Blog[];
@@ -46,26 +47,24 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
   return (
     <tr className={styles.blogEditTableRow}>
       <td>
-        <div className={styles.blogTitle}>
-          <Link
-            href={`/blogs/${blog.id}`}
-            target="_blank"
-            className={styles.link}
-          >
-            {blog.title}
-          </Link>
-        </div>
+        <Link
+          href={`/blogs/${blog.id}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          {blog.title}
+        </Link>
       </td>
       <td>
-        <div className={styles.author}>
-          <div className={styles.avatarImage}>
+        <div className={clsx("flex flex-row items-center gap-2")}>
+          <div className={clsx("w-[20px] h-[20px]")}>
             <AvatarImage imageURL={userProfile.avatarImageFileURL || ""} />
           </div>
           <div>{userProfile.nickname}</div>
         </div>
       </td>
       <td>
-        <div className={styles.tags}>
+        <div className={clsx("flex flex-row items-center gap-1 flex-wrap")}>
           {blog.tags?.map((tag) => {
             return (
               <Badge key={tag} variant="black">
@@ -76,8 +75,8 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         </div>
       </td>
       <td>
-        <div className={styles.isPublic}>
-          <div className={styles.toggleSwitch}>
+        <div className={clsx("flex justify-center items-center")}>
+          <div className={clsx("w-[50px]")}>
             <ClientIsPublic blog={blog} />
           </div>
         </div>
@@ -88,13 +87,20 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         <Link
           href={`/admin/blogs/${blog.id}/edit`}
           target="_blank"
-          className={styles.edit}
+          className={clsx(
+            "flex items-center justify-center cursor-pointer hover:text-gray-500",
+          )}
         >
           <IconEdit />
         </Link>
       </td>
       <td>
-        <Link href={`/admin/blogs/${blog.id}/delete`} className={styles.delete}>
+        <Link
+          href={`/admin/blogs/${blog.id}/delete`}
+          className={clsx(
+            "flex items-center justify-center cursor-pointer hover:text-gray-500",
+          )}
+        >
           <IconTrash />
         </Link>
       </td>
