@@ -11,7 +11,7 @@ type LoadingNextImageProps = {
 } & React.ComponentProps<typeof Image>;
 
 export const LoadingNextImage = (props: LoadingNextImageProps) => {
-  const { src, alt, ...rest } = props;
+  const { src, alt, className, ...rest } = props;
   const [isLoading, setIsLoading] = useState(true);
   const visibility = isLoading ? "hidden" : "visible";
 
@@ -27,6 +27,7 @@ export const LoadingNextImage = (props: LoadingNextImageProps) => {
         </div>
       )}
       <Image
+        className={clsx(className)}
         src={src}
         alt={alt}
         onLoad={handleOnLoad}

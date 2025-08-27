@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @layer reset, base, tokens, recipes, utilities;
+@theme {
+  --color-main: #cbd5c0;
+}
 
 html,
 body,

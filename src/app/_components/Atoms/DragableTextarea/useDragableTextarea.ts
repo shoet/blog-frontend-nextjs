@@ -26,7 +26,7 @@ export const useDragableTextarea = ({
       });
       return;
     }
-    onChange && onChange(fileList[0]);
+    onChange?.(fileList[0]);
   };
 
   return { error, handleOnDragOver, handleOnDrop };

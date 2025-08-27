@@ -40,26 +40,43 @@ export const TextToggle = (props: Props) => {
       className={clsx(
         "bg-[var(--background-color)]",
         "h-[30px] w-full rounded-full p-1",
-        "outline-none",
-      )}>
-      <div className={clsx(
-        "relative flex h-full flex-row items-center justify-center",
-      )}>
-        <div className={clsx(
-          "absolute h-full w-1/2 rounded-full bg-white text-center transition-transform duration-300 ease-in-out",
-          status === "left" ? "-translate-x-1/2" : "translate-x-1/2"
-        )}></div>
-        <div className={clsx(
-          "absolute left-0 w-1/2 text-center font-bold",
-          "transition-colors duration-300 ease-linear",
-          status === "left" ? 'text-[var(--active-text-color)]' : "text-white"
-        )}>{leftText}</div>
-        <div className={clsx(
-          "absolute right-0 w-1/2 text-center font-bold",
-          "transition-colors duration-300 ease-linear",
-          status === "right" ? 'text-[var(--active-text-color)]' : "text-white"
-        )}>{rightText}</div>
+        "cursor-pointer outline-none",
+      )}
+    >
+      <div
+        className={clsx(
+          "relative flex h-full flex-row items-center justify-center",
+        )}
+      >
+        <div
+          className={clsx(
+            "absolute h-full w-1/2 rounded-full bg-white text-center transition-transform duration-300 ease-in-out",
+            status === "left" ? "-translate-x-1/2" : "translate-x-1/2",
+          )}
+        ></div>
+        <div
+          className={clsx(
+            "absolute left-0 w-1/2 text-center font-bold",
+            "transition-colors duration-300 ease-linear",
+            status === "left"
+              ? "text-[var(--active-text-color)]"
+              : "text-white",
+          )}
+        >
+          {leftText}
+        </div>
+        <div
+          className={clsx(
+            "absolute right-0 w-1/2 text-center font-bold",
+            "transition-colors duration-300 ease-linear",
+            status === "right"
+              ? "text-[var(--active-text-color)]"
+              : "text-white",
+          )}
+        >
+          {rightText}
+        </div>
       </div>
     </button>
-  )
-}
+  );
+};

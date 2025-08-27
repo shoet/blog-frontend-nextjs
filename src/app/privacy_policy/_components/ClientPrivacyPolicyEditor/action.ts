@@ -40,7 +40,7 @@ export const editFormAction = async (
 };
 
 export const deleteFormAction = async (
-  prevState: State,
+  _prevState: State,
   formData: FormData,
 ) => {
   const schema = z.object({

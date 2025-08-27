@@ -20,7 +20,7 @@ export const generateMetadata = async (
   };
 };
 
-export default async function Page(props: PrivacyPolicyProps) {
+export default async function Page(_props: PrivacyPolicyProps) {
   if (!(await authGuard())) {
     return redirect("/admin/signin");
   }

@@ -10,10 +10,10 @@ export const useSearchForm = (props: useSearchFormProps) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleOnClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOnClickButton = (_e: React.MouseEvent<HTMLButtonElement>) => {
     const text = inputRef.current?.value;
     if (text) {
-      onSubmit && onSubmit(text);
+      onSubmit?.(text);
       if (inputRef.current) {
         inputRef.current.value = ""
       }
@@ -24,7 +24,7 @@ export const useSearchForm = (props: useSearchFormProps) => {
     if (e.key === "Enter") {
       const text = inputRef.current?.value;
       if (text) {
-        onSubmit && onSubmit(text);
+        onSubmit?.(text);
       }
     }
   };

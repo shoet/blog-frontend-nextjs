@@ -1,11 +1,10 @@
 "use client";
 import Link from "next/link";
-import css from "./index.module.scss";
 import { IconGitHub, IconTwitter, IconYoutube } from "../../Atoms/Icon";
 import { theme } from "@/themes";
 import { Spacer } from "../../Atoms/Spacer";
-import type { CSSProperties } from "react";
 import { Button } from "../../Atoms/Button";
+import clsx from "clsx";
 
 type ProfileProps = {
   isLogin?: boolean;
@@ -14,18 +13,15 @@ type ProfileProps = {
 
 export const ClientProfile = (props: ProfileProps) => {
   const { isLogin = false, signout } = props;
-  const style = {
-    "--name-color": isLogin ? theme.colors.focusGreen : null,
-  } as CSSProperties;
-  const handleClickSigntout = () => signout && signout();
+  const handleClickSigntout = () => signout?.();
   return (
-    <div className={css.profile} style={style}>
-      <div className={css.title}>
+    <div>
+      <div className={clsx("flex flex-row items-center justify-start")}>
         <Link href="/admin">
-          <div className={css.name}>shoet</div>
+          <div className={clsx("cursor-pointer font-bold text-md")}>shoet</div>
         </Link>
         <Spacer width={10} />
-        <div className={css.icons}>
+        <div className={clsx("flex flex-row items-center gap-1.5")}>
           <Link href="https://github.com/shoet" target="_blank">
             <IconGitHub focus focusColor={theme.colors.focusGreen} />
           </Link>
@@ -48,12 +44,12 @@ export const ClientProfile = (props: ProfileProps) => {
           </>
         )}
       </div>
-      <div className={css.description}>
+      <div className={clsx("text-sm")}>
         エンジニア。
         <br />
         エンジニアリングで価値提供できるよう、
         <br />
-        日々自己研磨。
+        日々自己研鑽。
       </div>
     </div>
   );

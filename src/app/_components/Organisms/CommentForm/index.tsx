@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "../../Atoms/Button";
 import { MarkdownRenderer } from "../../Molecules/MarkdownRenderer";
-import styles from "./index.module.scss";
 import { TextToggle } from "../../Atoms/TextToggle";
 import { Divider } from "../../Atoms/Divider";
 import { AvatarImage } from "../../Molecules/AvatarImage";
@@ -13,9 +12,15 @@ import { type RefObject, useState } from "react";
 
 const NoComment = () => {
   return (
-    <div className={styles.noComment}>
-      <div className={styles.noCommentInner}>
-        <div className={styles.title}>コメントを投稿しよう</div>
+    <div
+      className={clsx(
+        "flex min-h-[200px] flex-row items-center justify-center",
+      )}
+    >
+      <div className={clsx("flex items-center justify-center")}>
+        <div className={clsx("font-bold text-gray-500 text-lg")}>
+          コメントを投稿しよう
+        </div>
       </div>
     </div>
   );
@@ -63,16 +68,21 @@ export const CommentFormPresenter = (props: {
   return (
     <>
       <CommentList comments={commentList} />
-      <div className={styles.commentForm}>
-        <div className={styles.avatar}>
+      <div className={clsx("flex flex-col gap-2 p-6")}>
+        <div
+          className={clsx(
+            "flex h-[40px] flex-row items-center justify-start gap-4",
+          )}
+        >
           <AvatarImage
+            className={clsx("!w-[40px]")} // css important
             imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
           />
-          <div className={styles.name}>
+          <div className={clsx("font-bold text-lg")}>
             {commentUser?.nickname || `匿名ユーザー(ID: ${handlename || ""})`}
           </div>
         </div>
-        <div className={styles.toggle}>
+        <div className={clsx("w-full")}>
           <TextToggle
             leftText="Markdown"
             rightText="Preview"
@@ -81,16 +91,20 @@ export const CommentFormPresenter = (props: {
         </div>
         <button
           type="button"
-          className={styles.tabs}
+          className={clsx("relative flex h-[300px] flex-col")}
           onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
           <div
             className={clsx(
-              styles.editor,
-              showPreview ? styles.background : styles.surface,
+              "absolute h-full w-full bg-white",
+              showPreview ? "z-0" : "z-10",
             )}
           >
             <textarea
+              className={clsx(
+                "h-full w-full resize-none border-none p-[8px] outline-none",
+                "text-md placeholder:text-gray-500",
+              )}
               name="comment"
               ref={textareaRef}
               rows={5}
@@ -99,19 +113,21 @@ export const CommentFormPresenter = (props: {
           </div>
           <div
             className={clsx(
-              styles.preview,
-              showPreview ? styles.surface : styles.background,
+              "absolute h-full w-full overflow-scroll bg-white",
+              showPreview ? "z-10" : "z-0",
             )}
           >
             {textareaRef.current?.value.length !== 0 ? (
-              <MarkdownRenderer markdown={textareaRef.current?.value || ""} />
+              <div className={clsx("flex flex-row justify-start text-start")}>
+                <MarkdownRenderer markdown={textareaRef.current?.value || ""} />
+              </div>
             ) : (
               <NoComment />
             )}
           </div>
         </button>
         <Divider />
-        <div className={styles.sender}>
+        <div className={clsx("flex flex-row justify-end")}>
           <Button variant="secondaryDark" round type="submit">
             投稿する
           </Button>

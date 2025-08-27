@@ -35,15 +35,20 @@ export const ToggleSwitch = (props: Props) => {
       onClick={handleOnClickToggle}
       style={style}
       className={clsx(
-        "relative h-[30px] w-full rounded-full p-1 outline-none",
+        "relative h-[30px] w-full cursor-pointer rounded-full p-1 outline-none",
         "ease transition-colors duration-300",
-        status ? "bg-[var(--switch-color-active)]" : "bg-[var(--switch-color-inactive)]"
-      )}>
-      <div className={clsx(
-        "h-full w-1/2 rounded-full bg-white",
-        "ease transition-transform duration-300",
-        status ? "translate-x-full" : ""
-      )} />
+        status
+          ? "bg-[var(--switch-color-active)]"
+          : "bg-[var(--switch-color-inactive)]",
+      )}
+    >
+      <div
+        className={clsx(
+          "h-full w-1/2 rounded-full bg-white",
+          "ease transition-transform duration-300",
+          status ? "translate-x-full" : "",
+        )}
+      />
     </button>
-  )
-}
+  );
+};

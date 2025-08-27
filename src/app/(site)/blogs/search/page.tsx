@@ -23,13 +23,13 @@ export const generateMetadata = async (
   const { title: appTitle } = await parent;
   const { tag, keyword } = await props.searchParams;
 
-  var search: string;
+  var _search: string;
   if (keyword) {
-    search = keyword;
+    _search = keyword;
   }
   // tagがある場合はtagを優先して検索する
   if (tag) {
-    search = tag;
+    _search = tag;
   }
 
   const searchTitle =

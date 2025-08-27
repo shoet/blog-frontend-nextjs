@@ -27,7 +27,7 @@ export const ClientPrivacyPolicyEditor = (props: Props) => {
     State,
     FormData
   >(editFormAction, {});
-  const [deleteState, deleteAction, isPendingDelete] = useActionState<
+  const [deleteState, deleteAction, _isPendingDelete] = useActionState<
     State,
     FormData
   >(deleteFormAction, {});

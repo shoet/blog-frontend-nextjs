@@ -1,17 +1,25 @@
 import Link from "next/link";
-import css from "./index.module.scss";
+import clsx from "clsx";
 
 export const Header = async () => {
   return (
-    <div className={css.headerWrapper}>
-      <header className={css.header}>
+    <div className={clsx("flex flex-row items-center justify-between")}>
+      <header
+        className={clsx(
+          "flex items-baseline justify-start gap-[20px]",
+          "sm:flex-row",
+          "flex-col",
+        )}
+      >
         <Link href="/">
-          <div className={css.title}>
-            <span className={css.titleMain}>shoet</span>
-            <span className={css.titleSub}>Blog</span>
+          <div className={clsx("text-center")}>
+            <span className={clsx("font-bold text-5xl tracking-widest")}>
+              shoet
+            </span>
+            <span className={clsx("text-5xl tracking-widest")}>Blog</span>
           </div>
         </Link>
-        <div className={css.subTitle}>
+        <div className={clsx("text-gray-500 text-sm")}>
           技術や好きなことについて発信しています。
         </div>
       </header>

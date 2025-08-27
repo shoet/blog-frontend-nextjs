@@ -5,7 +5,7 @@ import { ErrorText } from '.'
 export default {
   title: 'Atoms/ErrorText',
   component: ErrorText,
-  render: (args) => {
+  render: (_args) => {
     return <ErrorText>ErrorText</ErrorText>
   }
 } as Meta<typeof ErrorText>

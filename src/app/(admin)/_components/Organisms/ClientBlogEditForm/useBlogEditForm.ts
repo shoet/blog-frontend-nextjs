@@ -1,5 +1,4 @@
 "use client";
-import { useFormState } from "react-dom";
 import type { Blog } from "@/types/api";
 import { useActionState, useState } from "react";
 import type { ClientBlogEditFormState } from "./state";
@@ -81,7 +80,7 @@ export const useBlogEditForm = (props: {
       console.log(contentValue);
       // contentの末尾にURLを追加する
       const markdonwImageText = `![](${putURL})`;
-      setContentValue(contentValue + "\n" + markdonwImageText);
+      setContentValue(`${contentValue}\n${markdonwImageText}`);
     } catch (e) {
       console.error(e);
       return;

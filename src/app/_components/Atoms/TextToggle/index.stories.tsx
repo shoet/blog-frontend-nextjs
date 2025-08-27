@@ -8,11 +8,11 @@ export default {
 
 export type Story = StoryObj<typeof TextToggle>;
 
-const Left = () => {
+const _Left = () => {
   return <div>Left</div>;
 };
 
-const Right = () => {
+const _Right = () => {
   return <div>Right</div>;
 };
 

@@ -2,7 +2,7 @@ import { deleteBlog } from "@/services/deleteBlog";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const POST = async (
-  request: NextRequest,
+  _request: NextRequest,
   props: { params: Promise<{ blogId: number }> },
 ) => {
   try {

@@ -19,12 +19,12 @@ export async function postCommentServerAction(formdata: FormData) {
     throw new Error("Invalid form data");
   }
   const blogIdNum = parseInt(data.blogId);
-  if (isNaN(blogIdNum)) {
+  if (Number.isNaN(blogIdNum)) {
     console.error("Invalid blogId", data.blogId);
     throw new Error("Invalid blogId");
   }
   const userIdNum = data.userId ? parseInt(data.userId) : undefined;
-  if (userIdNum && isNaN(userIdNum)) {
+  if (userIdNum && Number.isNaN(userIdNum)) {
     console.error("Invalid userId", data.userId);
     throw new Error("Invalid userId");
   }

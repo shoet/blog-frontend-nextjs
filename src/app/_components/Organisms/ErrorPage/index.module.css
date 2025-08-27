@@ -1,0 +1,39 @@
+.button {
+  &:hover {
+    animation: button-hover 0.1s forwards;
+  }
+
+  &:not(:hover) {
+    animation: button-leave 0.3s forwards;
+  }
+}
+
+@keyframes button-hover {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes button-leave {
+  0% {
+    transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+    transform: scale(1.05);
+  }
+  45% {
+    transition-timing-function: linear;
+    transform: scale(0.97);
+  }
+  63% {
+    transform: scale(1.02);
+  }
+  81% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

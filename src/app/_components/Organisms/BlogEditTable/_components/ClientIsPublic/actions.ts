@@ -18,7 +18,7 @@ export async function updateIsPublicServerAction(formData: FormData) {
   }
   const isPublic = data.isPublic === "true";
   const blogId = parseInt(data.blogId, 10);
-  if (isNaN(blogId)) {
+  if (Number.isNaN(blogId)) {
     throw new Error("Invalid blog ID");
   }
   await updatePublicStatus(blogId, isPublic);

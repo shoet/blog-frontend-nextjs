@@ -34,10 +34,10 @@ export async function updateUserProfile(
     nickname: field.nickname,
   };
   if (field.avatarImageURL) {
-    body["avatarImageUrl"] = field.avatarImageURL;
+    body.avatarImageUrl = field.avatarImageURL;
   }
   if (field.bio) {
-    body["biography"] = field.bio;
+    body.biography = field.bio;
   }
   const url = getAPIPath(`/user_profile`);
   return fetch(url, {
