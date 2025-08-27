@@ -14,7 +14,9 @@ export const BlogCard = (props: BlogCardProps) => {
   return (
     <div
       className={clsx(
-        "p-4 flex flex-row items-center justify-start gap-4",
+        "p-4 flex gap-4",
+        "sm:flex-row sm:items-center sm:justify-start",
+        "flex-col ",
         "border border-gray-200 rounded-xl",
       )}
     >

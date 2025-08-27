@@ -5,6 +5,12 @@
   padding: 0px 64px;
 }
 
+@media (max-width: 768px) {
+  .body {
+    padding: 0px 12px;
+  }
+}
+
 .verticalDiv {
   display: flex;
   flex-direction: row;
