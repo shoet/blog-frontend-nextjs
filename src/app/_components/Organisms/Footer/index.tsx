@@ -1,27 +1,25 @@
 import { theme } from "@/themes";
 import { IconGitHub, IconTwitter, IconYoutube } from "../../Atoms/Icon";
-import css from "./index.module.scss";
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import clsx from "clsx";
 export const Footer = () => {
   return (
     <div
-      className={css.footer}
+      className={clsx(
+        "flex flex-col items-center justify-center",
+        "bg-[var(--background-color)] p-4 h-[300px]",
+      )}
       style={
         {
           "--background-color": theme.colors.secondaryGray,
         } as CSSProperties
       }
     >
-      <div
-        className={css.footerInner}
-        style={
-          {
-            "--border-color": theme.colors.secondaryGray,
-          } as CSSProperties
-        }
-      >
-        <div className={css.icons}>
+      <div className={clsx("flex flex-col items-center justify-center")}>
+        <div
+          className={clsx("flex flex-row justify-center items-center gap-6")}
+        >
           <Link href="https://github.com/shoet" target="_blank">
             <IconGitHub focus focusColor={theme.colors.focusGreen} />
           </Link>
@@ -35,7 +33,7 @@ export const Footer = () => {
             <IconYoutube focus focusColor={theme.colors.focusGreen} />
           </Link>
         </div>
-        <div className={css.copyright}>
+        <div className={clsx("text-sm mt-4")}>
           &copy;{` ${new Date().getFullYear()} shoet. All rights reserved.`}
         </div>
       </div>
