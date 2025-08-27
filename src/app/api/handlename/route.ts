@@ -15,7 +15,7 @@ export const GET = async (request: NextRequest) => {
     );
   }
   const blogIdNum = Number(blogId);
-  if (isNaN(blogIdNum)) {
+  if (Number.isNaN(blogIdNum)) {
     return NextResponse.json(
       { error: "userId is not a number" },
       { status: 400 },

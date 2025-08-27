@@ -14,11 +14,11 @@ const NoComment = () => {
   return (
     <div
       className={clsx(
-        "min-h-[200px] flex flex-row items-center justify-center",
+        "flex min-h-[200px] flex-row items-center justify-center",
       )}
     >
-      <div className={clsx("flex justify-center items-center")}>
-        <div className={clsx("text-lg font-bold text-gray-500")}>
+      <div className={clsx("flex items-center justify-center")}>
+        <div className={clsx("font-bold text-gray-500 text-lg")}>
           コメントを投稿しよう
         </div>
       </div>
@@ -71,14 +71,14 @@ export const CommentFormPresenter = (props: {
       <div className={clsx("flex flex-col gap-2 p-6")}>
         <div
           className={clsx(
-            "flex flex-row items-center justify-start gap-4 h-[40px]",
+            "flex h-[40px] flex-row items-center justify-start gap-4",
           )}
         >
           <AvatarImage
             className={clsx("!w-[40px]")} // css important
             imageURL={commentUser?.avatarImageFileURL || defaultAvatarURL}
           />
-          <div className={clsx("text-lg font-bold")}>
+          <div className={clsx("font-bold text-lg")}>
             {commentUser?.nickname || `匿名ユーザー(ID: ${handlename || ""})`}
           </div>
         </div>
@@ -91,19 +91,19 @@ export const CommentFormPresenter = (props: {
         </div>
         <button
           type="button"
-          className={clsx("flex flex-col relative h-[300px]")}
+          className={clsx("relative flex h-[300px] flex-col")}
           onClick={() => textareaRef.current?.focus()} // textareaにフォーカスを当てる
         >
           <div
             className={clsx(
-              "bg-white w-full h-full absolute",
+              "absolute h-full w-full bg-white",
               showPreview ? "z-0" : "z-10",
             )}
           >
             <textarea
               className={clsx(
-                "p-[8px] h-full w-full border-none outline-none resize-none",
-                "placeholder:text-gray-500 text-md",
+                "h-full w-full resize-none border-none p-[8px] outline-none",
+                "text-md placeholder:text-gray-500",
               )}
               name="comment"
               ref={textareaRef}
@@ -113,7 +113,7 @@ export const CommentFormPresenter = (props: {
           </div>
           <div
             className={clsx(
-              "overflow-scroll bg-white w-full h-full absolute",
+              "absolute h-full w-full overflow-scroll bg-white",
               showPreview ? "z-10" : "z-0",
             )}
           >

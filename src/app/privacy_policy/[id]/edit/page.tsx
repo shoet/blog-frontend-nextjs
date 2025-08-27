@@ -3,7 +3,6 @@ import { getPrivacyPolicy } from "@/services/privacyPolicy";
 import type { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 import { ClientPrivacyPolicyEditor } from "../../_components/ClientPrivacyPolicyEditor";
-import { IconTrash } from "@/app/_components/Atoms/Icon";
 
 type PrivacyPolicyProps = {
   params: Promise<{

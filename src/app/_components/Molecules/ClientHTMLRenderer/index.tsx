@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import css from "./index.module.scss";
 import "highlight.js/styles/monokai.css";

@@ -35,7 +35,7 @@ export const ToggleSwitch = (props: Props) => {
       onClick={handleOnClickToggle}
       style={style}
       className={clsx(
-        "relative h-[30px] w-full rounded-full p-1 outline-none cursor-pointer",
+        "relative h-[30px] w-full cursor-pointer rounded-full p-1 outline-none",
         "ease transition-colors duration-300",
         status
           ? "bg-[var(--switch-color-active)]"

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { UserProfileForm, UserProfileFormPresenter } from ".";
+import { UserProfileFormPresenter } from ".";
 
 export default {
   title: "Molecules/UserProfileForm/Presenter",

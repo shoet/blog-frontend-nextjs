@@ -8,7 +8,7 @@ export const Footer = () => {
     <div
       className={clsx(
         "flex flex-col items-center justify-center",
-        "bg-[var(--background-color)] p-4 h-[300px]",
+        "h-[300px] bg-[var(--background-color)] p-4",
       )}
       style={
         {
@@ -18,7 +18,7 @@ export const Footer = () => {
     >
       <div className={clsx("flex flex-col items-center justify-center")}>
         <div
-          className={clsx("flex flex-row justify-center items-center gap-6")}
+          className={clsx("flex flex-row items-center justify-center gap-6")}
         >
           <Link href="https://github.com/shoet" target="_blank">
             <IconGitHub focus focusColor={theme.colors.focusGreen} />
@@ -33,7 +33,7 @@ export const Footer = () => {
             <IconYoutube focus focusColor={theme.colors.focusGreen} />
           </Link>
         </div>
-        <div className={clsx("text-sm mt-4")}>
+        <div className={clsx("mt-4 text-sm")}>
           &copy;{` ${new Date().getFullYear()} shoet. All rights reserved.`}
         </div>
       </div>

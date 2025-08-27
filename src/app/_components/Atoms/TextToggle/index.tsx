@@ -40,7 +40,7 @@ export const TextToggle = (props: Props) => {
       className={clsx(
         "bg-[var(--background-color)]",
         "h-[30px] w-full rounded-full p-1",
-        "outline-none cursor-pointer",
+        "cursor-pointer outline-none",
       )}
     >
       <div

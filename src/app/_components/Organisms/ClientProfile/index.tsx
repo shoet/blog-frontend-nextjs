@@ -13,12 +13,12 @@ type ProfileProps = {
 
 export const ClientProfile = (props: ProfileProps) => {
   const { isLogin = false, signout } = props;
-  const handleClickSigntout = () => signout && signout();
+  const handleClickSigntout = () => signout?.();
   return (
     <div>
       <div className={clsx("flex flex-row items-center justify-start")}>
         <Link href="/admin">
-          <div className={clsx("font-bold text-md cursor-pointer")}>shoet</div>
+          <div className={clsx("cursor-pointer font-bold text-md")}>shoet</div>
         </Link>
         <Spacer width={10} />
         <div className={clsx("flex flex-row items-center gap-1.5")}>

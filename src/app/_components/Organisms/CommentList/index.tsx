@@ -23,10 +23,10 @@ export const CommentList = (props: { comments: Comment[] }) => {
                 className={clsx("!w-[40px]")} // css important
                 imageURL={comment.avatarImageFileUrl || "/avatar_default.png"}
               />
-              <div className={clsx("text-sm font-bold")}>
+              <div className={clsx("font-bold text-sm")}>
                 {comment.nickname || comment.clientId}
               </div>
-              <div className={clsx("text-sm text-gray-500")}>
+              <div className={clsx("text-gray-500 text-sm")}>
                 {toStringYYYYMMDD_HHMMSS_ja(comment.created)}
               </div>
             </div>

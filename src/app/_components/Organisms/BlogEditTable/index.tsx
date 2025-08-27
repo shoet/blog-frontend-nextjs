@@ -57,14 +57,14 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
       </td>
       <td>
         <div className={clsx("flex flex-row items-center gap-2")}>
-          <div className={clsx("w-[20px] h-[20px]")}>
+          <div className={clsx("h-[20px] w-[20px]")}>
             <AvatarImage imageURL={userProfile.avatarImageFileURL || ""} />
           </div>
           <div>{userProfile.nickname}</div>
         </div>
       </td>
       <td>
-        <div className={clsx("flex flex-row items-center gap-1 flex-wrap")}>
+        <div className={clsx("flex flex-row flex-wrap items-center gap-1")}>
           {blog.tags?.map((tag) => {
             return (
               <Badge key={tag} variant="black">
@@ -75,7 +75,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         </div>
       </td>
       <td>
-        <div className={clsx("flex justify-center items-center")}>
+        <div className={clsx("flex items-center justify-center")}>
           <div className={clsx("w-[50px]")}>
             <ClientIsPublic blog={blog} />
           </div>
@@ -88,7 +88,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
           href={`/admin/blogs/${blog.id}/edit`}
           target="_blank"
           className={clsx(
-            "flex items-center justify-center cursor-pointer hover:text-gray-500",
+            "flex cursor-pointer items-center justify-center hover:text-gray-500",
           )}
         >
           <IconEdit />
@@ -98,7 +98,7 @@ const BlogEditTableRow = async (props: { blog: Blog }) => {
         <Link
           href={`/admin/blogs/${blog.id}/delete`}
           className={clsx(
-            "flex items-center justify-center cursor-pointer hover:text-gray-500",
+            "flex cursor-pointer items-center justify-center hover:text-gray-500",
           )}
         >
           <IconTrash />

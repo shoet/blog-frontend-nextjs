@@ -9,7 +9,7 @@ export default {
 export type Story = StoryObj<typeof Divider>;
 
 export const Horizontal: Story = {
-  render: (args) => {
+  render: (_args) => {
     return (
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div>AAA</div>
@@ -24,7 +24,7 @@ export const Horizontal: Story = {
   },
 };
 export const Vertical: Story = {
-  render: (args) => {
+  render: (_args) => {
     return (
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>AAA</div>

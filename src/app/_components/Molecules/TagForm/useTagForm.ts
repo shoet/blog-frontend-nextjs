@@ -14,7 +14,7 @@ export const useTagForm = (props: useTagFormProps) => {
     if (e.key === "Enter" && inputRef.current) {
       e.preventDefault();
       const word = inputRef.current.value;
-      onSubmit && onSubmit(word);
+      onSubmit?.(word);
       inputRef.current.value = "";
     }
   };

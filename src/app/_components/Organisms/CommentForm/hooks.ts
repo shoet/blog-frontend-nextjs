@@ -49,8 +49,8 @@ export const useCommentForm = (props: {
       clientId: handlename,
       isDeleted: false,
       isEdited: false,
-      created: new Date().getTime(),
-      modified: new Date().getTime(),
+      created: Date.now(),
+      modified: Date.now(),
       avatarImageFileUrl: commentUser?.avatarImageFileURL,
     };
     addOptimistic(newComment);

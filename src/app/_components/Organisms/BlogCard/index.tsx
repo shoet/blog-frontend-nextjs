@@ -14,25 +14,25 @@ export const BlogCard = (props: BlogCardProps) => {
   return (
     <div
       className={clsx(
-        "p-4 flex gap-4",
+        "flex gap-4 p-4",
         "sm:flex-row sm:items-center sm:justify-start",
         "flex-col ",
-        "border border-gray-200 rounded-xl",
+        "rounded-xl border border-gray-200",
       )}
     >
-      <div className={clsx("min-w-[200px] min-h-[150px] relative shrink-0")}>
+      <div className={clsx("relative min-h-[150px] min-w-[200px] shrink-0")}>
         <LoadingNextImage
           src={blog.thumbnailImageFileName}
           alt={blog.title}
           fill
           className={clsx(
-            "relative object-center object-contain w-full h-full",
+            "relative h-full w-full object-contain object-center",
           )}
         />
       </div>
       <div className={clsx("min-w-0 flex-1 break-words")}>
-        <div className={clsx("text-2xl font-bold")}>{blog.title}</div>
-        <div className={clsx("flex flex-col gap-2 mt-6")}>
+        <div className={clsx("font-bold text-2xl")}>{blog.title}</div>
+        <div className={clsx("mt-6 flex flex-col gap-2")}>
           <div
             className={clsx(
               "flex flex-row items-center justify-start gap-1",
@@ -46,7 +46,7 @@ export const BlogCard = (props: BlogCardProps) => {
             ))}
           </div>
           <div className={clsx("text-md")}>{blog.description}</div>
-          <div className={clsx("text-sm font-bold text-gray-500")}>
+          <div className={clsx("font-bold text-gray-500 text-sm")}>
             {toStringYYYYMMDD_HHMMSS(blog.created)}
           </div>
         </div>
