@@ -1,80 +1,44 @@
 "use client";
-import styles from "./index.module.scss";
-import { type CSSProperties, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   type Heading,
-  type HeadingType,
   useTableOfContentContext,
 } from "../TableOfContentProvider";
-import { theme } from "@/themes";
 import clsx from "clsx";
+import Link from "next/link";
 
-const headingsStyle: Record<HeadingType, CSSProperties> = {
-  h1: {
-    "--font-size": "1.1rem",
-    "--letter-spacing": "0.2rem",
-    "--color": theme.colors.black,
-    "--focus-background-color": theme.colors.focusGreen,
-  } as CSSProperties,
-  h2: {
-    "--font-size": "1.0rem",
-    "--letter-spacing": "0.1rem",
-    "--color": theme.colors.black,
-    "--focus-background-color": theme.colors.focusGreen,
-  } as CSSProperties,
-  h3: {
-    "--font-size": "0.8rem",
-    "--letter-spacing": "0.1rem",
-    "--color": theme.colors.black,
-    "--focus-background-color": theme.colors.focusGreen,
-  } as CSSProperties,
-};
-
-const getHeadingMessage = (heading: Heading) => {
-  switch (heading.type) {
-    case "h1":
-      return `${heading.content}`;
-    case "h2":
-      return `${heading.content}`;
-    case "h3":
-      return `${heading.content}`;
-  }
-};
-
-export const TableOfContentComponent = (props: {
-  headings: Heading[];
-  onClick?: (heading: Heading) => void;
-}) => {
-  const { headings, onClick } = props;
+export const TableOfContentPresentor = (props: { headings: Heading[] }) => {
+  const { headings } = props;
   return (
-    <div
-      className={styles.tableOfContent}
-      style={
-        { "--background-color": theme.colors.secondaryGray } as CSSProperties
-      }
-    >
-      <div className={styles.titleSummary}>目次</div>
-      {headings.map((heading) => {
-        return (
-          <button
-            type="button"
-            className={clsx(styles.heading, styles[`heading-${heading.type}`])}
-            key={heading.content}
-            style={headingsStyle[heading.type]}
-            onClick={() => {
-              onClick?.(heading);
-            }}
+    <div className={clsx("bg-main p-4 flex flex-col rounded-xl")}>
+      <div className={clsx("text-lg font-extrabold mb-1")}>目次</div>
+      <div className={clsx("p-2 flex flex-col")}>
+        {headings.map((heading) => (
+          <Link
+            key={heading.element.id}
+            href={`#${heading.element.id}`}
+            className={clsx(
+              "font-bold cursor-pointer text-left",
+              "hover:bg-main-strong rounded-sm p-1",
+              'hover:before:content-[">"]',
+              heading.type === "h1" &&
+                `text-lg tracking-[0.2rem] py-1 before:content-["#"]`,
+              heading.type === "h2" &&
+                'text-md tracking-[0.1rem] py-0.5 before:content-["##"]',
+              heading.type === "h3" &&
+                'text-sm tracking-[0.1rem] before:content-["###"]',
+            )}
           >
-            {getHeadingMessage(heading)}
-          </button>
-        );
-      })}
+            {heading.content}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
 
 export const TableOfContent = () => {
-  const { headingMap, jumpToHeading } = useTableOfContentContext();
+  const { headingMap } = useTableOfContentContext();
   const [headings, setHeading] = useState<Heading[] | null>(null);
 
   useEffect(() => {
@@ -86,12 +50,6 @@ export const TableOfContent = () => {
     setHeading(headings);
   }, [headingMap]);
 
-  const onClickHeading = (heading: Heading) => {
-    jumpToHeading(heading.content);
-  };
-
   if (headings == null) return null;
-  return (
-    <TableOfContentComponent headings={headings} onClick={onClickHeading} />
-  );
+  return <TableOfContentPresentor headings={headings} />;
 };
