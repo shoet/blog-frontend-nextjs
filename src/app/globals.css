@@ -2,6 +2,7 @@
 @layer reset, base, tokens, recipes, utilities;
 @theme {
   --color-main: #cbd5c0;
+  --color-main-strong: #959e8b;
 }
 
 html,

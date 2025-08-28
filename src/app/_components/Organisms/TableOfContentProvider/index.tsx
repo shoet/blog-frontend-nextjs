@@ -23,15 +23,13 @@ type TableOfContentContextType = {
   headingMap: HeadingMap | null;
   loadHeadings: () => void;
   cleanupHeadings: () => void;
-  jumpToHeading: (key: string) => void;
   watchRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const TableOfContentContext = createContext<TableOfContentContextType>({
   headingMap: null,
-  loadHeadings: () => { },
-  cleanupHeadings: () => { },
-  jumpToHeading: () => { },
+  loadHeadings: () => {},
+  cleanupHeadings: () => {},
   watchRef: { current: null },
 });
 
@@ -51,7 +49,7 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
     }
 
     const article = watchRef.current.querySelector("#article");
-    const elements = article?.querySelectorAll("h1,h2,h3");
+    const elements = article?.querySelectorAll('[id^="heading-content-"]');
     if (!elements) {
       return;
     }
@@ -76,27 +74,11 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
     return () => {
       setHeadings(null);
     };
-  }, [])
+  }, []);
 
-  const cleanupHeadings = useCallback(
-    () => {
-      setHeadings(null);
-      document.children[0].scrollTo(0, 0);
-    }, [])
-
-  const jumpToHeading = useCallback(
-    (key: string) => {
-      const heading = headings?.get(key);
-      if (heading) {
-        const h = document.querySelectorAll(heading.type);
-        h.forEach((e) => {
-          if (e.textContent === heading.content) {
-            e.scrollIntoView();
-            return;
-          }
-        });
-      }
-    }, [headings])
+  const cleanupHeadings = useCallback(() => {
+    setHeadings(null);
+  }, []);
 
   return (
     <TableOfContentContext.Provider
@@ -104,7 +86,6 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
         headingMap: headings,
         loadHeadings: loadHeadings,
         cleanupHeadings: cleanupHeadings,
-        jumpToHeading: jumpToHeading,
         watchRef: watchRef,
       }}
     >

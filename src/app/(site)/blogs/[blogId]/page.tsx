@@ -12,6 +12,7 @@ import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
 import { marked, type MarkedOptions } from "marked";
+import { gfmHeadingId } from "marked-gfm-heading-id";
 import { TableOfContentListener } from "./_components/TableOfContentListener";
 import { ClientHTMLRenderer } from "@/app/_components/Molecules/ClientHTMLRenderer";
 
@@ -54,6 +55,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
 
+  marked.use(gfmHeadingId({ prefix: "heading-content-" })); // heading要素にidを付与する
   marked.setOptions({
     langPrefix: "",
   } as MarkedOptions);
