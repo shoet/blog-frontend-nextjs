@@ -12,9 +12,8 @@ export type HeadingType = "h1" | "h2" | "h3";
 
 export type Heading = {
   type: HeadingType;
-  element: Element;
+  id: string;
   content: string;
-  topPosition: number;
 };
 
 export type HeadingMap = Map<string, Heading>;
@@ -49,7 +48,7 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
     }
 
     const article = watchRef.current.querySelector("#article");
-    const elements = article?.querySelectorAll('[id^="heading-content-"]');
+    const elements = article?.querySelectorAll('[id^="heading-content-"]'); // markedで付与したidを抽出する
     if (!elements) {
       return;
     }
@@ -58,14 +57,11 @@ export const TableOfContentContextProvider = (props: PropsWithChildren) => {
     elements.forEach((e) => {
       const tagName = e.tagName.toLowerCase() as HeadingType;
       const text = e.textContent || "";
-      const rect = e.getBoundingClientRect();
-      const topPosition = rect.top;
 
       const heading: Heading = {
         type: tagName,
-        element: e,
+        id: e.id,
         content: text,
-        topPosition: topPosition,
       };
       headingMap.set(text, heading);
     });

@@ -15,8 +15,8 @@ export const TableOfContentPresentor = (props: { headings: Heading[] }) => {
       <div className={clsx("p-2 flex flex-col")}>
         {headings.map((heading) => (
           <Link
-            key={heading.element.id}
-            href={`#${heading.element.id}`}
+            key={heading.id}
+            href={`#${heading.id}`}
             className={clsx(
               "font-bold cursor-pointer text-left",
               "hover:bg-main-strong rounded-sm p-1",
