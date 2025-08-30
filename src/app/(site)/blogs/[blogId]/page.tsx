@@ -2,19 +2,21 @@ import { getBlogDetail } from "@/services/getBlogDetail";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
+import DOMPurify from "isomorphic-dompurify";
 
 import type { UserProfile } from "@/types/api";
 import css from "./page.module.scss";
+import markdownCSS from "@/app/markdown.module.scss";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
 import { toStringYYYYMMDD_HHMMSS } from "@/utils/date";
 import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
-import { marked, type MarkedOptions } from "marked";
+import { marked, MarkedExtension, type MarkedOptions } from "marked";
 import { gfmHeadingId } from "marked-gfm-heading-id";
-import { TableOfContentListener } from "./_components/TableOfContentListener";
-import { ClientHTMLRenderer } from "@/app/_components/Molecules/ClientHTMLRenderer";
+import { addLinkTargetBlank } from "@/utils/html";
+import { ClientBlogViewer } from "./_components/ClientBlogViewer";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -60,7 +62,9 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
     langPrefix: "",
   } as MarkedOptions);
 
-  const blogHTML = await marked(blog.content, {});
+  const blogHTML = await marked.parse(blog.content, {});
+  let html = DOMPurify.sanitize(blogHTML, {});
+  html = addLinkTargetBlank(html);
 
   return (
     <div>
@@ -86,9 +90,13 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
         />
       </div>
       <Spacer height={20} />
-      <TableOfContentListener>
-        <ClientHTMLRenderer rawHTML={blogHTML} />
-      </TableOfContentListener>
+      <ClientBlogViewer>
+        <div
+          className={markdownCSS.markdown}
+          // biome-ignore lint: lint/correctness/noUnusedImports
+          dangerouslySetInnerHTML={{ __html: html || "" }}
+        />
+      </ClientBlogViewer>
       <Spacer height={50} />
       <Divider />
       <div className={css.commentTitle}>コメント</div>
