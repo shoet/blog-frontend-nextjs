@@ -8,12 +8,12 @@ import {
   Heading,
   HeadingType,
 } from "@/app/_components/Organisms/TableOfContent";
-import hljs from "highlight.js";
 import { JSDOM } from "jsdom";
 import { gfmHeadingId } from "marked-gfm-heading-id";
 import markdownCSS from "@/app/markdown.module.scss";
 import { SkeletonLoader } from "@/app/_components/Molecules/SkeletonLoader";
 import { ComponentProps } from "react";
+import { ClientBlogHighLighter } from "../ClientBlogHighLighter";
 
 type Props = {
   blog: Blog;
@@ -32,18 +32,19 @@ export const BlogContent = async (props: Props) => {
   let html = DOMPurify.sanitize(blogHTML, {}); // サニタイズする
   html = addLinkTargetBlank(html); // aタグに_target属性を付与する
   let dom = new JSDOM(html).window.document;
-  dom = highlightCodeBlock(dom); // コードブロックをハイライトする
   const headings = getHeadings(dom); // 見出し要素を抽出する
   dom = toSectionedArticle(dom); // 見出しごとにsectionで区切る
   return (
     <div className={clsx("flex flex-row items-start justify-center gap-6")}>
       <div className={clsx("w-9/12")}>
-        <div
-          id="article"
-          className={markdownCSS.markdown}
-          // biome-ignore lint: lint/correctness/noUnusedImports
-          dangerouslySetInnerHTML={{ __html: html || "" }}
-        ></div>
+        <ClientBlogHighLighter>
+          <div
+            id="article"
+            className={markdownCSS.markdown}
+            // biome-ignore lint: lint/correctness/noUnusedImports
+            dangerouslySetInnerHTML={{ __html: html || "" }}
+          ></div>
+        </ClientBlogHighLighter>
       </div>
       <div className={clsx("sticky top-6 mt-6 w-3/12")}>
         <ClientTableOfContent
@@ -107,15 +108,6 @@ const getHeadings = (dom: Document): Heading[] => {
     }
   });
   return headings;
-};
-
-const highlightCodeBlock = (dom: Document) => {
-  dom.querySelectorAll("pre code").forEach((block) => {
-    const result = hljs.highlightAuto(block.textContent || "");
-    block.classList.add("hljs");
-    block.innerHTML = result.value;
-  });
-  return dom;
 };
 
 const toSectionedArticle = (dom: Document) => {
