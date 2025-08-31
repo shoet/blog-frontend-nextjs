@@ -77,10 +77,8 @@ const traverseSibling = (
   return traverseSibling(prefix, nextElement, elements);
 };
 
-const getHeadings = (html: string): Heading[] => {
-  const dom = new JSDOM(html);
-  const elements =
-    dom.window.document.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
+const getHeadings = (dom: Document): Heading[] => {
+  const elements = dom.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
   const headings: Heading[] = [];
   elements.forEach((e) => {
     if (["h1", "h2", "h3"].includes(e.tagName.toLowerCase())) {
@@ -94,20 +92,17 @@ const getHeadings = (html: string): Heading[] => {
   return headings;
 };
 
-const highlightCodeBlock = (html: string) => {
-  const dom = new JSDOM(html);
-  dom.window.document.querySelectorAll("pre code").forEach((block) => {
+const highlightCodeBlock = (dom: Document) => {
+  dom.querySelectorAll("pre code").forEach((block) => {
     const result = hljs.highlightAuto(block.textContent || "");
     block.classList.add("hljs");
     block.innerHTML = result.value;
   });
-  return dom.serialize();
+  return dom;
 };
 
-const toSectionedArticle = (html: string) => {
-  const dom = new JSDOM(html);
-  const elements =
-    dom.window.document.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
+const toSectionedArticle = (dom: Document) => {
+  const elements = dom.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
   elements.forEach((e) => {
     const cloneHeading = e.cloneNode(true) as Element;
     const headingSiblings = traverseSibling(
@@ -115,7 +110,7 @@ const toSectionedArticle = (html: string) => {
       cloneHeading,
       [],
     ); // 兄弟ノード
-    const section = dom.window.document.createElement("section"); // section作成
+    const section = dom.createElement("section"); // section作成
     section.id = cloneHeading.id;
     cloneHeading.removeAttribute("id");
     // sectionにElementを詰める
@@ -128,7 +123,7 @@ const toSectionedArticle = (html: string) => {
     e.replaceWith(section);
     e.remove();
   });
-  return dom.serialize();
+  return dom;
 };
 
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
@@ -145,9 +140,10 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const blogHTML = await marked.parse(blog.content, {});
   let html = DOMPurify.sanitize(blogHTML, {}); // サニタイズする
   html = addLinkTargetBlank(html); // aタグに_target属性を付与する
-  html = highlightCodeBlock(html); // コードブロックをハイライトする
-  const headings = getHeadings(html); // 見出し要素を抽出する
-  html = toSectionedArticle(html); // 見出しごとにsectionで区切る
+  let dom = new JSDOM(html).window.document;
+  dom = highlightCodeBlock(dom); // コードブロックをハイライトする
+  const headings = getHeadings(dom); // 見出し要素を抽出する
+  dom = toSectionedArticle(dom); // 見出しごとにsectionで区切る
 
   return (
     <div>
