@@ -12,7 +12,13 @@
   "formatter": { "enabled": true, "indentStyle": "space" },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true, "nursery": { "useSortedClasses": "error" } }
+    "rules": {
+      "recommended": true,
+      "nursery": { "useSortedClasses": "error" },
+      "correctness": {
+        "useExhaustiveDependencies": "warn"
+      }
+    }
   },
   "javascript": {
     "formatter": { "quoteStyle": "double", "jsxQuoteStyle": "double" }

@@ -50,7 +50,7 @@ export const ClientTableOfContent = (props: {
     return () => {
       cleanupIntersections();
     };
-  }, []);
+  }, [headings, intersectionObserveIdPrefix, rootId]);
 
   useEffect(() => {
     const intersectionsArray = Object.values(intersections).filter(
