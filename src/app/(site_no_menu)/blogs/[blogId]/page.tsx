@@ -20,8 +20,8 @@ import { JSDOM } from "jsdom";
 import hljs from "highlight.js";
 import {
   ClientTableOfContent,
-  Heading,
-  HeadingType,
+  type Heading,
+  type HeadingType,
 } from "@/app/_components/Organisms/TableOfContent";
 
 type BlogDetailPageProps = {
@@ -151,17 +151,17 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
 
   return (
     <div>
-      <div className={clsx("pb-4 border-b border-gray-300")}>
-        <div className={clsx("text-xl font-bold")}>{blog.title}</div>
+      <div className={clsx("border-gray-300 border-b pb-4")}>
+        <div className={clsx("font-bold text-xl")}>{blog.title}</div>
         <Spacer height={20} />
         <div className={clsx("flex flex-row items-center justify-start gap-4")}>
-          <div className={clsx("text-md font-bold text-gray-500")}>
+          <div className={clsx("font-bold text-gray-500 text-md")}>
             {toStringYYYYMMDD_HHMMSS(blog.created)}
           </div>
           {blog.tags && (
             <div
               className={clsx(
-                "flex flex-row justify-start items-center flex-wrap gap-1",
+                "flex flex-row flex-wrap items-center justify-start gap-1",
               )}
             >
               {blog.tags.map((tag) => {
@@ -171,7 +171,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
           )}
         </div>
       </div>
-      <div className={clsx("flex flex-row items-start gap-6 justify-center")}>
+      <div className={clsx("flex flex-row items-start justify-center gap-6")}>
         <div className={clsx("w-9/12")}>
           <div
             id="article"
@@ -180,7 +180,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
             dangerouslySetInnerHTML={{ __html: html || "" }}
           ></div>
         </div>
-        <div className={clsx("w-3/12 mt-6 sticky top-6")}>
+        <div className={clsx("sticky top-6 mt-6 w-3/12")}>
           <ClientTableOfContent
             headings={headings}
             intersectionObserveIdPrefix={SECTION_PREFIX}
@@ -190,7 +190,7 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
       </div>
       <Spacer height={50} />
       <Divider />
-      <div className={clsx("text-lg font-bold p-2")}>コメント</div>
+      <div className={clsx("p-2 font-bold text-lg")}>コメント</div>
       <Spacer height={10} />
       <Comment blogId={blogId} />
     </div>

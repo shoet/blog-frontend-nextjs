@@ -17,7 +17,7 @@ export const useIntersectionObserver = () => {
     setIntersections((prev) => {
       const item = prev[id];
       if (item) {
-        item["state"] = state;
+        item.state = state;
         return { ...prev, [id]: item };
       } else {
         return { ...prev, [id]: { id: id, order, state: "in" } };

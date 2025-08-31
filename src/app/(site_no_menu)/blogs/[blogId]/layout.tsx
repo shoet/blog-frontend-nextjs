@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <div className={clsx("max-w-[1280px] mx-auto", "px-[16px]")}>
+      <div className={clsx("mx-auto max-w-[1280px]", "px-[16px]")}>
         <Header className={clsx("mt-[30px] mb-[20px]")} />
         <main className={clsx("h-full")}>{children}</main>
       </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 export const Header = async (props: ComponentProps<"div">) => {
   const { className, ...rest } = props;

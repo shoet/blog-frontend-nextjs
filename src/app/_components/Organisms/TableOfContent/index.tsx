@@ -72,25 +72,25 @@ export const TableOfContentPresentor = (props: {
 }) => {
   const { headings, activeHeadingId } = props;
   return (
-    <div className={clsx("bg-gray-300 p-4 flex flex-col rounded-xl")}>
-      <div className={clsx("text-lg font-extrabold mb-1")}>目次</div>
-      <div className={clsx("p-2 flex flex-col")}>
+    <div className={clsx("flex flex-col rounded-xl bg-gray-300 p-4")}>
+      <div className={clsx("mb-1 font-extrabold text-lg")}>目次</div>
+      <div className={clsx("flex flex-col p-2")}>
         {headings.map((heading) => (
           <Link
             key={heading.id}
             href={`#${heading.id}`}
             className={clsx(
-              "font-bold cursor-pointer text-left break-words",
-              "hover:bg-main-strong rounded-sm p-1",
+              "cursor-pointer break-words text-left font-bold",
+              "rounded-sm p-1 hover:bg-main-strong",
               'hover:before:content-[">"]',
               activeHeadingId === heading.id &&
-                'before:content-["->"] text-gray-700',
+                'text-gray-700 before:content-["->"]',
               heading.type === "h1" &&
-                `text-lg tracking-[0.2rem] py-1 before:content-["#"]`,
+                'py-1 text-lg tracking-[0.2rem] before:content-["#"]',
               heading.type === "h2" &&
-                'text-md tracking-[0.1rem] py-0.5 before:content-["##"]',
+                'py-0.5 text-md tracking-[0.1rem] before:content-["##"]',
               heading.type === "h3" &&
-                'text-sm tracking-[0.1rem] before:content-["###"]',
+                'text-sm tracking-[0.1rem] before:content-[\"###\"]',
             )}
           >
             {heading.content}
