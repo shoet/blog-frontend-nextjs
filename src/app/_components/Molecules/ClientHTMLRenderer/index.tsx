@@ -1,21 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import hljs from "highlight.js";
-import css from "./index.module.scss";
+import markdownCSS from "@/app/markdown.module.scss";
 import "highlight.js/styles/monokai.css";
 import DOMPurify from "isomorphic-dompurify";
+import { addLinkTargetBlank } from "@/utils/html";
 
 type Props = {
   rawHTML: string;
 };
-
-// aタグにtarget="_blank"を追加する関数
-function addLinkTargetBlank(html: string): string {
-  const regex = /<a href="(.*?)"/g;
-  const replacer = (_: string, p1: string) =>
-    `<a href="${p1}" target="_blank" rel="noopener noreferrer"`;
-  return html.replace(regex, replacer);
-}
 
 /**
  * HTMLRenderer は、HTMLを受け取り、サニタイズ処理、タグの補正、ハイライトの適用を行うコンポーネントです。
@@ -38,7 +31,7 @@ export const ClientHTMLRenderer = (props: Props) => {
   }, [props.rawHTML]);
   return (
     <div
-      className={css.markdown}
+      className={markdownCSS.markdown}
       // biome-ignore lint: lint/correctness/noUnusedImports
       dangerouslySetInnerHTML={{ __html: html || "" }}
     />

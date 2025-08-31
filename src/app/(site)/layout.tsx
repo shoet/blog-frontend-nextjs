@@ -8,7 +8,6 @@ import { SideMenu } from "../_components/Organisms/SideMenu";
 import css from "./layout.module.scss";
 import clsx from "clsx";
 import { Spacer } from "../_components/Atoms/Spacer";
-import { TableOfContentContextProvider } from "../_components/Organisms/TableOfContentProvider";
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -28,18 +27,16 @@ export default function RootLayout({
           <Header />
           <Spacer height={20} />
         </div>
-        <TableOfContentContextProvider>
-          <div className={css.verticalDiv}>
-            <div className={css.verticalLeft}>
-              <main className={css.mainArea}>{children}</main>
-            </div>
-            <div className={css.verticalRight}>
-              <div className={css.sideMenu}>
-                <SideMenu />
-              </div>
+        <div className={css.verticalDiv}>
+          <div className={css.verticalLeft}>
+            <main className={css.mainArea}>{children}</main>
+          </div>
+          <div className={css.verticalRight}>
+            <div className={css.sideMenu}>
+              <SideMenu />
             </div>
           </div>
-        </TableOfContentContextProvider>
+        </div>
       </div>
       <Spacer height={50} />
       <Footer />

@@ -1,20 +1,23 @@
 import { theme } from "@/themes";
 import { IconGitHub, IconTwitter, IconYoutube } from "../../Atoms/Icon";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import clsx from "clsx";
-export const Footer = () => {
+export const Footer = (props: ComponentProps<"div">) => {
+  const { className, ...rest } = props;
   return (
     <div
       className={clsx(
         "flex flex-col items-center justify-center",
         "h-[300px] bg-[var(--background-color)] p-4",
+        className,
       )}
       style={
         {
           "--background-color": theme.colors.secondaryGray,
         } as CSSProperties
       }
+      {...rest}
     >
       <div className={clsx("flex flex-col items-center justify-center")}>
         <div

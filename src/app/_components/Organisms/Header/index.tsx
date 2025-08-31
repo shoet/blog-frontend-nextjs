@@ -1,9 +1,14 @@
 import Link from "next/link";
 import clsx from "clsx";
+import type { ComponentProps } from "react";
 
-export const Header = async () => {
+export const Header = async (props: ComponentProps<"div">) => {
+  const { className, ...rest } = props;
   return (
-    <div className={clsx("flex flex-row items-center justify-between")}>
+    <div
+      className={clsx("flex flex-row items-center justify-between", className)}
+      {...rest}
+    >
       <header
         className={clsx(
           "flex items-baseline justify-start gap-[20px]",
