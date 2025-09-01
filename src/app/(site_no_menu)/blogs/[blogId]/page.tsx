@@ -2,7 +2,6 @@ import { getBlogDetail } from "@/services/getBlogDetail";
 import type { Metadata, ResolvingMetadata } from "next";
 import { getServerSideCookie } from "@/utils/cookie";
 import { getUsersMe } from "@/services/getUsersMe";
-import DOMPurify from "isomorphic-dompurify";
 
 import type { UserProfile } from "@/types/api";
 import { Spacer } from "@/app/_components/Atoms/Spacer";
@@ -11,18 +10,16 @@ import { Badge } from "@/app/_components/Atoms/Badge";
 import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
-import { marked, type MarkedOptions } from "marked";
-import { gfmHeadingId } from "marked-gfm-heading-id";
-import { addLinkTargetBlank } from "@/utils/html";
-import markdownCSS from "@/app/markdown.module.scss";
 import clsx from "clsx";
-import { JSDOM } from "jsdom";
-import hljs from "highlight.js";
-import {
-  ClientTableOfContent,
-  type Heading,
-  type HeadingType,
-} from "@/app/_components/Organisms/TableOfContent";
+import { BlogContent } from "./_components/BlogContent";
+import { Suspense } from "react";
+
+import { marked, type MarkedOptions } from "marked";
+import DOMPurify from "isomorphic-dompurify";
+import { addLinkTargetBlank } from "@/utils/html";
+import { gfmHeadingId } from "marked-gfm-heading-id";
+import { TableOfContent } from "./_components/TableOfContent";
+import { SkeletonLoader } from "@/app/_components/Molecules/SkeletonLoader";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -59,78 +56,6 @@ const Comment = async (props: { blogId: number }) => {
   );
 };
 
-// 次のidがprefixで始まるまでの兄弟要素を取得する
-const traverseSibling = (
-  prefix: string,
-  currentElement: Element,
-  elements: Element[],
-): Element[] => {
-  const nextElement = currentElement.nextElementSibling;
-  if (nextElement === null) {
-    return elements;
-  }
-  const id = nextElement.id;
-  if (id.startsWith(prefix)) {
-    return elements;
-  }
-  elements.push(nextElement);
-  return traverseSibling(prefix, nextElement, elements);
-};
-
-const getHeadings = (html: string): Heading[] => {
-  const dom = new JSDOM(html);
-  const elements =
-    dom.window.document.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
-  const headings: Heading[] = [];
-  elements.forEach((e) => {
-    if (["h1", "h2", "h3"].includes(e.tagName.toLowerCase())) {
-      headings.push({
-        id: e.id,
-        type: e.tagName.toLowerCase() as HeadingType,
-        content: e.textContent || "",
-      });
-    }
-  });
-  return headings;
-};
-
-const highlightCodeBlock = (html: string) => {
-  const dom = new JSDOM(html);
-  dom.window.document.querySelectorAll("pre code").forEach((block) => {
-    const result = hljs.highlightAuto(block.textContent || "");
-    block.classList.add("hljs");
-    block.innerHTML = result.value;
-  });
-  return dom.serialize();
-};
-
-const toSectionedArticle = (html: string) => {
-  const dom = new JSDOM(html);
-  const elements =
-    dom.window.document.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
-  elements.forEach((e) => {
-    const cloneHeading = e.cloneNode(true) as Element;
-    const headingSiblings = traverseSibling(
-      "heading-content-",
-      cloneHeading,
-      [],
-    ); // 兄弟ノード
-    const section = dom.window.document.createElement("section"); // section作成
-    section.id = cloneHeading.id;
-    cloneHeading.removeAttribute("id");
-    // sectionにElementを詰める
-    section.appendChild(cloneHeading);
-    headingSiblings.forEach((e) => {
-      section.appendChild(e.cloneNode(true));
-      e.remove();
-    });
-    // 既存のheadingとsectionをすげ替え
-    e.replaceWith(section);
-    e.remove();
-  });
-  return dom.serialize();
-};
-
 const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
@@ -145,9 +70,6 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const blogHTML = await marked.parse(blog.content, {});
   let html = DOMPurify.sanitize(blogHTML, {}); // サニタイズする
   html = addLinkTargetBlank(html); // aタグに_target属性を付与する
-  html = highlightCodeBlock(html); // コードブロックをハイライトする
-  const headings = getHeadings(html); // 見出し要素を抽出する
-  html = toSectionedArticle(html); // 見出しごとにsectionで区切る
 
   return (
     <div>
@@ -173,19 +95,14 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
       </div>
       <div className={clsx("flex flex-row items-start justify-center gap-6")}>
         <div className={clsx("w-9/12")}>
-          <div
-            id="article"
-            className={markdownCSS.markdown}
-            // biome-ignore lint: lint/correctness/noUnusedImports
-            dangerouslySetInnerHTML={{ __html: html || "" }}
-          ></div>
+          <Suspense fallback={<SkeletonLoader rows={15} />}>
+            <BlogContent html={html} sectionPrefix={SECTION_PREFIX} />
+          </Suspense>
         </div>
         <div className={clsx("sticky top-6 mt-6 w-3/12")}>
-          <ClientTableOfContent
-            headings={headings}
-            intersectionObserveIdPrefix={SECTION_PREFIX}
-            rootId="article"
-          />
+          <Suspense fallback={<SkeletonLoader rows={10} />}>
+            <TableOfContent html={html} sectionPrefix={SECTION_PREFIX} />
+          </Suspense>
         </div>
       </div>
       <Spacer height={50} />
