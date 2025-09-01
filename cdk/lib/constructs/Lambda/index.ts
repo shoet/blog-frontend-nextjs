@@ -81,7 +81,7 @@ export class Lambda extends Construct {
         role: functionRole,
         environment: lambdaEnvironment,
         timeout: cdk.Duration.seconds(60),
-        memorySize: 2048,
+        memorySize: 1024,
         logGroup: logGroup,
       },
     );
