@@ -11,8 +11,14 @@ import { Divider } from "@/app/_components/Atoms/Divider";
 import { CommentForm } from "@/app/_components/Organisms/CommentForm";
 import { getComments } from "@/services/getComments";
 import clsx from "clsx";
-import { BlogContent, BlogContentLoading } from "./_components/BlogContent";
+import { BlogContent } from "./_components/BlogContent";
 import { Suspense } from "react";
+
+import { marked, type MarkedOptions } from "marked";
+import DOMPurify from "isomorphic-dompurify";
+import { addLinkTargetBlank } from "@/utils/html";
+import { gfmHeadingId } from "marked-gfm-heading-id";
+import { TableOfContent } from "./_components/TableOfContent";
 import { SkeletonLoader } from "@/app/_components/Molecules/SkeletonLoader";
 
 type BlogDetailPageProps = {
@@ -54,6 +60,17 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
   const { blogId } = await props.params;
   const blog = await getBlogDetail(blogId);
 
+  const SECTION_PREFIX = "heading-content-";
+
+  marked.use(gfmHeadingId({ prefix: SECTION_PREFIX })); // heading要素にidを付与する
+  marked.setOptions({
+    langPrefix: "",
+  } as MarkedOptions);
+
+  const blogHTML = await marked.parse(blog.content, {});
+  let html = DOMPurify.sanitize(blogHTML, {}); // サニタイズする
+  html = addLinkTargetBlank(html); // aタグに_target属性を付与する
+
   return (
     <div>
       <div className={clsx("border-gray-300 border-b pb-4")}>
@@ -76,9 +93,18 @@ const BlogDetailPage = async (props: BlogDetailPageProps) => {
           )}
         </div>
       </div>
-      <Suspense fallback={<BlogContentLoading className={clsx("mt-2")} />}>
-        <BlogContent blog={blog} />
-      </Suspense>
+      <div className={clsx("flex flex-row items-start justify-center gap-6")}>
+        <div className={clsx("w-9/12")}>
+          <Suspense fallback={<SkeletonLoader rows={15} />}>
+            <BlogContent html={html} sectionPrefix={SECTION_PREFIX} />
+          </Suspense>
+        </div>
+        <div className={clsx("sticky top-6 mt-6 w-3/12")}>
+          <Suspense fallback={<SkeletonLoader rows={10} />}>
+            <TableOfContent html={html} sectionPrefix={SECTION_PREFIX} />
+          </Suspense>
+        </div>
+      </div>
       <Spacer height={50} />
       <Divider />
       <div className={clsx("p-2 font-bold text-lg")}>コメント</div>

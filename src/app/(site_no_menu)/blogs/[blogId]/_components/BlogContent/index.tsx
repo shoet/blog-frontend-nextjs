@@ -1,79 +1,24 @@
-import { Blog } from "@/types/api";
-import clsx from "clsx";
-import { marked, type MarkedOptions } from "marked";
-import DOMPurify from "isomorphic-dompurify";
-import { addLinkTargetBlank } from "@/utils/html";
-import {
-  ClientTableOfContent,
-  Heading,
-  HeadingType,
-} from "@/app/_components/Organisms/TableOfContent";
 import { JSDOM } from "jsdom";
-import { gfmHeadingId } from "marked-gfm-heading-id";
 import markdownCSS from "@/app/markdown.module.scss";
-import { SkeletonLoader } from "@/app/_components/Molecules/SkeletonLoader";
-import { ComponentProps } from "react";
 import { ClientBlogHighLighter } from "../ClientBlogHighLighter";
 
 type Props = {
-  blog: Blog;
+  html: string;
+  sectionPrefix: string;
 };
 
 export const BlogContent = async (props: Props) => {
-  const { blog } = props;
-  const SECTION_PREFIX = "heading-content-";
-
-  marked.use(gfmHeadingId({ prefix: SECTION_PREFIX })); // heading要素にidを付与する
-  marked.setOptions({
-    langPrefix: "",
-  } as MarkedOptions);
-
-  const blogHTML = await marked.parse(blog.content, {});
-  let html = DOMPurify.sanitize(blogHTML, {}); // サニタイズする
-  html = addLinkTargetBlank(html); // aタグに_target属性を付与する
-  let dom = new JSDOM(html).window.document;
-  const headings = getHeadings(dom); // 見出し要素を抽出する
-  dom = toSectionedArticle(dom); // 見出しごとにsectionで区切る
+  const { html, sectionPrefix } = props;
+  const sectionedHTML = toSectionedArticle(html, sectionPrefix); // 見出しごとにsectionで区切る
   return (
-    <div className={clsx("flex flex-row items-start justify-center gap-6")}>
-      <div className={clsx("w-9/12")}>
-        <ClientBlogHighLighter>
-          <div
-            id="article"
-            className={markdownCSS.markdown}
-            // biome-ignore lint: lint/correctness/noUnusedImports
-            dangerouslySetInnerHTML={{ __html: html || "" }}
-          ></div>
-        </ClientBlogHighLighter>
-      </div>
-      <div className={clsx("sticky top-6 mt-6 w-3/12")}>
-        <ClientTableOfContent
-          headings={headings}
-          intersectionObserveIdPrefix={SECTION_PREFIX}
-          rootId="article"
-        />
-      </div>
-    </div>
-  );
-};
-
-export const BlogContentLoading = (props: ComponentProps<"div">) => {
-  const { className, ...rest } = props;
-  return (
-    <div
-      className={clsx(
-        "flex flex-row items-start justify-center gap-6",
-        className,
-      )}
-      {...rest}
-    >
-      <div className={clsx("w-9/12")}>
-        <SkeletonLoader rows={15} />
-      </div>
-      <div className={clsx("sticky top-6 w-3/12")}>
-        <SkeletonLoader rows={10} />
-      </div>
-    </div>
+    <ClientBlogHighLighter>
+      <div
+        id="article"
+        className={markdownCSS.markdown}
+        // biome-ignore lint: lint/correctness/noUnusedImports
+        dangerouslySetInnerHTML={{ __html: sectionedHTML || "" }}
+      ></div>
+    </ClientBlogHighLighter>
   );
 };
 
@@ -95,42 +40,29 @@ const traverseSibling = (
   return traverseSibling(prefix, nextElement, elements);
 };
 
-const getHeadings = (dom: Document): Heading[] => {
-  const elements = dom.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
-  const headings: Heading[] = [];
+const toSectionedArticle = (html: string, headingIdPrefix: string) => {
+  let dom = new JSDOM(html);
+  const elements =
+    dom.window.document.querySelectorAll(`[id^="${headingIdPrefix}"]`) || []; // markedで付与したidを抽出する
   elements.forEach((e) => {
-    if (["h1", "h2", "h3"].includes(e.tagName.toLowerCase())) {
-      headings.push({
-        id: e.id,
-        type: e.tagName.toLowerCase() as HeadingType,
-        content: e.textContent || "",
-      });
-    }
-  });
-  return headings;
-};
+    // 兄弟ノードを取得
+    const headingSiblings = traverseSibling("heading-content-", e, []);
 
-const toSectionedArticle = (dom: Document) => {
-  const elements = dom.querySelectorAll('[id^="heading-content-"]') || []; // markedで付与したidを抽出する
-  elements.forEach((e) => {
+    const section = dom.window.document.createElement("section"); // section作成
+    section.id = e.id;
+
     const cloneHeading = e.cloneNode(true) as Element;
-    const headingSiblings = traverseSibling(
-      "heading-content-",
-      cloneHeading,
-      [],
-    ); // 兄弟ノード
-    const section = dom.createElement("section"); // section作成
-    section.id = cloneHeading.id;
     cloneHeading.removeAttribute("id");
+
     // sectionにElementを詰める
     section.appendChild(cloneHeading);
-    headingSiblings.forEach((e) => {
-      section.appendChild(e.cloneNode(true));
-      e.remove();
+    headingSiblings.forEach((sibling) => {
+      section.appendChild(sibling.cloneNode(true));
+      sibling.remove();
     });
+
     // 既存のheadingとsectionをすげ替え
     e.replaceWith(section);
-    e.remove();
   });
-  return dom;
+  return dom.serialize();
 };
