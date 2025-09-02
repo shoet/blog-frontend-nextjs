@@ -20,6 +20,7 @@ import { addLinkTargetBlank } from "@/utils/html";
 import { gfmHeadingId } from "marked-gfm-heading-id";
 import { TableOfContent } from "./_components/TableOfContent";
 import { SkeletonLoader } from "@/app/_components/Molecules/SkeletonLoader";
+import { OGP_INFO, DOMAIN_NAME } from "@/constant";
 
 type BlogDetailPageProps = {
   params: Promise<{
@@ -38,6 +39,18 @@ export const generateMetadata = async (
   return {
     title: `${blog.title} | ${title?.absolute}`,
     description: blog.description,
+    openGraph: {
+      ...OGP_INFO,
+      title: `${blog.title} | ${title?.absolute}`,
+      url: `https://${DOMAIN_NAME}/blogs/${blogId}`,
+      description: blog.description,
+      images: [
+        {
+          type: "image/png",
+          url: blog.thumbnailImageFileName,
+        },
+      ],
+    },
   };
 };
 
