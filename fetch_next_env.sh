@@ -21,7 +21,7 @@ echo "API_HOST=${API_HOST}" >> $file_name
 CDN_HOST=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/CDN_HOST" | jq '.Parameter | .Value')
 echo "CDN_HOST=${CDN_HOST}" >> $file_name
 
-SITE_DOMAIN=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/DOMAIN_NAME" | jq '.Parameter | .Value')
+DOMAIN_NAME=$(aws ssm get-parameter --name "/blog-frontend-nextjs-infra/${stage}/DOMAIN_NAME" | jq '.Parameter | .Value')
 echo "DOMAIN_NAME=${DOMAIN_NAME}" >> $file_name
 
 SERVER_ACTIONS_ALLOWED_ORIGINS=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/SERVER_ACTIONS_ALLOWED_ORIGINS" | jq '.Parameter | .Value')
