@@ -10,13 +10,13 @@ export function getAppParameter(
   if (option?.atBuild) {
     return cdk.aws_ssm.StringParameter.valueFromLookup(
       scope,
-      `/blog-frontend-nextjs/${stage}/${key}`,
+      `/blog-frontend-nextjs-${stage}/${key}`,
     );
   }
   // デプロイ時に取得
   return cdk.aws_ssm.StringParameter.valueForStringParameter(
     scope,
-    `/blog-frontend-nextjs/${stage}/${key}`,
+    `/blog-frontend-nextjs-${stage}/${key}`,
   );
 }
 
