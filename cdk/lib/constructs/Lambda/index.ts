@@ -4,6 +4,7 @@ import * as imagedeploy from "cdk-docker-image-deployment";
 
 type Props = {
   stage: string;
+  lambdaEnvironment?: { [key: string]: string };
   ecrRepository: cdk.aws_ecr.IRepository;
   commitHash?: string;
 };
@@ -39,7 +40,9 @@ export class Lambda extends Construct {
       },
     });
 
-    const lambdaEnvironment = this.getLambdaEnvironment();
+    const lambdaEnvironment = this.getLambdaEnvironment(
+      props.lambdaEnvironment,
+    );
 
     const imageTag = props.commitHash || "latest";
 
@@ -95,8 +98,10 @@ export class Lambda extends Construct {
     });
   }
 
-  getLambdaEnvironment(): { [key: string]: string } {
-    let env: { [key: string]: string } = {};
+  getLambdaEnvironment(environment?: { [key: string]: string }): {
+    [key: string]: string;
+  } {
+    let env: { [key: string]: string } = { ...environment };
     // アプリケーション上のポートはLambdaWebAdapterと合わせるためにビルド時に固定
     env["BLOG_APP_PORT"] = "3000";
     env["AWS_LWA_INVOKE_MODE"] = "response_stream";

@@ -6,6 +6,7 @@ import {
   Route53,
   Route53DomainNameWithDot,
   ECR,
+  getAppParameter,
 } from "./constructs";
 import { Config } from "./config";
 
@@ -32,6 +33,21 @@ export class BlogFrontendAppStack extends cdk.Stack {
       stage: props.stage,
       ecrRepository: ecr.repository,
       commitHash: props.commitHash,
+      lambdaEnvironment: {
+        STAGE: props.stage,
+        API_HOST: getAppParameter(this, props.stage, "API_HOST"),
+        CDN_HOST: getAppParameter(this, props.stage, "CDN_HOST"),
+        SERVER_ACTIONS_ALLOWED_ORIGINS: getAppParameter(
+          this,
+          props.stage,
+          "SERVER_ACTIONS_ALLOWED_ORIGINS",
+        ),
+        SENTRY_AUTH_TOKEN: getAppParameter(
+          this,
+          props.stage,
+          "SENTRY_AUTH_TOKEN",
+        ),
+      },
     });
 
     lambda.function.node.addDependency(ecr.repository);

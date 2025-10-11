@@ -15,7 +15,6 @@ if (!process.env.SERVER_ACTIONS_ALLOWED_ORIGINS) {
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: "standalone",
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -74,4 +73,3 @@ export default withSentryConfig(withMDX(nextConfig), {
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
 });
-
