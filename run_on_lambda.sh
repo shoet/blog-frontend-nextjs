@@ -6,4 +6,4 @@ if [ ! -d '/tmp/cache' ]; then
   mkdir -p /tmp/cache
 fi
 
-exec node server.js
+exec npm run start
