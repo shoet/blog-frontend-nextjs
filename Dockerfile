@@ -1,8 +1,6 @@
-FROM node:18-alpine AS base
-
+FROM node:22.20.0-bullseye as base
 
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
@@ -25,8 +23,9 @@ FROM base AS runner
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0 /lambda-adapter /opt/extensions/lambda-adapter
 WORKDIR /app
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package.json ./package.json
+COPY --from=deps /app/node_modules ./node_modules
 
 # Next.jsのcacheディレクトリをLambdaで使えるようにする
 COPY --from=builder /app/run_on_lambda.sh ./run_on_lambda.sh
