@@ -42,3 +42,6 @@ styled-system-studio
 
 .env*
 .serverless
+
+# Sentry Config File
+.env.sentry-build-plugin

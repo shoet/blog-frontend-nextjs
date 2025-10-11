@@ -15,6 +15,9 @@ fi
 
 touch $file_name
 
+STAGE=${stage}
+echo "STAGE=${STAGE}" >> $file_name
+
 API_HOST=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/API_HOST" | jq '.Parameter | .Value')
 echo "API_HOST=${API_HOST}" >> $file_name
 
@@ -26,3 +29,6 @@ echo "DOMAIN_NAME=${DOMAIN_NAME}" >> $file_name
 
 SERVER_ACTIONS_ALLOWED_ORIGINS=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/SERVER_ACTIONS_ALLOWED_ORIGINS" | jq '.Parameter | .Value')
 echo "SERVER_ACTIONS_ALLOWED_ORIGINS=${SERVER_ACTIONS_ALLOWED_ORIGINS}" >> $file_name
+
+SENTRY_AUTH_TOKEN=$(aws ssm get-parameter --name "/blog-frontend-nextjs-${stage}/SENTRY_AUTH_TOKEN" | jq '.Parameter | .Value')
+echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >> $file_name
