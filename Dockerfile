@@ -1,8 +1,6 @@
-FROM node:18-alpine AS base
-
+FROM node:22.20.0-bullseye as base
 
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
