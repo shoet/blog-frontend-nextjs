@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
         run: npm run lint
 
   deploy-development:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: [test]
     if: ${{ startsWith(github.ref, 'refs/heads/feature') }}
     timeout-minutes: 30
@@ -69,13 +69,14 @@ jobs:
         run: npm run deploy
 
       - name: slack_notify
+        if: success() || failure()
         uses: ./.github/actions/slack_notify
         with:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           STATUS: ${{ job.status }}
 
   deploy-production:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     needs: [test]
     if: ${{ github.ref == 'refs/heads/main' }}
     timeout-minutes: 30
