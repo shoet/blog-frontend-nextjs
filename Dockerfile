@@ -22,8 +22,10 @@ FROM base AS runner
 # Install Lambda Web Adapter
 COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0 /lambda-adapter /opt/extensions/lambda-adapter
 WORKDIR /app
-COPY --from=builder /app/public ./public
+COPY package*.json ./
+RUN npm ci --only=production
 COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=deps /app/node_modules ./node_modules
 
