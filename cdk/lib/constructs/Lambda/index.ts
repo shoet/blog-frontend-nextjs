@@ -1,6 +1,5 @@
 import { Construct } from "constructs";
 import * as cdk from "aws-cdk-lib";
-import * as imagedeploy from "cdk-docker-image-deployment";
 
 type Props = {
   stage: string;
@@ -17,7 +16,6 @@ export class Lambda extends Construct {
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id);
     this.stage = props.stage;
-    const stack = cdk.Stack.of(this);
     const { platform, architecture } = getPlatform();
 
     const cdkRoot = process.cwd();
@@ -44,28 +42,6 @@ export class Lambda extends Construct {
       props.lambdaEnvironment,
     );
 
-    const imageTag = props.commitHash || "latest";
-
-    /* 公式のCDKではcdk.aws_lambda.DockerImageCode.fromImageAsset()で作成したイメージは
-     * CDK用のECRにまとめられてしまうため、cdk-docker-image-deploymentを利用して
-     * 作成したイメージをECRにデプロイする
-     */
-    const deployedImage = new imagedeploy.DockerImageDeployment(
-      this,
-      "CDKDockerImageDeployment",
-      {
-        source: imagedeploy.Source.directory(`${cdkRoot}/../`, {
-          platform: platform,
-          buildArgs: {
-            NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
-          },
-        }),
-        destination: imagedeploy.Destination.ecr(props.ecrRepository, {
-          tag: imageTag,
-        }),
-      },
-    );
-
     const logGroup = new cdk.aws_logs.LogGroup(this, "LambdaLogGroup", {
       logGroupName: `/aws/lambda/blog-frontend-${this.stage}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -77,8 +53,19 @@ export class Lambda extends Construct {
       "DockerImageFunction",
       {
         functionName: `blog-frontend-${this.stage}`,
-        code: cdk.aws_lambda.DockerImageCode.fromEcr(props.ecrRepository, {
-          tag: imageTag,
+        code: cdk.aws_lambda.DockerImageCode.fromImageAsset(`${cdkRoot}/../`, {
+          cacheFrom: [
+            {
+              type: "inline",
+            },
+          ],
+          cacheTo: {
+            type: "inline",
+          },
+          buildArgs: {
+            NEXT_ENV_FILE_NAME: `.env.deploy.${props.stage}`,
+          },
+          platform: platform,
         }),
         architecture: architecture,
         role: functionRole,
@@ -88,8 +75,6 @@ export class Lambda extends Construct {
         logGroup: logGroup,
       },
     );
-
-    this.function.node.addDependency(deployedImage);
 
     this.functionUrl = new cdk.aws_lambda.FunctionUrl(this, "FunctionUrl", {
       function: this.function,
