@@ -3,3 +3,4 @@ runs:
   using: composite
   steps:
     - run: curl -fsSL https://raw.githubusercontent.com/AikidoSec/safe-chain/main/install-scripts/install-safe-chain.sh | sh -s -- --ci
+      shell: bash
