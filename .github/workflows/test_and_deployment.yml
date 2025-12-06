@@ -10,6 +10,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: install aikido-safe-chain
+        uses: ./.github/actions/aikido_safe_chain_install
+
       - name: setup node_modules
         run: npm ci
 
@@ -33,6 +36,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
+      - name: install aikido-safe-chain
+        uses: ./.github/actions/aikido_safe_chain_install
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -83,6 +89,9 @@ jobs:
     steps:
       - name: checkou
         uses: actions/checkout@v4
+
+      - name: install aikido-safe-chain
+        uses: ./.github/actions/aikido_safe_chain_install
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v4

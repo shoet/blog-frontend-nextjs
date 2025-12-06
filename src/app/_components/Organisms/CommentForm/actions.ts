@@ -1,7 +1,7 @@
 "use server";
 
 import { postComment } from "@/services/postComment";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { z } from "zod";
 
 export async function postCommentServerAction(formdata: FormData) {
@@ -29,5 +29,5 @@ export async function postCommentServerAction(formdata: FormData) {
     throw new Error("Invalid userId");
   }
   await postComment(blogIdNum, data.comment, userIdNum, data.clientId);
-  revalidateTag("fetch_comment");
+  updateTag("fetch_comment");
 }
