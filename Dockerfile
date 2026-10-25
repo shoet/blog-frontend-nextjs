@@ -1,4 +1,4 @@
-FROM node:22.20.0-bullseye as base
+FROM node:22.23.4-bookworm as base
 
 FROM base AS deps
 WORKDIR /app
